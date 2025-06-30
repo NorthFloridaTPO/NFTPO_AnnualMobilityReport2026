@@ -1,9 +1,9 @@
 ﻿Index,Category,1st Quarter,2nd Quarter,3rd Quarter,4th Quarter,Total
-0,Events included in Performance Measures,235,269,271,266,1041
+0,Events included in Performance Measures,239,218,290,283,1030
 1,Notification Duration,0,0,0,0,0
-2,Verification Duration,2.3,2.1,1.8,1.7,2
-3,Response Duration,4,5,4.5,5.3,4.7
-4,Open Roads Duration,41,47.3,44.7,39.8,43.3
-5,Departure Duration,13.6,15.4,12.6,20.6,15.6
-6,Roadway Clearance Duration,47.3,54.4,51.1,46.7,50
-7,Incident Clearance Duration,60.8,69.8,63.7,67.3,65.5
+2,Verification Duration,1.8,2.3,2.5,2.1,2.2
+3,Response Duration,5.4,4.6,5.3,4.7,5
+4,Open Roads Duration,44.6,40.8,40.8,33.2,39.6
+5,Departure Duration,14.8,13.9,15.1,23.1,17
+6,Roadway Clearance Duration,51.8,47.7,48.7,40,46.8
+7,Incident Clearance Duration,66.6,61.6,63.8,63.1,63.8
