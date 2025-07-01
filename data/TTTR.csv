@@ -1,12 +1,12 @@
 ﻿Index,Facility,Direction,Critical Segment,Critical Period,Critical Value ,Corridor
-1,I-10,Eastbound,I-295 to Stockton Street,Weekday 6 -10 a.m.,2.11,2.11
-2,I-10,Westbound,Stockton Street to I-295,Weekday 4 - 8 p.m.,1.32,1.32
-3,I-295 East Beltway,Northbound,I-95 to SR-152 (Baymeadows Road),Weekday 4 - 8 p.m.,2.78,1.86
-4,I-295 East Beltway,Southbound,SR-152 (Baymeadows Road) to I-95,Weekday 4 - 8 p.m.,6.76,2.92
-5,I-295 West Beltway,Northbound,Commonwealth Avenue to Pritchard Road,All Days 8 p.m. - 6 a.m.,1.62,1.22
-6,I-295 West Beltway,Southbound,I-10 to SR-228 (Normandy Boulevard),Weekday 4 - 8 p.m.,2.53,1.55
-7,I-95,Northbound,North of Old St. Augustine Road to I-295,Weekday 6 -10 a.m.,2.61,2.04
-8,I-95,Southbound,SR-111 (Edgewood Avenue) to,,2.86,1.7
+1,I-10,Eastbound,Lane Avenue to Cassat Avenue,Weekday 6 -10 a.m.,5.04,2.7
+2,I-10,Westbound,Stockton Street to King Street,Weekday 4 - 8 p.m.,2.42,1.7
+3,I-295 East Beltway,Northbound,I-95 to SR-152 (Baymeadows Road),Weekday 6 -10 a.m.,1.74,1.57
+4,I-295 East Beltway,Southbound,US-1 to I-95,All Days 8 p.m. - 6 a.m.,1.55,1.37
+5,I-295 West Beltway,Northbound,I-95 to Old St. Augustine Road,Weekday 4 - 8 p.m.,5.55,2.92
+6,I-295 West Beltway,Southbound,Collins Road to Roosevelt Boulevard,Weekday 6 -10 a.m.,5.72,4.17
+7,I-95,Northbound,Atlantic Boulevard to Acosta Expressway,Weekday 4 - 8 p.m.,5.63,4.93
+8,I-95,Southbound,Emerson Street to Atlantic Boulevard,Weekday 4 - 8 p.m.,6.62,4.36
 9,SR-200 (Buccaneer Trail),Eastbound,Amelia Island Pkwy to Sadler Road,Weekday 6 -10 a.m.,1.63,1.48
 10,SR-200 (Buccaneer Trail),Westbound,Chester River Road to I-95,Weekday 4 - 8 p.m.,2.24,1.83
 11,US 1 (Philips Highway),Northbound,SR-202 (JT Butler Boulevard) to,,2.31,1.68
