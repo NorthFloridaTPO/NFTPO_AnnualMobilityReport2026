@@ -1,0 +1,5 @@
+Transit Mode,Total Fatalities Target,Total Fatalities Target (per 100k VRM),Total Injuries Target,Total Injuries Target (per 100k VRM),Total Safety Events Target,Total Safety Events Target (Per 100k VRM),System Reliability Target (VRM)
+Fixed Route Bus,0,0,63,0.6,35,3.5,"20,000"
+ADA/Paratransit,0,0,9,0.2,190,4,"27,500"
+Rail,0,0,4,3,16,12,"9,440"
+Ferry,0,0,1,NA,1,NA,NA

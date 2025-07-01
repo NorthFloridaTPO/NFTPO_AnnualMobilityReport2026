@@ -1,8 +1,8 @@
-﻿Fiscal Year (ending Sep 30),Fatalities,Fatalities per 1 Million Revenue Miles,Injuries,Injuries per 1 Million Revenue Miles,Other Events,Events per 1 Million Revenue Miles
-2018,0,0,24,1.79,25,1.86
-2019,1,0.07,43,3.06,22,1.57
-2020,0,0,37,3.41,19,1.75
-2021,3,0.27,31,2.75,20,1.78
-2022,1,0.09,45,4.23,18,1.69
-2023,2,0.18,28,2.56,27,2.47
-2024,1,0.09,38,3.3,33,2.86
+﻿Fiscal Year (ending Sep 30),Fatalities,Fatalities per 100k Revenue Miles,Injuries,Injuries per 100k Revenue Miles,Other Events,Events per 100k Revenue Miles
+2018,0,0,24,0.18,25,0.19
+2019,1,0.007,43,0.306,22,0.157
+2020,0,0,37,0.341,19,0.175
+2021,3,0.027,31,0.275,20,0.178
+2022,1,0.009,45,0.423,18,0.169
+2023,2,0.018,28,0.256,27,0.247
+2024,1,0.009,38,0.33,33,0.286
