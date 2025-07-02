@@ -12,7 +12,7 @@ execute:
   echo: false
   warning: false
   message: false
-  fig.with: 9
+  fig.width: 9
 ---
 
 ```{r package}
@@ -23,14 +23,17 @@ library(dplyr)
 library(knitr)
 library(DT)
 library(highcharter)
-library(leaflet)
 library(sf)
 library(RColorBrewer)
 library(scales)
-library(htmlwidgets)
 library(data.table)
+library(leaflet)
 library(htmltools)
+library(htmlwidgets)
+library(magrittr)
 ```
+
+[![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/){target="_blank"}
 
 Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2018-2022 and 2019-2023 when available.
 
@@ -47,7 +50,7 @@ There is no benchmark for population growth. Increases impact the demand for mob
 ```{r}
 
 # Filter data for PedFatal > 0
-df_pop <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/population.csv")
+df_pop <- read.csv("data/population.csv")
 
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
@@ -121,7 +124,7 @@ There is no benchmark for licensed drivers. Increases impact the demand for mobi
 
 ```{r}
 # Load data
-df_drivers <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/drivers.csv")
+df_drivers <- read.csv("data/drivers.csv")
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 # Create a Highchart object with data labels and stack totals
@@ -218,7 +221,7 @@ Source: [HRSA Map Tool](https://data.hrsa.gov/maps/map-tool/?tl=MUA&gt=State&cd=
 
 ```{r}
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/underserved.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/underserved.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color
@@ -258,7 +261,7 @@ There are no benchmarks for gross domestic product.
 Increases are preferred and annual monitoring is conducted.
 
 ```{r}
-df_gdp <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/GDP.csv")
+df_gdp <- read.csv("data/GDP.csv")
 # Create a Highchart object with data labels and stack totals
 hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
   hc_colors(custom_colors) %>%
@@ -342,7 +345,7 @@ Unemployment rates are near all time lows and are strong indicators of a healthy
 
 # Data
 # Load data
-df_emp <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/employment.csv")
+df_emp <- read.csv("data/employment.csv")
 
 # Create highchart
 highchart() %>%
@@ -415,7 +418,7 @@ table_options <- function() {
     )
   )
 }
-df_lottr <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/tourism.csv", check.names=FALSE, row.names=1) 
+df_lottr <- read.csv("data/tourism.csv", check.names=FALSE, row.names=1) 
 
 datatable(          
   caption = htmltools::tags$caption(
@@ -436,7 +439,7 @@ Total crashes in 2023 decreased 1.3% over 2022.
 The target is to have zero injuries or fatalities resulting from crashes.
 
 ```{r}
-df_tot_crash <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_crashes.csv")
+df_tot_crash <- read.csv("data/total_crashes.csv")
 
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
@@ -523,6 +526,13 @@ Source: [Signal Four Analytics](https://signal4analytics.com/){target="_blank"}
 
 df_fatalserious <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/fatalseriouscrashes.csv")
 
+# Clean coordinates first
+df_fatalserious<- df_fatalserious[
+  !is.na(df_fatalserious$LATITUDE) & 
+  !is.na(df_fatalserious$LONGITUDE) &
+  df_fatalserious$LATITUDE >= -90 & df_fatalserious$LATITUDE <= 90 &
+  df_fatalserious$LONGITUDE >= -180 & df_fatalserious$LONGITUDE <= 180,
+]
 point_data <- data.frame(
   name = df_fatalserious$S4_CRASH_SEVERITY,
   lat = df_fatalserious$LATITUDE,
@@ -530,8 +540,11 @@ point_data <- data.frame(
 )
 
 # Continuous palette
-ord <- factor(df_fatalserious$S4_CRASH_SEVERITY, levels = c('Fatality', 'Serious Injury'))
-pal <- colorFactor(palette = c('darkorange',"red"), levels = ord, ordered = TRUE)
+# Create factor and palette
+ord <- factor(df_fatalserious$S4_CRASH_SEVERITY, 
+              levels = c('Fatality', 'Serious Injury'))
+pal <- colorFactor(palette = c('red', 'darkorange'), 
+                   levels = levels(ord), ordered = TRUE)
 labs <- paste("<b>Severity:</b> ", df_fatalserious$S4_CRASH_SEVERITY)
 
 # Create the Leaflet map
@@ -563,7 +576,7 @@ leaflet(data = df_fatalserious) %>%
 The number of fatalities is a crucial benchmark of progress when assessing the target zero initiative. According to the Florida Highway Safety and Motor Vehicles dashboard, there were 238 fatalities within the region during 2023.
 
 ```{r}
-df_tot_fat <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_fatalities.csv")
+df_tot_fat <- read.csv("data/total_fatalities.csv")
 
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
@@ -635,7 +648,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 The Florida Highway Safety and Motor Vehicle dashboard lists the total number of injuries as 13,440 within the region during 2023.
 
 ```{r}
-df_tot_inj <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_injuries.csv")
+df_tot_inj <- read.csv("data/total_injuries.csv")
 
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
@@ -722,7 +735,7 @@ The rate of crashes is the ratio of the total number of crashes to the number of
 ```{r}
 
 # Filter data for PedFatal > 0
-df_crash_rates <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/crash_rates.csv")
+df_crash_rates <- read.csv("data/crash_rates.csv")
 
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
@@ -764,7 +777,7 @@ The pedestrian fatalities have been climbing over the past five years but the bi
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
-df_bike_ped <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/NF_Bike_Ped_fatalcrashes_19_23.csv")
+df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_19_23.csv")
 
 # Calculate year totals
 df_totals <- df_bike_ped %>%
@@ -848,7 +861,7 @@ Additionally,
 The goal is to have zero injuries or fatalities resulting from crashes.
 
 ```{r}
-df_tot_imp <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_impaired.csv")
+df_tot_imp <- read.csv("data/total_impaired.csv")
 
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
@@ -864,9 +877,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
   )) %>%
   hc_yAxis(
     stackLabels = list(
-      enabled = TRUE#, # Enable stack totals
-      # style = list(fontWeight = 'bold', color = 'gray'
-      # ),
+      enabled = TRUE
     ), 
     title = list(text = "Numbre of Impaired Driving Crashes"),
     min = 0
@@ -892,7 +903,7 @@ Vehicle-miles traveled considers the Annual Average Daily Traffic (AADT) and the
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 
-df_vmt <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/vmt.csv")
+df_vmt <- read.csv("data/vmt.csv")
 
 # Create a Highchart object with data labels and stack totals
 hchart(df_vmt, "column", hcaes(x = Year, y = TotalSHSVMT, group = County)) %>%
@@ -907,8 +918,7 @@ hchart(df_vmt, "column", hcaes(x = Year, y = TotalSHSVMT, group = County)) %>%
   )) %>%
   hc_yAxis(
     stackLabels = list(
-      enabled = TRUE, # Enable stack totals
-      #style = list(fontWeight = 'bold', color = 'gray',
+      enabled = TRUE, 
       formatter = JS(paste0("function() {
       return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
     }"))
@@ -973,7 +983,7 @@ Person-miles traveled takes total vehicle-miles traveled and multiplies it by pe
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 
-df_pmt <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pmt.csv")
+df_pmt <- read.csv("data/pmt.csv")
 
 # Create a Highchart object with data labels and stack totals
 hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
@@ -1020,7 +1030,7 @@ Estimates of the average number of occupants in a vehicle is referred to as the 
 Transit ridership has declined in the wake of the COVID-19 pandemic. The JTA keeps track of these metrics and levels continue to remain stagnant over the past few years. Services that are included within JTA’s scope consist of the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2022 ridership data related to these services are shown in table below. On-time performance was only tracked for the St. Johns River Ferry during 2022 and this came in at 98%.
 
 ```{r}
-df_transit <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/transit_ridership.csv")
+df_transit <- read.csv("data/transit_ridership.csv")
 
 df_transit$Agency <- factor(df_transit$Agency, levels = rev(sort(unique(df_transit$Agency))))
 colors <- c("#C8ACD6","#694F8E")
@@ -1091,7 +1101,7 @@ There is no defined benchmark for this measure. Increases are preferred and annu
 ### Cruise Passengers
 
 ```{r}
-df_cruise <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/cruise_passengers.csv")
+df_cruise <- read.csv("data/cruise_passengers.csv")
 
 custom_colors <- c("#3ABEF9")
 
@@ -1144,7 +1154,7 @@ hchart(df_cruise, "column", hcaes(x = year, y = passengers)) %>%
 ### Tons Shipped
 
 ```{r}
-df_ton_ship <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/tons_shipped.csv")
+df_ton_ship <- read.csv("data/tons_shipped.csv")
 
 df_ton_ship$port <- factor(df_ton_ship$port, levels = rev(sort(unique(df_ton_ship$port))))
 colors <- c("#C8ACD6","#694F8E")
@@ -1211,7 +1221,7 @@ There is no defined benchmark for this measure. Increases are preferred and annu
 
 ```{r}
 # Load data
-df_item_ship <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/autos_containers_shipped.csv")
+df_item_ship <- read.csv("data/autos_containers_shipped.csv")
 
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
@@ -1297,7 +1307,7 @@ Fiscal years begin October 1 and end September 30 of each year.
 ```{r}
 
 # Filter data for PedFatal > 0
-df_air_pass <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/air_passengers.csv")
+df_air_pass <- read.csv("data/air_passengers.csv")
 
 # Define your custom colors
 colors <- c("#C8ACD6","#694F8E")
@@ -1358,7 +1368,7 @@ Air cargo shipments grew about 7% in 2021 compared to 2020 but fell about 3% in 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
 ```{r}
-df_cargo <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/air_cargo.csv")
+df_cargo <- read.csv("data/air_cargo.csv")
 
 custom_colors <- c("#3ABEF9")
 
@@ -1426,7 +1436,7 @@ Source: [Level of Travel Time Reliability (LOTTR)](https://npmrds.ritis.org/){ta
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/Florida_TMC_LOTTR2024.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/Florida_TMC_LOTTR2024.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color generating function
@@ -1490,7 +1500,7 @@ table_options <- function() {
     )
   )
 }
-df_lottr <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/LOTTR_updated_2022.csv", check.names=FALSE, row.names=1) 
+df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
 datatable(df_lottr,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://fdotsourcebook.com" target="_blank"><b>FDOT Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 11)))
@@ -1512,7 +1522,7 @@ Source: [Truck Travel Time Reliability (TTTR)](https://npmrds.ritis.org/){target
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/Florida_TMC_TTTR2024.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/Florida_TMC_TTTR2024.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color generating function
@@ -1570,7 +1580,7 @@ table_options <- function() {
     )
       )
 }
-df_tttr <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/TTTR.csv", check.names=FALSE, row.names=1) 
+df_tttr <- read.csv("data/TTTR.csv", check.names=FALSE, row.names=1) 
 datatable(df_tttr,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 14)))
@@ -1596,7 +1606,7 @@ table_options <- function() {
     )
       )
 }
-df_percentage_heavy_congested <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/percent_heavily_congested.csv", check.names=FALSE, row.names=1) 
+df_percentage_heavy_congested <- read.csv("data/percent_heavily_congested.csv", check.names=FALSE, row.names=1) 
 datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/miles-by-congestion-type#" target="_blank"><b>FDOT Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
@@ -1621,7 +1631,7 @@ table_options <- function() {
     )
       )
 }
-df_duration_heavy_congested <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/duration_heavily_congested.csv", check.names=FALSE, row.names=1) 
+df_duration_heavy_congested <- read.csv("data/duration_heavily_congested.csv", check.names=FALSE, row.names=1) 
 datatable(df_duration_heavy_congested,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/duration-of-congestion#"><b>FDOT Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
@@ -1636,11 +1646,13 @@ Source: [FDOT District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrga
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/MajorRoads_LOS_2023.geojson", quiet = TRUE)  %>% 
-  st_transform(crs = 4326)
+geojson_data <- st_read("data/MajorRoads_LOS_2023.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326) %>%
+  filter(COUNTY %in% c('Duval', 'Nassau', 'St. Johns', 'Clay'))
 geojson_data <- geojson_data[!is.na(geojson_data$LOS_Peak_Hour_2023), ]
 geojson_data <- geojson_data[geojson_data$LOS_Peak_Hour_2023 != "-", ]
 geojson_data <- geojson_data[order(geojson_data$LOS_Peak_Hour_2023), ]
+
 
 geojson_data$LOS_Peak_Hour_2023 <- factor(geojson_data$LOS_Peak_Hour_2023, levels = unique(geojson_data$LOS_Peak_Hour_2023))
 
@@ -1695,7 +1707,7 @@ Vehicle delay is typically reported annually in vehicle-hours per day and is cal
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 
-df_vhd <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/vehicle_delay.csv")
+df_vhd <- read.csv("data/vehicle_delay.csv")
 # Create a Highchart object with data labels and stack totals
 hchart(df_vhd, "column", hcaes(x = year, y = SHS_year, group = county)) %>%
   hc_colors(custom_colors) %>%
@@ -1813,7 +1825,7 @@ The average travel speed should maintain or increase from year to year. The foll
 ```{r}
 
 # Filter data for PedFatal > 0
-df_travel <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/travel_speeds.csv")
+df_travel <- read.csv("data/travel_speeds.csv")
 
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
@@ -1892,13 +1904,13 @@ The goals is to maintain or reduce the time to open roads to normal traffic foll
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
-df_inc_all <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/incident_clearance_all.csv")
+df_inc_all <- read.csv("data/incident_clearance_all.csv")
 
 # Define your custom colors
 custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
 
 # Create a Highchart object with data labels and stack totals
-hchart(df_inc_all, "bar", hcaes(x = FY23_Qtr, y = Mins, group = Category)) %>%
+hchart(df_inc_all, "bar", hcaes(x = FY24_Qtr, y = Mins, group = Category)) %>%
   hc_colors(custom_colors) %>%
   hc_plotOptions(bar = list(
     stacking = "normal",
@@ -1929,7 +1941,7 @@ hchart(df_inc_all, "bar", hcaes(x = FY23_Qtr, y = Mins, group = Category)) %>%
 
 ```{r}
 # Load data
-df_duration <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/road_duration_all.csv")
+df_duration <- read.csv("data/road_duration_all.csv")
 
 df_duration <- df_duration %>%
   filter(Category == "Roadway Clearance Duration")
@@ -1938,7 +1950,7 @@ df_duration <- df_duration %>%
 custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
 
 # Create a Highchart object with data labels and stack totals
-hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY23_Qtr)) %>%
+hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY24_Qtr)) %>%
   hc_colors(custom_colors) %>%
   hc_plotOptions(column = list(
     #stacking = "normal",
@@ -1973,7 +1985,7 @@ The number of lane closures or other events, such as abandoned vehicles, debris 
 There is no target for the number of events that occur.
 
 ```{r}
-df_events <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/event_types_all.csv")
+df_events <- read.csv("data/event_types_all.csv")
 
 hchart(df_events, "pie", hcaes(x = Event, y = Total)) %>%
   
@@ -2010,7 +2022,7 @@ Source: [JTA Park n' Ride Locations](https://www.jtafla.com/ride-jta/how-to-ride
 
 ```{r, message=FALSE}
 
-df_pnr <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/ParkNRide.csv")
+df_pnr <- read.csv("data/ParkNRide.csv")
 point_data <- data.frame(
   name = df_pnr$Location_Name,
   lat = df_pnr$Latitude,
@@ -2057,7 +2069,7 @@ Source: [Florida Transit Data Exchange](https://ftis.org/Posts.aspx){target="_bl
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/TransitAll_Routes.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/TransitAll_Routes.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color
@@ -2096,7 +2108,7 @@ Source: [FDOT LOS Ped/Bike](https://fdot-d2-los-pedbike.hdrgateway.com){target="
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326) %>%
   drop_na(Bike_LTS)
 
@@ -2138,7 +2150,7 @@ leaflet() %>%
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 geojson_data <- geojson_data %>% mutate(Ped_LTS = replace(Ped_LTS, Ped_LTS == " ", '4'))
 
@@ -2184,10 +2196,10 @@ Florida’s Efficient Transportation Decision Making (ETDM) process is a procedu
 Source: [Environmental Screening Tool](https://etdmpub.fla-etat.org/est/#){target="_blank"} and [FDOT 5 Year Work Program Meta Data](https://fgdl.org/meta/FDOT_WP_2023.xml){target="_blank"}
 
 ```{r}
-# knitr::include_graphics("~/GitHub/NFTPO_AnnualMobilityReport2025/data/ETDM.png")
+# knitr::include_graphics("data/ETDM.png")
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/fdot_wp.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/fdot_wp.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color generating function
@@ -2244,7 +2256,7 @@ table_options <- function() {
   )
 }
 
-df_c02 <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/C02DamageCosts.csv", check.names=FALSE, row.names=1) 
+df_c02 <- read.csv("data/C02DamageCosts.csv", check.names=FALSE, row.names=1) 
 datatable(
   caption = htmltools::tags$caption(
     style = 'caption-side: top; text-align: left;',
@@ -2261,7 +2273,7 @@ Source: [NFTPO Regional Multi-Use Trail Master Plan](https://northfloridatpo.com
 ```{r}
 
 # Load your GeoJSON file
-geojson_data <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/nftpo_trails.geojson", quiet = TRUE)  %>% 
+geojson_data <- st_read("data/nftpo_trails.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
 # Create a custom color generating function
@@ -2303,7 +2315,7 @@ Source: [FDOT Sidewalks and Gaps TDA](https://gis-fdot.opendata.arcgis.com/datas
 
 ```{r, message=FALSE}
 # Load your GeoJSON file
-geojson_data_unfiltered <- st_read("~/GitHub/NFTPO_AnnualMobilityReport2025/data/Sidewalks_and_Gaps_NF.geojson", quiet = TRUE)
+geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF.geojson", quiet = TRUE)
 geojson_data <- geojson_data_unfiltered %>%
   filter(RDACCESS != 1) %>%
   st_transform(crs = 4326)
@@ -2360,7 +2372,7 @@ table_options <- function() {
   )
 }
 
-df_pfc <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/PrimaryFreightCorridorsPoorPavement.csv", check.names=FALSE, row.names=1) 
+df_pfc <- read.csv("data/PrimaryFreightCorridorsPoorPavement.csv", check.names=FALSE, row.names=1) 
 datatable( caption = htmltools::tags$caption(
     style = 'caption-side: top; text-align: left;',
     htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>FDOT Source Book, PM2-Pavement</b></a>')),
@@ -2391,7 +2403,7 @@ table_options <- function() {
     )
   )
 }
-df_pavement <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/preserveandmaintain.csv", check.names=FALSE, row.names=1) 
+df_pavement <- read.csv("data/preserveandmaintain.csv", check.names=FALSE, row.names=1) 
 datatable(caption = htmltools::tags$caption(
     style = 'caption-side: top; text-align: left;',
     htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>FDOT Source Book, PM2-Pavement</b></a>')),
@@ -2401,6 +2413,55 @@ datatable(caption = htmltools::tags$caption(
 ## Bridge Conditions
 
 This section deals with preserving and maintaining bridge and pavement conditions in the region. Pavement condition is summarized for Interstate and non-Interstate facilities that are on the National Highway System (NHS). The % is based on the lane-miles of facilities. Bridges are summarized by NHS and non-NHS facilities. The percent is calculated based on the bridge deck area. Goals are set by FDOT for how much of each category is in good condition and how much is in poor condition. Table 10 summarizes the pavement conditions.
+
+::: {.panel-tabset .nav-pills}
+### Bridge Conditions Map
+
+The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT roadway characteristics inventory, there are a total of 909 bridges in the region.
+
+```{r, message=FALSE}
+
+df_bridge <- read.csv("data/NationalBridgeCond2024.csv")
+df_bridge <- df_bridge[df_bridge$DECK_COND_058 != "N",]
+point_data <- data.frame(
+  name = df_bridge$DECK_CONDITION,
+  lat = df_bridge$LATDD,
+  lon = df_bridge$LONGDD, 
+  feature = df_bridge$FEATURES_DESC_006A, 
+  facility = df_bridge$FACILITY_CARRIED_007, 
+  location = df_bridge$LOCATION_009
+)
+
+# Continuous palette
+ord <- factor(df_bridge$DECK_CONDITION, levels = c('Good', 'Fair', 'Poor'))
+pal <- colorFactor(palette = c("limegreen","darkgreen",'darkorange'), levels = ord, ordered = TRUE)
+labs <- paste("<b>Deck Condition:</b> ", df_bridge$DECK_CONDITION, "<br><b>Bridge Condition:</b>", df_bridge$DECK_CONDITION, "<br><b>Feature:  </b>",df_bridge$FEATURES_DESC_006A,"<br><b>Facility: </b>",df_bridge$FACILITY_CARRIED_007,"<br><b>Location: </b>",df_bridge$LOCATION_0) 
+
+# Create the Leaflet map
+leaflet(data = df_bridge) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(~LONGDD, ~LATDD, # Use the Longitude and Latitude columns
+                   popup = ~paste0("<b>Deck Condition: </b>", DECK_COND_058, "<br><b>Bridge Condition: </b>",DECK_CONDITION, "<br><b>Feature:  </b>",FEATURES_DESC_006A,"<br><b>Facility: </b>",FACILITY_CARRIED_007,"<br><b>Location: </b>",LOCATION_009), 
+                   radius=5,label = lapply(labs, htmltools::HTML), color = ~pal(DECK_CONDITION), weight = 1, 
+                   fillOpacity = 0.8) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>% 
+  addEasyButton(
+    easyButton(
+      icon = "fa-map-marker",
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )%>%
+  addLegend(df_bridge,
+            position = "bottomright",
+            pal = pal, values = ord,
+            title = "Bridge Deck Condition",
+            opacity = 1) 
+
+```
+
+### Bridge Conditions Table 
 
 ```{r}
 table_options <- function() {
@@ -2422,12 +2483,13 @@ table_options <- function() {
     )
   )
 }
-df_lottr <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/bridgeconditions.csv", check.names=FALSE, row.names=1) 
+df_lottr <- read.csv("data/bridgeconditions.csv", check.names=FALSE, row.names=1) 
 datatable(caption = htmltools::tags$caption(
     style = 'caption-side: top; text-align: left;',
     htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/bridge" target="_blank"><b>FDOT Source Book, PM2-Bridge</b></a>')),
     df_lottr,options = c(table_options(), list(pageLength = 6)))
 ```
+:::
 
 ## Transit Vehicles
 
@@ -2444,7 +2506,7 @@ The Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and peopl
 ```{r}
 
 # Filter data for PedFatal > 0
-df_transit_age <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/transit_age.csv")
+df_transit_age <- read.csv("data/transit_age.csv")
 
 # Define your custom colors
 custom_colors <- c("#D6EFD1","#C0DFCA","#80AF81","#508D4E","#1A5319")
@@ -2489,7 +2551,7 @@ The social cost of congested increased about 11% in 2022 compared to 2021 and ha
 There is no target for the social cost of congestion but the costs should maintain or decline each year.
 
 ```{r}
-df_cost_con <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/cost_congestion.csv")
+df_cost_con <- read.csv("data/cost_congestion.csv")
 
 custom_colors <- c("#3ABEF9")
 
@@ -2566,7 +2628,7 @@ The target is to have zero injuries or fatalities resulting from crashes.
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 
-df_cost_fatal <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/cost_fatal.csv")
+df_cost_fatal <- read.csv("data/cost_fatal.csv")
 
 # Create a Highchart object with data labels and stack totals
 hchart(df_cost_fatal, "column", hcaes(x = year, y = cost, group = county)) %>%
@@ -2651,7 +2713,7 @@ hchart(df_cost_fatal, "column", hcaes(x = year, y = cost, group = county)) %>%
 # Define your custom colors
 custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
 
-df_cost_injury <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/cost_serious_injury.csv")
+df_cost_injury <- read.csv("data/cost_serious_injury.csv")
 
 # Create a Highchart object with data labels and stack totals
 hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
@@ -2737,7 +2799,7 @@ North Florida’s ports generate 138,500 jobs in Florida and supports nearly \$3
 There are no benchmarks for the economic benefit, but the larger the benefit the better.
 
 ```{r}
-df_roi <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/roi.csv")
+df_roi <- read.csv("data/roi.csv")
 
 custom_colors <- c("#3ABEF9")
 
@@ -2818,7 +2880,7 @@ table_options <- function() {
     )
   )
 }
-df_pm1 <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pm1_safety.csv", check.names=FALSE) 
+df_pm1 <- read.csv("data/pm1_safety.csv", check.names=FALSE) 
 df_pm1 <- df_pm1[-1,] # Removes row saying Target 
 colnames(df_pm1) <- c('Year','Fatalities (total)','Fatalities per 100 million VMT','Serious Injuries','Serious Injuries per 100 million VMT','Non-motorized Fatalities and Serious Injuries') 
 datatable(caption = htmltools::tags$caption(
@@ -2832,53 +2894,6 @@ datatable(caption = htmltools::tags$caption(
 Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 USC 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida TPO adopted the FDOT guidance for performance management of pavement and bridges.
 
 Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"} and [Federal Highway Administration National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi/ascii.cfm){target="_blank"}
-
-::: {.panel-tabset .nav-pills}
-### Bridge Condition Map
-
-The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT roadway characteristics inventory, there are a total of 909 bridges in the region.
-
-```{r, message=FALSE}
-
-df_bridge <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/NationalBridgeCond2024.csv")
-df_bridge <- df_bridge[df_bridge$DECK_COND_058 != "N",]
-point_data <- data.frame(
-  name = df_bridge$DECK_CONDITION,
-  lat = df_bridge$LATDD,
-  lon = df_bridge$LONGDD, 
-  feature = df_bridge$FEATURES_DESC_006A, 
-  facility = df_bridge$FACILITY_CARRIED_007, 
-  location = df_bridge$LOCATION_009
-)
-
-# Continuous palette
-ord <- factor(df_bridge$DECK_CONDITION, levels = c('Good', 'Fair', 'Poor'))
-pal <- colorFactor(palette = c("limegreen","darkgreen",'darkorange'), levels = ord, ordered = TRUE)
-labs <- paste("<b>Deck Condition:</b> ", df_bridge$DECK_CONDITION, "<br><b>Bridge Condition:</b>", df_bridge$DECK_CONDITION, "<br><b>Feature:  </b>",df_bridge$FEATURES_DESC_006A,"<br><b>Facility: </b>",df_bridge$FACILITY_CARRIED_007,"<br><b>Location: </b>",df_bridge$LOCATION_0) 
-
-# Create the Leaflet map
-leaflet(data = df_bridge) %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addCircleMarkers(~LONGDD, ~LATDD, # Use the Longitude and Latitude columns
-                   popup = ~paste0("<b>Deck Condition: </b>", DECK_COND_058, "<br><b>Bridge Condition: </b>",DECK_CONDITION, "<br><b>Feature:  </b>",FEATURES_DESC_006A,"<br><b>Facility: </b>",FACILITY_CARRIED_007,"<br><b>Location: </b>",LOCATION_009), 
-                   radius=5,label = lapply(labs, htmltools::HTML), color = ~pal(DECK_CONDITION), weight = 1, 
-                   fillOpacity = 0.8) %>%
-  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>% 
-  addEasyButton(
-    easyButton(
-      icon = "fa-map-marker",
-      title = "Zoom to Jacksonville",
-      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
-    )
-  )%>%
-  addLegend(df_bridge,
-            position = "bottomright",
-            pal = pal, values = ord,
-            title = "Bridge Deck Condition",
-            opacity = 1) 
-
-```
 
 ### NHS Bridge Decks
 
@@ -2897,11 +2912,10 @@ table_options <- function() {
     )
   )
 }
-df_nhs <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/nhs_bridges.csv", check.names=FALSE, row.names=1) 
+df_nhs <- read.csv("data/nhs_bridges.csv", check.names=FALSE, row.names=1) 
 colnames(df_nhs) <- c('Year','Good Condition','Poor Condition') 
 datatable(df_nhs,options = c(table_options(), list(pageLength = 5)))
 ```
-:::
 
 ::: {layout="[ [1,1] ]"}
 ### Interstate Pavement
@@ -2927,7 +2941,7 @@ table_options <- function() {
   )
 }
 
-df_inter_pave <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/inter_pavements.csv", check.names=FALSE, row.names=1) 
+df_inter_pave <- read.csv("data/inter_pavements.csv", check.names=FALSE, row.names=1) 
 colnames(df_inter_pave) <- c('Year','Good Condition','Poor Condition') 
 datatable(df_inter_pave,options = c(table_options(), list(pageLength = 5)), 
           caption = htmltools::tags$caption(
@@ -2958,7 +2972,7 @@ table_options <- function() {
     )
   )
 }
-df_noninter_pave <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/noninter_pavements.csv", check.names=FALSE, row.names=1) 
+df_noninter_pave <- read.csv("data/noninter_pavements.csv", check.names=FALSE, row.names=1) 
 colnames(df_noninter_pave) <- c('Year','Good Condition','Poor Condition') 
 datatable(df_noninter_pave,options = c(table_options(), list(pageLength = 5)), 
           caption = htmltools::tags$caption(
@@ -2990,7 +3004,7 @@ table_options <- function() {
     )
   )
 }
-df_targets <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/state_targets.csv", check.names=FALSE, row.names=1) 
+df_targets <- read.csv("data/state_targets.csv", check.names=FALSE, row.names=1) 
 df_targets <- df_targets[-1,]
 colnames(df_targets) <- c('Performance Measure','2023 Target','2025 Target') 
 datatable(df_targets,options = c(table_options(), list(pageLength = 7)), 
@@ -3021,7 +3035,7 @@ table_options <- function() {
   )
 }
 
-df_sysperf <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pm3_sysperf.csv", check.names=FALSE, row.names=1) 
+df_sysperf <- read.csv("data/pm3_sysperf.csv", check.names=FALSE, row.names=1) 
 colnames(df_sysperf) <- c('Performance Measure','% of Person Miles Traveled on the Interstate that are Reliable',
                           '% of Person Miles Traveled on the Non-Interstate NHS Reliable','Truck Travel Time Reliability (TTTR) Index') 
 datatable(df_sysperf,
@@ -3057,7 +3071,7 @@ table_options <- function() {
   )
 }
 
-df_tam <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pm4_tam_updated.csv", check.names=FALSE, header=TRUE) 
+df_tam <- read.csv("data/pm4_tam_updated.csv", check.names=FALSE, header=TRUE) 
 
 datatable(df_tam,
           caption = htmltools::tags$caption(
@@ -3085,7 +3099,7 @@ table_options <- function() {
   )
 }
 
-df_tam_sunshine <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pm4_tam_sunshine.csv", check.names=FALSE, header=TRUE) 
+df_tam_sunshine <- read.csv("data/pm4_tam_sunshine.csv", check.names=FALSE, header=TRUE) 
 
 datatable(df_tam_sunshine,
           caption = htmltools::tags$caption(
@@ -3116,7 +3130,7 @@ table_options <- function() {
   )
 }
 
-df_transit_safety <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/pm4_transit_safety.csv", check.names=FALSE, header=TRUE) 
+df_transit_safety <- read.csv("data/Transit_Safety_Targets.csv", check.names=FALSE, header=TRUE) 
 
 datatable(df_transit_safety,
           caption = htmltools::tags$caption(
