@@ -32,15 +32,15 @@ library(data.table)
 library(htmltools)
 ```
 
-Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2018-2022 and 2019-2023 when available.
+Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available.
 
 # People
 
 ## Population
 
-North Florida’s population grew by 10.2%, or 173,000 persons, between 2019 and 2023. This growth outpaced the growth statewide (6.3%). Growth in population places a higher demand for mobility. North Florida’s strong growth outpacing population gains statewide is anticipated to continue through 2024.
+North Florida’s population grew by 13.5%, or 206,000 persons, between 2019 and 2024. This growth outpaced the growth statewide (8.7%). Growth in population places a higher demand for mobility.
 
-The population grew by 0.5% nationally from 2022 to 2023. North Florida grew by 2.7% outpacing the nation and Florida at 1.58%.
+From 2023 to 2024, North Florida's population growth rate was 1.9%, compared to the statewide rate in Florida of 2.04% and the national rate of 2.06%
 
 There is no benchmark for population growth. Increases impact the demand for mobility.
 
@@ -115,7 +115,7 @@ hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
 
 ## Licensed Drivers
 
-There are 111,100 (or 8.5%) more drivers in North Florida in 2023 than 2019. About 77% of the population in the region is a licensed driver.
+There are 131,600 (or 11%) more drivers in North Florida in 2024 than 2019. About 76% of the population in the region is a licensed driver.
 
 There is no benchmark for licensed drivers. Increases impact the demand for mobility.
 
@@ -253,7 +253,7 @@ leaflet() %>%
 
 The Gross Domestic Product (GDP) in North Florida continues to show strong growth. GDP is a leading indicator of the amount of travel expected within the region.
 
-There are no benchmarks for gross domestic product.
+There are no benchmarks for GDP.
 
 Increases are preferred and annual monitoring is conducted.
 
@@ -389,7 +389,7 @@ The Moving Ahead for Progress in the 21st Century Act ("MAP-21") transportation 
 
 Tourism plays a major role in the state of Florida. According to the North Florida TPO’s Tourism Mobility Study published in 2022, nearly 26 million visitors traveled to the region in 2022. Attractions include (but are not limited to) the St. Johns River, Jacksonville Beach, Neptune Beach, Atlantic Beach, and Black Rock Beach. Other destinations include wildlife sightseeing, camping, golfing and hiking/biking trails. The City of Jacksonville has more than 80,000 acres of parks. Sporting events are frequented in the area as the region is home to several minor league sports teams and home of the Jacksonville Jaguars of the National Football League. There are many annual events that occur in the North Florida TPO region which include (but are not limited to) the World Of Nations Celebration, the Gate River Run (USA 15K Championship Race), The Players Championship, the Jacksonville Jazz Festival, The Kingfish Tournament, and the Florida/Georgia college football game.
 
-The goal is to increase the number of multi-modal projects in high tourism areas and provide transportation connectivity to tourists within the region. A summary of the visitors per year in each county is provided in Table 13.
+The goal is to increase the number of multi-modal projects in high tourism areas and provide transportation connectivity to tourists within the region. A summary of the total 2023 visitors in each county is provided in the table below.
 
 Including visitors from within the region, St. Augustine hosts nearly 6 million visitors each year.
 
@@ -427,11 +427,11 @@ df_lottr,options = c(table_options(), list(pageLength = 4)))
 
 # Safe and Secure Travel
 
-Crash data was compiled from several sources including the Florida Department of Transportation (FDOT) Safety Office, Signal Four Analytics, and FDOT State Safety Office's historical Crash Analysis Reporting (CAR) database. According to Florida Highway Safety and Motor Vehicles, there were a total of 31,542 crashes that occurred over the four North Florida TPO counties in 2023. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
+Crash data was compiled from several sources including the Florida Department of Transportation (FDOT) Safety Office, Signal Four Analytics, and FDOT State Safety Office's historical Crash Analysis Reporting (CAR) database. According to Florida Highway Safety and Motor Vehicles, there were a total of 30,427 crashes that occurred over the four North Florida TPO counties in 2024. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
 
 ## Total Crashes
 
-Total crashes in 2023 decreased 1.3% over 2022.
+Total crashes in 2024 decreased 3.5% over 2023.
 
 The target is to have zero injuries or fatalities resulting from crashes.
 
@@ -515,7 +515,7 @@ hchart(df_tot_crash, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Fatal and Serious Injury Crash Map
 
-This map shows the location of fatal crashes and serious injury crashes in 2023.
+This map shows the location of fatal crashes and serious injury crashes in 2024.
 
 Source: [Signal Four Analytics](https://signal4analytics.com/){target="_blank"}
 
@@ -560,7 +560,7 @@ leaflet(data = df_fatalserious) %>%
 
 ## Fatalities
 
-The number of fatalities is a crucial benchmark of progress when assessing the target zero initiative. According to the Florida Highway Safety and Motor Vehicles dashboard, there were 238 fatalities within the region during 2023.
+The number of fatalities is a crucial benchmark of progress when assessing the target zero initiative. According to the Florida Highway Safety and Motor Vehicles dashboard, there were 222 fatalities within the region during 2024.
 
 ```{r}
 df_tot_fat <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_fatalities.csv")
@@ -632,7 +632,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The Florida Highway Safety and Motor Vehicle dashboard lists the total number of injuries as 13,440 within the region during 2023.
+The Florida Highway Safety and Motor Vehicle dashboard lists the total number of injuries as 19,768 within the region during 2024.
 
 ```{r}
 df_tot_inj <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/total_injuries.csv")
@@ -717,7 +717,7 @@ hchart(df_tot_inj, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Crash Rates
 
-The rate of crashes is the ratio of the total number of crashes to the number of vehicle miles traveled (VMT) expressed in 100 million VMT. Since VMT data is not available for 2023, the 2022 rates were analyzed. In 2022, the rate of fatalities was 1.56, the rate of injuries was 110.7, and the rate of all crashes was 174.6. In each case, the rate has gone down since 2021 but is higher than the rate in 2020.
+The rate of crashes is the ratio of the total number of crashes to the number of vehicle miles traveled (VMT) expressed in 100 million VMT. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021 and the fatality rate has returned to pre-COVID levels.
 
 ```{r}
 
@@ -758,9 +758,9 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
 
 ## Pedestrian and Bicyclist Fatalities
 
-According to the Florida Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 72 in 2023. 62 fatalities were pedestrians and 10 were cyclists.
+According to the Florida Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 65 in 2024. 53 fatalities were pedestrians and 12 were cyclists.
 
-The pedestrian fatalities have been climbing over the past five years but the bicycle fatalities have been decreasing since 2020 and are also less than in 2019.
+The 2024 pedestrian fatalities hit the lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -837,13 +837,13 @@ hchart(df_filtered, "column", hcaes(x = Year, y = BikeFatal, group = County)) %>
 
 ## Impaired Driving
 
-Impaired driving was a contributing cause in about 53% of all crash fatalities in 2023, which is just over half of all crashes.
+Impaired driving was a contributing cause in about 53% of all crash fatalities in 2024, which is just over half of all crashes.
 
 Additionally,
 
--   9% of fatalities involved drivers tested for alcohol only.
--   73% of fatalities involved drivers under the influence of drugs.
--   91% of fatalities involved either drugs or alcohol.
+-   14% of fatalities involved drivers tested for alcohol only.
+-   37% of fatalities involved drivers under the influence of drugs.
+-   54% of fatalities involved either drugs or alcohol.
 
 The goal is to have zero injuries or fatalities resulting from crashes.
 
@@ -885,7 +885,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Vehicle Miles Traveled
 
-Vehicle-miles traveled considers the Annual Average Daily Traffic (AADT) and the roadway segment length. There is not a set benchmark or goal for vehicle miles traveled. Reducing this number can help with congestion issues along the roadway network. 32.2 million vehicle miles traveled was estimated for 2022.
+Vehicle-miles traveled (VMT) considers the Annual Average Daily Traffic (AADT) and the roadway segment length. There is not a set benchmark or goal for VMT. Reducing this number can help with congestion issues along the roadway network. 33 million VMT was estimated for 2023 along the State Highway System (SHS).
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -967,7 +967,7 @@ hchart(df_vmt, "column", hcaes(x = Year, y = TotalNHSVMT, group = County)) %>%
 
 ## Person Miles Traveled
 
-Person-miles traveled takes total vehicle-miles traveled and multiplies it by persons per vehicle. The FDOT sourcebook was used to obtain the following 2022 data shown below. According to the data, 52.9 million person-miles traveled was estimated for 2022 on all SHS facilities.
+Person-miles traveled (PMT) takes total VMT and multiplies it by persons per vehicle. The FDOT Sourcebook was used to obtain the data shown below. According to the data, 54.1 million PMT was estimated for 2023 on all SHS facilities.
 
 ```{r}
 # Define your custom colors
@@ -1009,15 +1009,15 @@ hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
 
 ## Truck Miles Traveled
 
-Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The FDOT Source Book was used to determine the total truck miles traveled in the North Florida TPO region. The total SHS truck miles traveled in 2022 was 1.4 million miles and the total NHS truck miles traveled in 2022 was 1.3 million miles.
+Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The FDOT Sourcebook was used to determine the total truck-miles traveled in the North Florida TPO region. The total SHS truck-miles traveled in 2023 was 1.28 million miles and the total NHS truck miles traveled in 2023 was 1.21 million miles.
 
 ## Vehicle Occupancy
 
-Estimates of the average number of occupants in a vehicle is referred to as the Vehicle Occupancy Factors (VOF). This measure can be calculated using person-miles traveled divided by vehicle-miles traveled. For 2022 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System (CAR) is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the FDOT forecasting and trends office in 2022 Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
+Estimates of the average number of occupants in a vehicle is referred to as the Vehicle Occupancy Factors (VOF). This measure can be calculated using PMT divided by VMT. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System (CAR) is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the FDOT forecasting and trends office in 2022 Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
 
 ## Transit Ridership
 
-Transit ridership has declined in the wake of the COVID-19 pandemic. The JTA keeps track of these metrics and levels continue to remain stagnant over the past few years. Services that are included within JTA’s scope consist of the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2022 ridership data related to these services are shown in table below. On-time performance was only tracked for the St. Johns River Ferry during 2022 and this came in at 98%.
+Transit ridership has declined in the wake of the COVID-19 pandemic. The Jacksonville Transportation Authority (JTA) keeps track of these metrics and levels continue to remain stagnant over the past few years. Services that are included within JTA’s scope consist of the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2023 ridership data related to these services are shown in table below. On-time performance was only tracked for the St. Johns River Ferry during 2022 and this came in at 98%.
 
 ```{r}
 df_transit <- read.csv("~/GitHub/NFTPO_AnnualMobilityReport2025/data/transit_ridership.csv")
@@ -1079,11 +1079,11 @@ hchart(df_transit, "column", hcaes(x = Year, y = Totals, group = Agency)) %>%
 
 ## Sea Travel and Freight
 
-No cruise ships called on JAXPORT in 2021 due to the COVID-19 pandemic. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390 thousand passengers. In 2023, cruise passenger levels seems to have returned to pre-pandemic levels.
+No cruise ships called on JAXPORT in 2021 due to the COVID-19 pandemic. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390 thousand passengers. As was the case in 2023, 2024 cruise passenger levels seems to have returned to pre-pandemic levels.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
-JAXPORT's terminals shipped more tons of cargo in fiscal year 2023 than 2022. The Port of Fernandina shipping is slightly less in 2023. Overall shipping tonnage has remained steady over the last 3 years.
+JAXPORT's terminals shipped less tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last 4 years.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1205,7 +1205,7 @@ hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
 ### Automobiles and Containers Shipped
 
 JAXPORT is maintaining its position as the container port in Florida and one of the top 10 in the nation. JAXPORT is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.\
-Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2023 compared to 2022. Automobile shipments in 2023 were at their lowest in the last 5 year period.
+Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last 5 year period.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1353,7 +1353,7 @@ hchart(df_air_pass, "column", hcaes(x = Month, y = Count, group = Type)) %>%
 
 ### Air Cargo
 
-Air cargo shipments grew about 7% in 2021 compared to 2020 but fell about 3% in 2022 compared to 2021.
+Air cargo shipments grew about 7% in 2021 compared to 2020 but fell 14.7% in 2023 compared to 2022.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1412,11 +1412,11 @@ hchart(df_cargo, "column", hcaes(x = year, y = weight)) %>%
 
 ## Travel Time Reliability
 
-Level of Travel Time Reliability (LOTTR) is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). LOTTR assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability the more variable the travel times are along each corridor.
+Level of Travel Time Reliability (LOTTR) is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). LOTTR assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability, the more variable the travel times are along each corridor.
 
-The goal is for 95% of the vehicle-miles traveled within a corridor or system be reliable (level of travel time reliability of 1.50 or less) along a corridor of on Strategic Intermodal System facilities in North Florida.
+The goal is for 95% of the VMT within a system to be reliable (LOTTR of 1.50 or less) along a corridor of the Strategic Intermodal System (SIS) facilities in North Florida.
 
-The map shows the critical Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2023.
+The map shows the critical LOTTR of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
 
 Source: [Level of Travel Time Reliability (LOTTR)](https://npmrds.ritis.org/){target="_blank"}
 
@@ -1467,11 +1467,11 @@ leaflet() %>%
 
 ### TTR Segment Table
 
-The data for travel time reliability was collected through the FDOT Source Book. The inputs included in this stem from historic data from vehicle probes, permanent and temporary count sites, HERE travel time data and FDOT’s roadway characteristics inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-10, SR-13, SR-21, SR-200, US-1, US-17, and US-90.
+The data for travel time reliability was collected through the FDOT Sourcebook. The inputs stem from historical data from vehicle probes, permanent and temporary count sites, HERE travel time data and FDOT’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
 
-The 2022 LOTTR data is reported for the months of October, November and December, and takes the maximum value calculated throughout the period.
+The 2024 LOTTR data is reported for the months of October, November and December, and takes the maximum value calculated throughout the period.
 
-More detailed analysis of the travel time reliability was performed on the most congested corridors within the region. This index is the ratio of the 80th-percentile travel time and the median travel time. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability the more variable the travel times are along each corridor. The table below summarizes the 2022 LOTTR values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
+More detailed analysis of the travel time reliability was performed on the most congested corridors within the region. This index is the ratio of the 80th-percentile travel time and the median travel time. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability, the more variable the travel times are along each corridor. The table below summarizes the 2024 LOTTR values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
 
 ```{r}
 table_options <- function() {
@@ -1500,7 +1500,7 @@ datatable(df_lottr,caption = htmltools::tags$caption(
 
 ## Truck Travel Time Reliability
 
-This index is the ratio of the 95th-percentile travel time and the median travel time. The larger the Truck Travel Time Reliability index, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a truck travel time reliability of 1.2 you have a 95% chance of arriving within 12 minutes.
+This index is the ratio of the 95th-percentile travel time and the median travel time. The larger the Truck Travel Time Reliability index, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a truck travel time reliability of 1.2, you have a 95% chance of arriving within 12 minutes.
 
 The truck travel time reliability index should maintain or decline each year.
 
@@ -1553,7 +1553,7 @@ leaflet() %>%
 
 ### Truck TTR Segment Table
 
-Travel time reliability was obtained from the NPMRDS, AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.49 in 2022. This table shows the TTTR on major freight corridors within the TPO boundary.
+Truck travel time reliability was obtained from the NPMRDS, AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. This table shows the TTTR on major freight corridors within the TPO boundary.
 
 ```{r}
 table_options <- function() {
@@ -1579,7 +1579,7 @@ datatable(df_tttr,caption = htmltools::tags$caption(
 
 ## Percent of System Heavily Congested
 
-Based on the FDOT Source Book, the peak hour for the North Florida TPO region experiences heavy congestion on 4.2 percent of the roadway system in 2022. Over the past five years of data (2018 – 2022), numbers have been down from 2018 and 2019 levels. However, they have been continuing to climb since 2020. The last five years of data (from 2018 – 2022) are 4.7 percent, 4.7 percent, 1.8 percent, 2.9 percent, and 4.2 percent.
+Based on the FDOT Sourcebook, the peak hour for the North Florida TPO region experiences heavy congestion on 5.5 percent of the roadway system in 2023. The numbers have been continuing to climb since 2020. The last five years of data (from 2019 – 2023) are 4.6 percent, 1.8 percent, 2.9 percent, 4.2 percent, and 5.5 percent.
 
 ```{r}
 table_options <- function() {
@@ -1629,7 +1629,7 @@ datatable(df_duration_heavy_congested,caption = htmltools::tags$caption(
 
 ## Level of Service
 
-Level of Service (LOS) is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The FDOT District 2 Level of Service Report was reviewed. The LOS can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally acceptable operating conditions over the total number of rural road miles can be used to calculate the percent of miles meeting LOS criteria. Standards for LOS on state highways are in the [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas.
+Level of Service (LOS) is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The FDOT District 2 Level of Service Report was reviewed. The LOS can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the percent of miles meeting LOS criteria. Standards for LOS on state highways are in the [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour LOS for the FDOT roadways in the NFTPO.
 
 Source: [FDOT District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrgateway.com/){target="_blank"}
 
@@ -1677,18 +1677,18 @@ leaflet() %>%
 
 ## Average Commute Time
 
-The average commute time data was taken from the U.S. Census Bureau through the American Community Survey. The average commute times for each county are the following:
+The average commute time data was taken from the U.S. Census Bureau through the American Community Survey. The 2023 average commute times for each county are the following:
 
-1.  Clay: 32.4 minutes
-2.  Duval: 24.4 minutes
-3.  Nassau: 30.4 minutes
-4.  St. Johns: 27.1 minutes
+1.  Clay: 31.3 minutes
+2.  Duval: 24.5 minutes
+3.  Nassau: 29.8 minutes
+4.  St. Johns: 27.3 minutes
 
 Source: [U.S. Census Bureau](https://www.census.gov/)
 
 ## Average Vehicle Delay
 
-Vehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The FDOT sourcebook shows data provided from HERE technologies and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida TPO region, the daily vehicle hours of delay increased from 2020 to 2022, but is still below pre-pandemic levels.
+Vehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The FDOT Sourcebook shows data provided from HERE technologies and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida TPO region, the daily vehicle hours of delay increased from 2020 to 2023, but is still below pre-pandemic levels.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
