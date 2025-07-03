@@ -1,14 +1,10 @@
 ﻿index,Year,County,Speed
-5,2018,Clay,41.42
 7,2019,Clay,41.52
 9,2020,Clay,43.21
-15,2018,Duval,47.79
 17,2019,Duval,48.47
 19,2020,Duval,53.72
-25,2018,Nassau,53.7
 27,2019,Nassau,53.72
 29,2020,Nassau,54.46
-35,2018,St. Johns,55.84
 37,2019,St. Johns,55.7
 39,2020,St. Johns,57.82
 41,2021,Clay,43.2

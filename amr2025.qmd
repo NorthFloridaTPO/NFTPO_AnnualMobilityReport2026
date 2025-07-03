@@ -1818,7 +1818,7 @@ hchart(df_vhd, "column", hcaes(x = year, y = NHS_year, group = county)) %>%
 
 ## Travel Speeds
 
-The FDOT provides average peak hour travel speed by roadway segment for the state highway system. This data can be summarized for the region, by county, and by roadway functional classification. The average speed is reported annually in miles per hour and is calculated by averaging the average peak hour travel speed. Average speeds increased from 2020 to 2021 as a result of lower demand (vehicle miles traveled).
+The FDOT provides average peak-hour travel speed by roadway segment for the State Highway System. This data can be summarized for the region, by county, and by roadway functional classification. The average speed is reported annually in miles per hour and is calculated by averaging the average peak-hour travel speed. Average speeds increased from 2020 to 2021 as a result of lower demand, but the average travel speeds have seen a steady decrease in every county since 2021.
 
 The average travel speed should maintain or increase from year to year. The following table shows the trends for each county. The year and speed value is shown on hover.
 
@@ -1893,14 +1893,14 @@ hchart(df_travel, "column", hcaes(x = County, y = Speed, group = Year)) %>%
 
 ## Incident Clearance Times
 
-The Florida Department of Transportation, law enforcement, emergency personnel, and the local coroner’s office can be engaged in incidents. During some incidents, the time to open the road to traffic and restore or clear the road to normal traffic conditions can be impacted by the conditions of the crash that are beyond FDOT’s or law enforcement’s control. For example:
+The Florida Department of Transportation, law enforcement, emergency personnel, and the local coroner’s office can be engaged in incidents. During some incidents, the time to open the road to traffic and restore the road to normal traffic conditions can be impacted by the crash conditions that are beyond the control of FDOT or law enforcement. For example:
 
--   Emergency response personnel to respond and treat injured persons.
+-   Allowing emergency response personnel to respond and treat injured persons.
 -   Specialized response teams must remove hazardous materials before the road can be opened to traffic.
 -   The local coroner must investigate the scene if a fatality occurs. The time to open the road to traffic is typically one hour when a fatality occurs.
 -   The Florida Department of Transportation and law enforcement agencies work to open the road to traffic and restore the traffic operations as soon as possible.
 
-The goals is to maintain or reduce the time to open roads to normal traffic following an event.
+The goal is to maintain or reduce the time to open roads to normal traffic following an event. The following figures show incident clearance performance measures for FDOT District 2 in 2024.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -1980,7 +1980,7 @@ hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY24_Qtr)) %
 
 Only 30% of the congestion in our region is caused by recurring delays. Other sources of delays include holiday peaks, incidents, weather, excess delay at signals, weather, and work zones. Transportation Systems Management and Operations (TSM&O) strategies are need to reduce delays caused by non-recurrent factors.
 
-The number of lane closures or other events, such as abandoned vehicles, debris in the roadway, road work, or crashes, increased in 2022.
+The number of lane closures or other events, such as abandoned vehicles, debris in the roadway, road work, or crashes, increased from 2023 to 2024.
 
 There is no target for the number of events that occur.
 
@@ -2014,7 +2014,7 @@ hchart(df_events, "pie", hcaes(x = Event, y = Total)) %>%
 
 ## Transit Accessibility
 
-Access to transit is a significant need in underserved communities and a focus for the transit agencies within the region. On a regional basis the availability of populations to transit is low. However, in the urban core of Jacksonville nearly 89% of the populations is within 1/4 mile of a transit stop. The target is to provide transit access within 1/4 mile of a bus stop to 95% of the population.
+Access to transit is a significant need in underserved communities and a focus for the transit agencies within the region. On a regional basis, the availability of populations to transit is low. However, in the urban core of Jacksonville, nearly 89% of the population is within 1/4-mile of a transit stop. The target is to provide transit access within 1/4-mile of a bus stop to 95% of the population.
 
 Park-n-Ride lots are served by local bus routes and Express bus service to Downtown. There is continual service from most lots. Park-N-Ride lots are designed to enhance travel time, encourage connections to other modes of transportation, and minimize boarding and waiting times.
 
@@ -2100,7 +2100,9 @@ leaflet() %>%
 
 ## Bicycle and Pedestrian Level of Traffic Stress
 
-The quality of service determines how satisfied travelers are with a particular facility or service. Factors that affect the comfort of pedestrians and bicyclists range from pavement condition, heavy vehicle presence, facilities at intersections, etc. The [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023 shows a flow chart for both pedestrian and bicycle level of traffic stresses.
+The quality of service determines how satisfied travelers are with a particular facility or service. Factors that affect the comfort of pedestrians and bicyclists include pavement condition, heavy vehicle presence, facilities at intersections, etc. The [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023 shows a flow chart for both pedestrian and bicycle level of traffic stress.
+
+The maps below show the Level of Traffic Stress for both pedestrians and bicyclists in 2023 for roadway segments throughout the NFTPO.
 
 Source: [FDOT LOS Ped/Bike](https://fdot-d2-los-pedbike.hdrgateway.com){target="_blank"}
 
@@ -2191,7 +2193,7 @@ leaflet() %>%
 
 ## Impacts of Investments on the Natural Environment
 
-Florida’s Efficient Transportation Decision Making (ETDM) process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the MPOs in the surrounding area. The ETDM manual can be found on the [FDOT webpage](https://www.fdot.gov/environment/pubs/etdm/etdmmanual.shtm){target="_blank"}. More information on the projects highlighted in the map can be found at the links.
+Florida’s Efficient Transportation Decision Making (ETDM) process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the MPOs in the surrounding area. The ETDM manual can be found on the [FDOT webpage](https://www.fdot.gov/environment/pubs/etdm/etdmmanual.shtm){target="_blank"}. The map below shows transportation projects throughout the region in 2024. More information on the projects can be found at the links. 
 
 Source: [Environmental Screening Tool](https://etdmpub.fla-etat.org/est/#){target="_blank"} and [FDOT 5 Year Work Program Meta Data](https://fgdl.org/meta/FDOT_WP_2023.xml){target="_blank"}
 
@@ -2232,11 +2234,11 @@ leaflet() %>%
 
 Common air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. The FDOT is working on alternative vehicle types to help reduce the amount of emissions present. Travel delay reduction can also help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.
 
-The U.S. Department of Transportation (USDOT) lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per vehicle miles traveled was taken from the United States Environmental Protection Agency, and this number was applied to the total vehicle miles traveled within the North Florida TPO region. The amount of emissions per mile is estimated to be:
+The U.S. Department of Transportation (USDOT) lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per VMT was taken from the United States Environmental Protection Agency, and this number was applied to the total VMT within the North Florida TPO region. The amount of emissions per mile is estimated to be:
 
 $$ 3.91 × 10^{-4}\hspace{5 mm} \frac{metric\hspace{1 mm}tons\hspace{1 mm}of\hspace{1 mm}CO2}{mile}$$
 
-The emissions factors displayed in this report also account for electric vehicles. Emmissions costs are expected to rise year-over-year.
+The emissions factors displayed in this report also account for electric vehicles. Emissions costs are expected to rise year-over-year.
 
 ```{r}
 table_options <- function() {
@@ -2266,7 +2268,7 @@ datatable(
 
 ## Trail Connectivity
 
-The North Florida TPO published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019 which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network (SUN) Trail Funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida TPO network.
+The North Florida TPO published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019, which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network (SUN) Trail Funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida TPO network.
 
 Source: [NFTPO Regional Multi-Use Trail Master Plan](https://northfloridatpo.com/uploads/Studies/2018-19-Regional-Multi-use-Trail-Master-Plan-Final21.pdf){target="_blank"}
 
@@ -2307,7 +2309,7 @@ leaflet() %>%
 
 ## Pedestrian Connectivity
 
-The FDOT aims to provide 100% coverage of the state highway system for bicycles and pedestrians where appropriate. Based on the FDOT roadway characteristics inventory, the average pedestrian facility coverage over the four counties within the North Florida TPO area is 65.62% for 2022. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage.
+The FDOT aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the FDOT Roadway Characteristics Inventory, the average pedestrian facility coverage over the four counties within the North Florida TPO area is 65.62% for 2022. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage.
 
 A map of the FDOT sidewalks and gaps in the region is provided below.
 
@@ -2350,9 +2352,11 @@ leaflet() %>%
 
 # Preservation and Maintenance
 
+This section deals with preserving and maintaining bridge and pavement conditions in the region. Pavement condition is summarized for Interstate and non-Interstate facilities that are on the National Highway System (NHS). The % is based on the lane-miles of facilities. Bridges are summarized by NHS and non-NHS facilities. The percent is calculated based on the bridge deck area. Goals are set by FDOT for how much of each category is in good condition and how much is in poor condition.
+
 ## Pavement Condition on Primary Freight Corridors
 
-Pavement condition within the study area is evaluated by the FDOT. The areas reviewed include major roads such as interstates and highways with U.S. or state road numbers. FDOT standard for acceptable pavement is set at the 80% mark on the SHS. According to data from the FDOT state materials office, a pavement condition survey program showed that for 2023, District 2 had 72.7% of SHS pavement meeting FDOT standards. The North Florida TPO area has data from as recent as 2022. For 2022, the percentage of interstate pavement in poor condition was 0.2% which well below the target of less than 5%. The percentage of non-interstate NHS pavement in poor condition was 1.6% which was about the same as the previous year.
+Pavement condition within the study area is evaluated by the FDOT. The areas reviewed include major roads such as interstates and highways with U.S. or state road numbers. The FDOT standard for acceptable pavement is set at the 80% mark on the SHS. According to data from the FDOT State Materials Office, a pavement condition survey program showed that for 2023, District 2 had 72.7% of SHS pavement meeting FDOT standards. The North Florida TPO area has data from as recent as 2023. For 2023, the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate NHS pavement in poor condition was 1.4%, which was a decrease from the previous year.
 
 ```{r}
 table_options <- function() {
@@ -2380,6 +2384,8 @@ datatable( caption = htmltools::tags$caption(
 ```
 
 ## Yearly Pavement Conditions
+
+The chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition. 
 
 ```{r}
 table_options <- function() {
@@ -2412,12 +2418,12 @@ datatable(caption = htmltools::tags$caption(
 
 ## Bridge Conditions
 
-This section deals with preserving and maintaining bridge and pavement conditions in the region. Pavement condition is summarized for Interstate and non-Interstate facilities that are on the National Highway System (NHS). The % is based on the lane-miles of facilities. Bridges are summarized by NHS and non-NHS facilities. The percent is calculated based on the bridge deck area. Goals are set by FDOT for how much of each category is in good condition and how much is in poor condition. Table 10 summarizes the pavement conditions.
+The Bridge Conditions Map and Bridge Conditions Table are presented below.
 
 ::: {.panel-tabset .nav-pills}
 ### Bridge Conditions Map
 
-The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT roadway characteristics inventory, there are a total of 909 bridges in the region.
+The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT Roadway Characteristics Inventory, there are a total of 909 bridges in the region.
 
 ```{r, message=FALSE}
 
@@ -2493,13 +2499,13 @@ datatable(caption = htmltools::tags$caption(
 
 ## Transit Vehicles
 
-Maintaining transit vehicles and systems in a state of good repair is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.
+Maintaining transit vehicles and systems in a state of good repair (SGR) is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.
 
-The average age of vehicles operated by the Jacksonville Transportation Authority and Nassau Council on aging increased from 2019 with limited fleet replacement (0.3-year average increase) for each. The Sunshine Bus Company replaced a vehicle and their average age decreased.
+The average age of vehicles operated by the Jacksonville Transportation Authority has increased or maintained since 2019. The average age for the Nassau Council on Aging has also seen an increase from 2019, but the 2023 average is down compared to 2022. The Sunshine Bus Company average decreased starting in 2019, but has been increasing sharply since 2021.
 
 The Jacksonville Transportation Authority assumed the operations of Clay Transit in 2018 and those vehicles are shown as part of the Jacksonville Transportation Authority’s fleet beginning in 2018.
 
-The service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of four to seven years and between 50,000 and 175,000 miles. The people mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.
+The service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of 4 to 7 years and between 50,000 and 175,000 miles. The people-mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.
 
 The Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and people for 24 years, but is in good state of repair. The Jacksonville Transportation Authority assumed operations of the ferry from the City of Jacksonville in 2016.
 
@@ -2619,7 +2625,7 @@ hchart(df_cost_con, "column", hcaes(x = year, y = dollars)) %>%
 
 The costs of fatalities, injuries and other crashes burdens the economy in the billions of dollars annually. Lost wages, pain and suffering, medical expenses and property loss are a few of the external costs resulting from crashes.
 
-The cost of fatal crashes in the region cost \$2.81 Billion in 2023 which is an increase over 2022 but less than the totals for 2020 and 2021. The cost of serious injury crashes has decreased since 2021.
+The cost of fatal crashes in the region was \$2.42 Billion in 2024, which is a sharp decrease over 2023 and is at the lowest point in the last 6 years. The cost of serious injury crashes has decreased since 2021 and is also at its lowest point in the last 6 years.
 
 The target is to have zero injuries or fatalities resulting from crashes.
 
@@ -2790,11 +2796,11 @@ hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
 
 ***Highways***
 
-Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work every dollar invested in transportation returns a \$4 economic return. The Florida Department of Transportation will invest \$1.4 billion in Clay, Duval, Nassau and St. Johns counties in the 2022-2023 Work Program resulting in an economic benefit of \$5.8 billion. The 2022-2023 fiscal year work program is the largest investment in history.
+Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation returns a \$4 economic return. The Florida Department of Transportation will invest \$1.4 billion in Clay, Duval, Nassau and St. Johns counties in the 2022-2023 Work Program resulting in an economic benefit of \$5.8 billion. The 2022-2023 fiscal year work program is the largest investment in history.
 
 ***Multimodal***
 
-North Florida’s ports generate 138,500 jobs in Florida and supports nearly \$31.1 billion in annual economic output for the region and state. Jacksonville Aviation Authority’s four-airport system contributes more than \$6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generated more than \$73.6 million in labor compensation, saved customers more than \$23.4 million in transportation costs, and spurred \$118.6 million in total added value. The total benefit for transportation investment is \$40.4 billion for North Florida.
+North Florida’s ports generate 138,500 jobs in Florida and support nearly \$31.1 billion in annual economic output for the region and state. Jacksonville Aviation Authority’s four-airport system contributes more than \$6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generated more than \$73.6 million in labor compensation, saved customers more than \$23.4 million in transportation costs, and spurred \$118.6 million in total added value. The total benefit for transportation investment is \$40.4 billion for North Florida.
 
 There are no benchmarks for the economic benefit, but the larger the benefit the better.
 
@@ -2858,7 +2864,7 @@ hchart(df_roi, "column", hcaes(x = Mode, y = Benefit)) %>%
 
 ## PM1 Safety (All Public Roads)
 
-The safety performance measures help to assess fatalities and serious injuries on all public roads regardless of ownership or functional classification. As required by 23 CFR 490, the North Florida TPO adopted targets for number of fatalities, number of serious injuries, fatality rate, serious injury rate and total number of non-motorized fatalities and serious injuries. These targets are all zero and align with the Florida Department of Transportation’s adopted targets.
+The safety performance measures help to assess fatalities and serious injuries on all public roads regardless of ownership or functional classification. As required by 23 CFR 490, the North Florida TPO adopted targets for number of fatalities, number of serious injuries, fatality rate, serious injury rate and total number of non-motorized fatalities and serious injuries. The chart below displays these figures from 2019-2023 and includes the targets. These targets are all zero and align with the Florida Department of Transportation’s adopted targets.
 
 ```{r}
 table_options <- function() {
@@ -2891,7 +2897,7 @@ datatable(caption = htmltools::tags$caption(
 
 ## PM2 Bridge and Pavement
 
-Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 USC 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida TPO adopted the FDOT guidance for performance management of pavement and bridges.
+Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida TPO adopted the FDOT guidance for performance management of pavement and bridges. The charts below display the yearly data for bridge and pavement condition for the North Florida TPO region, as well as targets.
 
 Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"} and [Federal Highway Administration National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi/ascii.cfm){target="_blank"}
 
@@ -3017,7 +3023,7 @@ datatable(df_targets,options = c(table_options(), list(pageLength = 7)),
 
 ## PM3 System Performance
 
-These are measures to assess the performance of the National Highway System (NHS), freight movement on the Interstate System, and Congestion Mitigation and Air Quality Improvement Program. The North Florida TPO has adopted the Florida Department of Transportation performance targets. Reliability refers to a consistent predictable travel time.
+These are measures to assess the performance of the National Highway System (NHS), freight movement on the Interstate System, and Congestion Mitigation and Air Quality Improvement Program. The North Florida TPO has adopted the Florida Department of Transportation performance targets. The chart below displays the results from 2019-2023. Reliability refers to a consistent predictable travel time.
 
 ```{r}
 table_options <- function() {
@@ -3050,7 +3056,7 @@ datatable(df_sysperf,
 
 ### Transit Asset Management
 
-This objective is vital to maintain the transit systems efficiency and provide effective operations. The performance measures list in the tables below are based on the Transit Economic Requirements Model.
+This objective is vital to maintain the transit system's efficiency and provide effective operations. The performance measures list in the tables below are based on the Transit Economic Requirements Model.
 
 ::: {.panel-tabset .nav-pills}
 ### JTA Transit Asset Management
@@ -3112,7 +3118,7 @@ datatable(df_tam_sunshine,
 
 ### Transit Safety
 
-The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The FDOT sourcebook provides this data for JTA the Jacksonville Transportation Authority (JTA).
+The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The FDOT Sourcebook provides this data for JTA the Jacksonville Transportation Authority (JTA).The charts below display the performance measure statistics for the North Florida TPO region. The first chart shows safety figures and rates from 2019-2024 and the second chart displays the determined targets.
 
 ```{r}
 table_options <- function() {
