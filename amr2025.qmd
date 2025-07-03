@@ -35,7 +35,7 @@ library(magrittr)
 
 [![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/){target="_blank"}
 
-Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2018-2022 and 2019-2023 when available.
+Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available.
 
 # People
 
@@ -211,7 +211,7 @@ hchart(df_drivers, "column", hcaes(x = year, y = drivers, group = county)) %>%
 
 ## Underserved Populations
 
-Transportation barriers are the third leading cause of missing a medical appointment for older adults across the country. Medically Underserved Areas/Populations are areas or populations designated by the U.S. Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty or a high elderly population. Nearly 370,000 persons in North Florida live in medically underserved areas. There are no benchmarks for population in underserved areas. It is desirable to ensure the population is adequately served.
+Transportation barriers are the third leading cause of missing a medical appointment for older adults across the country. Medically Underserved Areas/Populations are areas or populations designated by the U.S. Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty rate or a high elderly population. Nearly 370,000 persons in North Florida live in medically underserved areas. There are no benchmarks for population in underserved areas. It is desirable to ensure the population is adequately served.
 
 Accessing affordable and nutritious food was a challenge for nearly 800,000 persons in North Florida in 2015 (the latest date statistics are available). The US Economic Research Service of the Department of Agriculture identifies populations whose food security is at risk if they live in low-income areas and do not have a grocery store within 1 mile in an urban area and 10 miles in a rural area. There are no benchmarks for population living with food uncertainty. It is desirable to ensure the population is adequately served.
 
@@ -339,7 +339,7 @@ hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
 
 ## Employment
 
-Unemployment rates are near all time lows and are strong indicators of a healthy economy and continued growth in travel demand.
+Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand.
 
 ```{r}
 
@@ -430,7 +430,7 @@ df_lottr,options = c(table_options(), list(pageLength = 4)))
 
 # Safe and Secure Travel
 
-Crash data was compiled from several sources including the Florida Department of Transportation (FDOT) Safety Office, Signal Four Analytics, and FDOT State Safety Office's historical Crash Analysis Reporting (CAR) database. According to Florida Highway Safety and Motor Vehicles, there were a total of 30,427 crashes that occurred over the four North Florida TPO counties in 2024. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
+Crash data was compiled from several sources including the Florida Department of Transportation (FDOT) Safety Office, Signal Four Analytics, and FDOT State Safety Office's historical Crash Analysis Reporting (CAR) database. According to Florida Highway Safety and Motor Vehicles (FLHSMV), there were a total of 30,427 crashes that occurred over the four North Florida TPO counties in 2024. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
 
 ## Total Crashes
 
@@ -518,7 +518,7 @@ hchart(df_tot_crash, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Fatal and Serious Injury Crash Map
 
-This map shows the location of fatal crashes and serious injury crashes in 2024.
+This map shows the location of fatal crashes and serious injury crashes throughout the North Florida region in 2024.
 
 Source: [Signal Four Analytics](https://signal4analytics.com/){target="_blank"}
 
@@ -573,7 +573,7 @@ leaflet(data = df_fatalserious) %>%
 
 ## Fatalities
 
-The number of fatalities is a crucial benchmark of progress when assessing the target zero initiative. According to the Florida Highway Safety and Motor Vehicles dashboard, there were 222 fatalities within the region during 2024.
+The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the FLHSMV dashboard, there were 222 fatalities within the region during 2024.
 
 ```{r}
 df_tot_fat <- read.csv("data/total_fatalities.csv")
@@ -645,7 +645,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The Florida Highway Safety and Motor Vehicle dashboard lists the total number of injuries as 19,768 within the region during 2024.
+The FLHSMV dashboard lists the total number of injuries as 19,768 within the region during 2024.
 
 ```{r}
 df_tot_inj <- read.csv("data/total_injuries.csv")
@@ -771,9 +771,9 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
 
 ## Pedestrian and Bicyclist Fatalities
 
-According to the Florida Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 65 in 2024. 53 fatalities were pedestrians and 12 were cyclists.
+According to the FLHSMV dashboard, the number of non-motorized fatalities for the region was 65 in 2024. 53 fatalities were attributed to pedestrians and 12 were to cyclists.
 
-The 2024 pedestrian fatalities hit the lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020.
+2024 pedestrian fatalities hit its lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -1023,7 +1023,7 @@ Truck-miles traveled looks at the total miles traveled by combination trucks wit
 
 ## Vehicle Occupancy
 
-Estimates of the average number of occupants in a vehicle is referred to as the Vehicle Occupancy Factors (VOF). This measure can be calculated using PMT divided by VMT. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System (CAR) is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the FDOT forecasting and trends office in 2022 Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
+Estimates of the average number of occupants in a vehicle is referred to as the Vehicle Occupancy Factors (VOF). This measure can be calculated using PMT divided by VMT. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System (CAR) is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the FDOT forecasting and trends office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
 
 ## Transit Ridership
 
@@ -1089,11 +1089,11 @@ hchart(df_transit, "column", hcaes(x = Year, y = Totals, group = Agency)) %>%
 
 ## Sea Travel and Freight
 
-No cruise ships called on JAXPORT in 2021 due to the COVID-19 pandemic. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390 thousand passengers. As was the case in 2023, 2024 cruise passenger levels seems to have returned to pre-pandemic levels.
+No cruise ships called on JAXPORT in 2021 due to the COVID-19 pandemic. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390,000 passengers. As was the case in 2023, 2024 cruise passenger levels seems to have returned to pre-pandemic levels.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
-JAXPORT's terminals shipped less tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last 4 years.
+JAXPORT's terminals shipped less tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last 5 years.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1214,8 +1214,8 @@ hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
 
 ### Automobiles and Containers Shipped
 
-JAXPORT is maintaining its position as the container port in Florida and one of the top 10 in the nation. JAXPORT is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.\
-Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last 5 year period.
+JAXPORT is maintaining its position as the top container port in Florida and a top 10 container port in the nation. JAXPORT is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.\
+Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last 5-year period.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1298,7 +1298,7 @@ hchart(df_item_ship, "column", hcaes(x = item, y = count, group = year)) %>%
 
 ### Air Passengers
 
-In 2021 passengers traveling at Jacksonville International Airport increase by 27% when compared to 2020 as the recovery from the COVID-19 pandemic began. Monthly passengers have returned to pre-pandemic levels.
+In 2021, passengers traveling at Jacksonville International Airport increased by 27% when compared to 2020 as the recovery from the COVID-19 pandemic began. Monthly passengers have returned to pre-pandemic levels.
 
 There is no defined benchmark for aviation passengers served. Increases are preferred and annual monitoring is conducted.
 
@@ -1363,7 +1363,7 @@ hchart(df_air_pass, "column", hcaes(x = Month, y = Count, group = Type)) %>%
 
 ### Air Cargo
 
-Air cargo shipments grew about 7% in 2021 compared to 2020 but fell 14.7% in 2023 compared to 2022.
+Air cargo shipments grew about 7% in 2021 compared to 2020, but fell 14.7% in 2023 compared to 2022.
 
 There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
 
@@ -1422,11 +1422,11 @@ hchart(df_cargo, "column", hcaes(x = year, y = weight)) %>%
 
 ## Travel Time Reliability
 
-Level of Travel Time Reliability (LOTTR) is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). LOTTR assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability, the more variable the travel times are along each corridor.
+Level of Travel Time Reliability (LOTTR) is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). LOTTR assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a level of travel time reliability of 2.5, you have an 80% chance of arriving within 25-minutes. The larger the value of LOTTR, the more variable the travel times are along each corridor.
 
 The goal is for 95% of the VMT within a system to be reliable (LOTTR of 1.50 or less) along a corridor of the Strategic Intermodal System (SIS) facilities in North Florida.
 
-The map shows the critical LOTTR of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
+The map below shows the critical (maximum) LOTTR of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
 
 Source: [Level of Travel Time Reliability (LOTTR)](https://npmrds.ritis.org/){target="_blank"}
 
@@ -1477,11 +1477,11 @@ leaflet() %>%
 
 ### TTR Segment Table
 
-The data for travel time reliability was collected through the FDOT Sourcebook. The inputs stem from historical data from vehicle probes, permanent and temporary count sites, HERE travel time data and FDOT’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
+The data for travel time reliability was collected through the FDOT Sourcebook. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and FDOT’s Roadway Characteristics Inventory (RCI). The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
 
 The 2024 LOTTR data is reported for the months of October, November and December, and takes the maximum value calculated throughout the period.
 
-More detailed analysis of the travel time reliability was performed on the most congested corridors within the region. This index is the ratio of the 80th-percentile travel time and the median travel time. For a 10-minute trip with a level of travel time reliability of 2.5 you have an 80% chance of arriving within 25-minutes. The larger the level of travel time reliability, the more variable the travel times are along each corridor. The table below summarizes the 2024 LOTTR values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
+More detailed analysis of the travel time reliability was performed on the most congested corridors within the region. The table below summarizes the 2024 LOTTR values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
 
 ```{r}
 table_options <- function() {
@@ -1510,9 +1510,9 @@ datatable(df_lottr,caption = htmltools::tags$caption(
 
 ## Truck Travel Time Reliability
 
-This index is the ratio of the 95th-percentile travel time and the median travel time. The larger the Truck Travel Time Reliability index, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a truck travel time reliability of 1.2, you have a 95% chance of arriving within 12 minutes.
+The Truck Travel Time Reliability (TTTR) index is the ratio of the 95th-percentile travel time and the median travel time. The larger the value of TTTR, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a TTTR value of 1.2, you have a 95% chance of arriving within 12 minutes.
 
-The truck travel time reliability index should maintain or decline each year.
+The TTTR index should maintain or decline each year.
 
 Source: [Truck Travel Time Reliability (TTTR)](https://npmrds.ritis.org/){target="_blank"}
 
@@ -1561,9 +1561,9 @@ leaflet() %>%
   )
 ```
 
-### Truck TTR Segment Table
+### TTTR Segment Table
 
-Truck travel time reliability was obtained from the NPMRDS, AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. This table shows the TTTR on major freight corridors within the TPO boundary.
+TTTR was obtained from the National Performance Management Research Data Set (NPMRDS), AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. This table shows the TTTR on major freight corridors within the TPO boundary.
 
 ```{r}
 table_options <- function() {
@@ -1639,7 +1639,7 @@ datatable(df_duration_heavy_congested,caption = htmltools::tags$caption(
 
 ## Level of Service
 
-Level of Service (LOS) is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The FDOT District 2 Level of Service Report was reviewed. The LOS can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the percent of miles meeting LOS criteria. Standards for LOS on state highways are in the [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour LOS for the FDOT roadways in the NFTPO.
+Level of Service (LOS) is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The FDOT District 2 LOS Report was reviewed. The LOS can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the percent of miles meeting LOS criteria. Standards for LOS on state highways are in the [FDOT Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour LOS for the FDOT roadways in the North Florida TPO.
 
 Source: [FDOT District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrgateway.com/){target="_blank"}
 
@@ -1898,7 +1898,7 @@ The Florida Department of Transportation, law enforcement, emergency personnel, 
 -   Allowing emergency response personnel to respond and treat injured persons.
 -   Specialized response teams must remove hazardous materials before the road can be opened to traffic.
 -   The local coroner must investigate the scene if a fatality occurs. The time to open the road to traffic is typically one hour when a fatality occurs.
--   The Florida Department of Transportation and law enforcement agencies work to open the road to traffic and restore the traffic operations as soon as possible.
+-   FDOT and law enforcement agencies work to open the road to traffic and restore the traffic operations as soon as possible.
 
 The goal is to maintain or reduce the time to open roads to normal traffic following an event. The following figures show incident clearance performance measures for FDOT District 2 in 2024.
 
