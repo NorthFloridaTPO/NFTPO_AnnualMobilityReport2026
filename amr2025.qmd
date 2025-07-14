@@ -1033,7 +1033,7 @@ Transit ridership has declined in the wake of the COVID-19 pandemic. The Jackson
 df_transit <- read.csv("data/transit_ridership.csv")
 
 df_transit$Agency <- factor(df_transit$Agency, levels = rev(sort(unique(df_transit$Agency))))
-colors <- c("#C8ACD6","#694F8E")
+colors <- c("#C8ACD6","#994F8E","#594F89")
 
 # Create a Highchart object with data labels and stack totals
 hchart(df_transit, "column", hcaes(x = Year, y = Totals, group = Agency)) %>%
