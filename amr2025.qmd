@@ -45,7 +45,7 @@ North Florida’s population grew by 13.5%, or 206,000 persons, between 2019 and
 
 From 2023 to 2024, North Florida's population growth rate was 1.9%, compared to the statewide rate in Florida of 2.04% and the national rate of 2.06%
 
-There is no benchmark for population growth. Increases impact the demand for mobility.
+There is no benchmark for population growth. Increases impact the demand for mobility. The graph below shows the population of the 4 North Florida counties by year.
 
 ```{r}
 
@@ -120,7 +120,7 @@ hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
 
 There are 131,600 (or 11%) more drivers in North Florida in 2024 than 2019. About 76% of the population in the region is a licensed driver.
 
-There is no benchmark for licensed drivers. Increases impact the demand for mobility.
+There is no benchmark for licensed drivers. Increases impact the demand for mobility. The graph below shows the number of licensed drivers in the 4 North Florida counties by year.
 
 ```{r}
 # Load data
@@ -258,7 +258,7 @@ The Gross Domestic Product (GDP) in North Florida continues to show strong growt
 
 There are no benchmarks for GDP.
 
-Increases are preferred and annual monitoring is conducted.
+Increases are preferred and annual monitoring is conducted. The graph below shows the total GDP of the 4 counties in North Florida by year.
 
 ```{r}
 df_gdp <- read.csv("data/GDP.csv")
@@ -339,7 +339,7 @@ hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
 
 ## Employment
 
-Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand.
+Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand. The graph below compares total employment with the unemployment rate of North Florida for every month since 2019.
 
 ```{r}
 
@@ -436,7 +436,7 @@ Crash data was compiled from several sources including the Florida Department of
 
 Total crashes in 2024 decreased 3.5% over 2023.
 
-The target is to have zero injuries or fatalities resulting from crashes.
+The target is to have zero injuries or fatalities resulting from crashes. The graph below shows the total crashes in the 4 North Florida counties by year.
 
 ```{r}
 df_tot_crash <- read.csv("data/total_crashes.csv")
@@ -573,7 +573,7 @@ leaflet(data = df_fatalserious) %>%
 
 ## Fatalities
 
-The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the FLHSMV dashboard, there were 222 fatalities within the region during 2024.
+The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the FLHSMV dashboard, there were 222 fatalities within the region during 2024. The graph below shows the total fatalities in the 4 North Florida counties by year.
 
 ```{r}
 df_tot_fat <- read.csv("data/total_fatalities.csv")
@@ -645,7 +645,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The FLHSMV dashboard lists the total number of injuries as 19,768 within the region during 2024.
+The FLHSMV dashboard lists the total number of injuries as 19,768 within the region during 2024. The chart below shows the total injury crashes in the 4 North Florida counties by year.
 
 ```{r}
 df_tot_inj <- read.csv("data/total_injuries.csv")
@@ -732,6 +732,8 @@ hchart(df_tot_inj, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 The rate of crashes is the ratio of the total number of crashes to the number of vehicle miles traveled (VMT) expressed in 100 million VMT. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021 and the fatality rate has returned to pre-COVID levels.
 
+The graph below shows the fatality rate, injury rate, and crash rate per VMT in North Florida by year.
+
 ```{r}
 
 # Filter data for PedFatal > 0
@@ -773,7 +775,7 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
 
 According to the FLHSMV dashboard, the number of non-motorized fatalities for the region was 65 in 2024. 53 fatalities were attributed to pedestrians and 12 were to cyclists.
 
-2024 pedestrian fatalities hit its lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020.
+2024 pedestrian fatalities hit its lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020. The graphs below show the total pedestrian and total bicyclist fatalities in the 4 North Florida counties by year.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -858,7 +860,7 @@ Additionally,
 -   37% of fatalities involved drivers under the influence of drugs.
 -   54% of fatalities involved either drugs or alcohol.
 
-The goal is to have zero injuries or fatalities resulting from crashes.
+The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of impaired driving crashes in the 4 North Florida counties by year.
 
 ```{r}
 df_tot_imp <- read.csv("data/total_impaired.csv")
@@ -896,7 +898,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Vehicle Miles Traveled
 
-Vehicle-miles traveled (VMT) considers the Annual Average Daily Traffic (AADT) and the roadway segment length. There is not a set benchmark or goal for VMT. Reducing this number can help with congestion issues along the roadway network. 33 million VMT was estimated for 2023 along the State Highway System (SHS).
+Vehicle-miles traveled (VMT) considers the Annual Average Daily Traffic (AADT) and the roadway segment length. There is not a set benchmark or goal for VMT. Reducing this number can help with congestion issues along the roadway network. 33 million VMT was estimated for 2023 along the State Highway System (SHS). The graphs below show the total number of VMT throughout the North Florida TPO on the SHS and National Highway System (NHS) by year.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -977,7 +979,7 @@ hchart(df_vmt, "column", hcaes(x = Year, y = TotalNHSVMT, group = County)) %>%
 
 ## Person Miles Traveled
 
-Person-miles traveled (PMT) takes total VMT and multiplies it by persons per vehicle. The FDOT Sourcebook was used to obtain the data shown below. According to the data, 54.1 million PMT was estimated for 2023 on all SHS facilities.
+Person-miles traveled (PMT) takes total VMT and multiplies it by persons per vehicle. The FDOT Sourcebook was used to obtain the data. According to the data, 54.1 million PMT was estimated for 2023 on all SHS facilities. The graph below shows the PMT throughout the North Florida TPO by year, broken down by facility type.
 
 ```{r}
 # Define your custom colors
@@ -1028,6 +1030,8 @@ Estimates of the average number of occupants in a vehicle is referred to as the 
 ## Transit Ridership
 
 Transit ridership has declined in the wake of the COVID-19 pandemic. The Jacksonville Transportation Authority (JTA) keeps track of these metrics and levels continue to remain stagnant over the past few years. Services that are included within JTA’s scope consist of the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2023 ridership data related to these services are shown in table below. On-time performance was only tracked for the St. Johns River Ferry during 2022 and this came in at 98%.
+
+The graph below shows the total transit trips taken by riders in the North Florida region by year and transit authority.
 
 ```{r}
 df_transit <- read.csv("data/transit_ridership.csv")
@@ -1091,11 +1095,9 @@ hchart(df_transit, "column", hcaes(x = Year, y = Totals, group = Agency)) %>%
 
 No cruise ships called on JAXPORT in 2021 due to the COVID-19 pandemic. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390,000 passengers. As was the case in 2023, 2024 cruise passenger levels seems to have returned to pre-pandemic levels.
 
-There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
-
 JAXPORT's terminals shipped less tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last 5 years.
 
-There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
+There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted. The graphs below show total cruise passengers and tonnes of cargo shipped in the North Florida region by year and port.
 
 ::: {layout="[ [1,1] ]"}
 ### Cruise Passengers
@@ -1217,7 +1219,7 @@ hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
 JAXPORT is maintaining its position as the top container port in Florida and a top 10 container port in the nation. JAXPORT is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.\
 Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last 5-year period.
 
-There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
+There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted. The graph below shows the amount of containers and automobiles shipped through JAXPORT by year.
 
 ```{r}
 # Load data
@@ -1300,7 +1302,7 @@ hchart(df_item_ship, "column", hcaes(x = item, y = count, group = year)) %>%
 
 In 2021, passengers traveling at Jacksonville International Airport increased by 27% when compared to 2020 as the recovery from the COVID-19 pandemic began. Monthly passengers have returned to pre-pandemic levels.
 
-There is no defined benchmark for aviation passengers served. Increases are preferred and annual monitoring is conducted.
+There is no defined benchmark for aviation passengers served. Increases are preferred and annual monitoring is conducted. The graph below shows total air passengers by month and year for the Jacksonville International Airport.
 
 Fiscal years begin October 1 and end September 30 of each year.
 
@@ -1365,7 +1367,7 @@ hchart(df_air_pass, "column", hcaes(x = Month, y = Count, group = Type)) %>%
 
 Air cargo shipments grew about 7% in 2021 compared to 2020, but fell 14.7% in 2023 compared to 2022.
 
-There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted.
+There is no defined benchmark for this measure. Increases are preferred and annual monitoring is conducted. The graph below shows total pounds of air cargo shipped per year in the North Florida region since 2019.
 
 ```{r}
 df_cargo <- read.csv("data/air_cargo.csv")
@@ -1479,7 +1481,7 @@ leaflet() %>%
 
 The data for travel time reliability was collected through the FDOT Sourcebook. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and FDOT’s Roadway Characteristics Inventory (RCI). The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
 
-The 2024 LOTTR data is reported for the months of October, November and December, and takes the maximum value calculated throughout the period.
+The 2024 LOTTR data takes the maximum value calculated throughout the period.
 
 More detailed analysis of the travel time reliability was performed on the most congested corridors within the region. The table below summarizes the 2024 LOTTR values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
 
@@ -1512,7 +1514,7 @@ datatable(df_lottr,caption = htmltools::tags$caption(
 
 The Truck Travel Time Reliability (TTTR) index is the ratio of the 95th-percentile travel time and the median travel time. The larger the value of TTTR, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a TTTR value of 1.2, you have a 95% chance of arriving within 12 minutes.
 
-The TTTR index should maintain or decline each year.
+The TTTR index should maintain or decline each year. The map below shows the critical (maximum) TTTR of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
 
 Source: [Truck Travel Time Reliability (TTTR)](https://npmrds.ritis.org/){target="_blank"}
 
@@ -1563,7 +1565,7 @@ leaflet() %>%
 
 ### TTTR Segment Table
 
-TTTR was obtained from the National Performance Management Research Data Set (NPMRDS), AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. This table shows the TTTR on major freight corridors within the TPO boundary.
+TTTR was obtained from the National Performance Management Research Data Set (NPMRDS), AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. The table below shows the TTTR on major freight corridors within the TPO boundary.
 
 ```{r}
 table_options <- function() {
@@ -1589,7 +1591,7 @@ datatable(df_tttr,caption = htmltools::tags$caption(
 
 ## Percent of System Heavily Congested
 
-Based on the FDOT Sourcebook, the peak hour for the North Florida TPO region experiences heavy congestion on 5.5 percent of the roadway system in 2023. The numbers have been continuing to climb since 2020. The last five years of data (from 2019 – 2023) are 4.6 percent, 1.8 percent, 2.9 percent, 4.2 percent, and 5.5 percent.
+Based on the FDOT Sourcebook, the peak hour for the North Florida TPO region experiences heavy congestion on 5.5 percent of the roadway system in 2023. The numbers have been continuing to climb since 2020. The last five years of data (from 2019 – 2023) are 4.6 percent, 1.8 percent, 2.9 percent, 4.2 percent, and 5.5 percent. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
 
 ```{r}
 table_options <- function() {
@@ -1614,7 +1616,7 @@ datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
 
 ## Duration of Congestion
 
-The daily duration of congestion for the North Florida TPO region is 16.4 minutes in 2022. This number has also been climbing since 2020.
+The daily duration of congestion for the North Florida TPO region is 16.4 minutes in 2022. This number has also been climbing since 2020. The table below summarizes the daily duration of congestion throughout the North Florida region by year.
 
 ```{r}
 table_options <- function() {
@@ -1700,7 +1702,7 @@ Source: [U.S. Census Bureau](https://www.census.gov/)
 
 ## Average Vehicle Delay
 
-Vehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The FDOT Sourcebook shows data provided from HERE technologies and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida TPO region, the daily vehicle hours of delay increased from 2020 to 2023, but is still below pre-pandemic levels.
+Vehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The FDOT Sourcebook shows data provided from HERE technologies and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida TPO region, the daily vehicle hours of delay increased from 2020 to 2023, but is still below pre-pandemic levels. The graphs below show the total vehicle hours of delay throughout the North Florida region on SHS and NHS facilities by both year and county.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -1820,7 +1822,7 @@ hchart(df_vhd, "column", hcaes(x = year, y = NHS_year, group = county)) %>%
 
 The FDOT provides average peak-hour travel speed by roadway segment for the State Highway System. This data can be summarized for the region, by county, and by roadway functional classification. The average speed is reported annually in miles per hour and is calculated by averaging the average peak-hour travel speed. Average speeds increased from 2020 to 2021 as a result of lower demand, but the average travel speeds have seen a steady decrease in every county since 2021.
 
-The average travel speed should maintain or increase from year to year. The following table shows the trends for each county. The year and speed value is shown on hover.
+The average travel speed should maintain or increase from year to year. The table below shows the trends for each county.
 
 ```{r}
 
