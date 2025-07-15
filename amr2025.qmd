@@ -2337,7 +2337,7 @@ leaflet() %>%
 
 ## Pedestrian Connectivity
 
-The FDOT aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the FDOT Roadway Characteristics Inventory, the average pedestrian facility coverage over the four counties within the North Florida TPO area is 33.2% for 2024. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage. However, the percentage has decreased 32.4% since 2022.
+The FDOT aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the FDOT Roadway Characteristics Inventory, the pedestrian facility coverage over the four counties within the North Florida TPO area is about 327 miles for 2024. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage. In 2024 there are about 1.4 fewer miles of sidewalk gaps when compared to 2023. This value does not include segments where pedestrian activity is not allowed.
 
 A map of the FDOT sidewalks and gaps in the region is provided below.
 
@@ -2348,7 +2348,15 @@ Source: [FDOT Sidewalks and Gaps TDA](https://gis-fdot.opendata.arcgis.com/datas
 geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF24.geojson", quiet = TRUE)
 geojson_data <- geojson_data_unfiltered %>%
   filter(RDACCESS != 1) %>%
-  st_transform(crs = 4326)
+  st_transform(crs = 4326) %>%
+  # Create RDWYSIDE_LNG column based on RDWYSIDE values
+  mutate(RDWYSIDE_LNG = case_when(
+    RDWYSIDE == "R" ~ "Right",
+    RDWYSIDE == "L" ~ "Left", 
+    RDWYSIDE == "G" ~ "Gap",
+    RDWYSIDE == "C" ~ "Composite",
+    TRUE ~ NA_character_  # For any other values not specified
+  ))
 
 # Create a custom color
 pal <- colorFactor(palette = c("darkgreen","red", "gold", "gold"), 
@@ -2375,7 +2383,6 @@ leaflet() %>%
       onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
     )
   )
-
 ```
 
 # Preservation and Maintenance
