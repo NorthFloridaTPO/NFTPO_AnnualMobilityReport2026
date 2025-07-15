@@ -33,7 +33,7 @@ library(htmlwidgets)
 library(magrittr)
 ```
 
-[![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/){target="_blank"}
+[![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/)
 
 Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s (TPO) Congestion Management Process. The data presented are an essential part of making evidence-based decisions for the investment in mobility in North Florida. The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available.
 
@@ -857,10 +857,10 @@ Impaired driving was a contributing cause in about 53% of all crash fatalities i
 Additionally,
 
 -   14% of fatalities involved drivers tested for alcohol only.
--   37% of fatalities involved drivers under the influence of drugs.
+-   40% of fatalities involved drivers under the influence of drugs.
 -   54% of fatalities involved either drugs or alcohol.
 
-The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of impaired driving crashes in the 4 North Florida counties by year.
+The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the 4 North Florida counties by year.
 
 ```{r}
 df_tot_imp <- read.csv("data/total_impaired.csv")
@@ -1565,7 +1565,7 @@ leaflet() %>%
 
 ### TTTR Segment Table
 
-TTTR was obtained from the National Performance Management Research Data Set (NPMRDS), AADT from Highway Performance Monitoring System (HPMS), and occupancy factors provided by the FHWA. The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. The table below shows the TTTR on major freight corridors within the TPO boundary.
+TTTR was obtained from the National Performance Management Research Data Set (NPMRDS). The goal is to maintain a TTTR ratio of under 2.0. For the North Florida TPO, the observed TTTR was 1.62 in 2024. The table below shows the TTTR on major freight corridors within the TPO boundary.
 
 ```{r}
 table_options <- function() {
@@ -1691,14 +1691,40 @@ leaflet() %>%
 
 ## Average Commute Time
 
-The average commute time data was taken from the U.S. Census Bureau through the American Community Survey. The 2023 average commute times for each county are the following:
+The average commute time data was taken from the U.S. Census Bureau through the American Community Survey. The 2023 average commute times for each county are displayed in the chart below.
 
-1.  Clay: 31.3 minutes
-2.  Duval: 24.5 minutes
-3.  Nassau: 29.8 minutes
-4.  St. Johns: 27.3 minutes
+```{r}
+# Load data
+df_commute <- read.csv("data/commute_times.csv")
 
-Source: [U.S. Census Bureau](https://www.census.gov/)
+# Define your custom colors
+custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_commute, "column", hcaes(x = County, y = Mins)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    title = list(text = "Minutes"),
+    min = 0
+  ) %>%
+  hc_title(text = "2023 Average Commute Times by County") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.census.gov/acs/www/data/data-tables-and-tools/geographic-comparison-tables/" target="_blank"><b>US Census Bureau ACS</b></a>') %>%
+  hc_yAxis(title = list(text = "Average Commute Time (Mins)")) %>%
+  hc_xAxis(title = list(text = "County")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y} Mins</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
 
 ## Average Vehicle Delay
 
@@ -1930,7 +1956,7 @@ hchart(df_inc_all, "bar", hcaes(x = FY24_Qtr, y = Mins, group = Category)) %>%
       title = list(text = "Minutes"),
       min = 0
     )) %>%
-  hc_title(text = "2023 Incident Clearance Duration") %>%
+  hc_title(text = "2024 Incident Clearance Duration") %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>FDOT SunGuide</b></a>') %>%
   hc_xAxis(title = list(text = "Quarter")) %>%
   hc_yAxis(title = list(text = "Duration (Mins)")) %>%
@@ -1966,7 +1992,7 @@ hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY24_Qtr)) %
     title = list(text = "Minutes"),
     min = 0
   ) %>%
-  hc_title(text = "2023 Open Roads and Roadway Clearance Durations by Quarter") %>%
+  hc_title(text = "2024 Open Roads and Roadway Clearance Durations by Quarter") %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>FDOT SunGuide</b></a>') %>%
   hc_yAxis(title = list(text = "Duration (Mins)")) %>%
   hc_xAxis(title = list(text = "Duration Type")) %>%
@@ -1991,7 +2017,7 @@ df_events <- read.csv("data/event_types_all.csv")
 
 hchart(df_events, "pie", hcaes(x = Event, y = Total)) %>%
   
-  hc_title(text = "2023 Incident Event Totals", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
+  hc_title(text = "2024 Incident Event Totals", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>FDOT SunGuide</b></a>', align = 'left', style = list(fontFamily = 'Roboto Condensed')) %>%
   
   hc_tooltip(pointFormat = '{point.name}: <b>{point.y}</b>') %>%
@@ -2195,7 +2221,7 @@ leaflet() %>%
 
 ## Impacts of Investments on the Natural Environment
 
-Florida’s Efficient Transportation Decision Making (ETDM) process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the MPOs in the surrounding area. The ETDM manual can be found on the [FDOT webpage](https://www.fdot.gov/environment/pubs/etdm/etdmmanual.shtm){target="_blank"}. The map below shows transportation projects throughout the region in 2024. More information on the projects can be found at the links. 
+Florida’s Efficient Transportation Decision Making (ETDM) process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the MPOs in the surrounding area. The ETDM manual can be found on the [FDOT webpage](https://www.fdot.gov/environment/pubs/etdm/etdmmanual.shtm){target="_blank"}. The map below shows transportation projects throughout the region in 2024. More information on the projects can be found at the links.
 
 Source: [Environmental Screening Tool](https://etdmpub.fla-etat.org/est/#){target="_blank"} and [FDOT 5 Year Work Program Meta Data](https://fgdl.org/meta/FDOT_WP_2023.xml){target="_blank"}
 
@@ -2311,7 +2337,7 @@ leaflet() %>%
 
 ## Pedestrian Connectivity
 
-The FDOT aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the FDOT Roadway Characteristics Inventory, the average pedestrian facility coverage over the four counties within the North Florida TPO area is 65.62% for 2022. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage.
+The FDOT aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the FDOT Roadway Characteristics Inventory, the average pedestrian facility coverage over the four counties within the North Florida TPO area is 33.2% for 2024. Year over year, the total pedestrian coverage within the North Florida TPO region generally increases, resulting in increased sidewalk mileage. However, the percentage has decreased 32.4% since 2022.
 
 A map of the FDOT sidewalks and gaps in the region is provided below.
 
@@ -2319,7 +2345,7 @@ Source: [FDOT Sidewalks and Gaps TDA](https://gis-fdot.opendata.arcgis.com/datas
 
 ```{r, message=FALSE}
 # Load your GeoJSON file
-geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF.geojson", quiet = TRUE)
+geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF24.geojson", quiet = TRUE)
 geojson_data <- geojson_data_unfiltered %>%
   filter(RDACCESS != 1) %>%
   st_transform(crs = 4326)
@@ -2387,7 +2413,7 @@ datatable( caption = htmltools::tags$caption(
 
 ## Yearly Pavement Conditions
 
-The chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition. 
+The chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition.
 
 ```{r}
 table_options <- function() {
@@ -2420,12 +2446,12 @@ datatable(caption = htmltools::tags$caption(
 
 ## Bridge Conditions
 
-The Bridge Conditions Map and Bridge Conditions Table are presented below.
+The Bridge Conditions Map and Bridge Conditions Table are presented below. [Federal Highway Administration National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi/ascii.cfm){target="_blank"}
 
 ::: {.panel-tabset .nav-pills}
 ### Bridge Conditions Map
 
-The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT Roadway Characteristics Inventory, there are a total of 909 bridges in the region.
+The map below shows the locations and conditions of the bridges within the North Florida TPO region. According to the FDOT Roadway Characteristics Inventory, there are a total of 1,166 bridges in the region as of 2024.
 
 ```{r, message=FALSE}
 
@@ -2469,7 +2495,7 @@ leaflet(data = df_bridge) %>%
 
 ```
 
-### Bridge Conditions Table 
+### Bridge Conditions Table
 
 ```{r}
 table_options <- function() {
@@ -2798,7 +2824,7 @@ hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
 
 ***Highways***
 
-Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation returns a \$4 economic return. The Florida Department of Transportation will invest \$1.4 billion in Clay, Duval, Nassau and St. Johns counties in the 2022-2023 Work Program resulting in an economic benefit of \$5.8 billion. The 2022-2023 fiscal year work program is the largest investment in history.
+Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation returns a \$4 economic return. The Florida Department of Transportation invested \$1.4 billion in Clay, Duval, Nassau and St. Johns counties in the 2022-2023 Work Program resulting in an economic benefit of \$5.8 billion. The 2022-2023 fiscal year work program is the largest investment in history.
 
 ***Multimodal***
 
@@ -3122,6 +3148,9 @@ datatable(df_tam_sunshine,
 
 The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The FDOT Sourcebook provides this data for JTA the Jacksonville Transportation Authority (JTA).The charts below display the performance measure statistics for the North Florida TPO region. The first chart shows safety figures and rates from 2019-2024 and the second chart displays the determined targets.
 
+::: {.panel-tabset .nav-pills}
+### Transit Safety Performance Measure Statistics
+
 ```{r}
 table_options <- function() {
   list(
@@ -3138,7 +3167,7 @@ table_options <- function() {
   )
 }
 
-df_transit_safety <- read.csv("data/Transit_Safety_Targets.csv", check.names=FALSE, header=TRUE) 
+df_transit_safety <- read.csv("data/pm4_transit_safety.csv", check.names=FALSE, header=TRUE) 
 
 datatable(df_transit_safety,
           caption = htmltools::tags$caption(
@@ -3147,3 +3176,32 @@ datatable(df_transit_safety,
           options = c(table_options(), list(pageLength = 6)))
 
 ```
+
+### Transit Safety Performance Measure Targets
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_transit_safety_targets <- read.csv("data/Transit_Safety_Targets.csv", check.names=FALSE, header=TRUE) 
+
+datatable(df_transit_safety_targets,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://northfloridatpo.com/uploads/TIP-26-30-Final.pdf" target="_blank"><b>North Florida TPO Transportation Improvement Program</b></a>')),
+          options = c(table_options(), list(pageLength = 6)))
+
+```
+:::
