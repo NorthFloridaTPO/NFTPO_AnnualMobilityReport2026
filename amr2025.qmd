@@ -2899,7 +2899,7 @@ datatable(caption = htmltools::tags$caption(
 
 Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida TPO adopted the FDOT guidance for performance management of pavement and bridges. The charts below display the yearly data for bridge and pavement condition for the North Florida TPO region, as well as targets.
 
-Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"} and [Federal Highway Administration National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi/ascii.cfm){target="_blank"}
+Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"} 
 
 ### NHS Bridge Decks
 
