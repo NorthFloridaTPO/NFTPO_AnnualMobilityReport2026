@@ -41,7 +41,7 @@ Understanding the trends and conditions occurring in North Florida will allow pl
 
 ## Population
 
-North Florida’s population grew by 13.5%, or 206,000 persons, between 2019 and 2024. This growth outpaced the growth statewide (8.7%). Growth in population places a higher demand for mobility.
+North Florida’s population grew by 11.5%, or 178,400 persons, between 2020 and 2024. This growth outpaced the growth statewide (8.2%). Growth in population places a higher demand for mobility.
 
 From 2023 to 2024, North Florida's population growth rate was 1.9%, compared to the statewide rate in Florida of 2.04% and the national rate of 2.06%
 
@@ -118,7 +118,7 @@ hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
 
 ## Licensed Drivers
 
-There are 131,600 (or 11%) more drivers in North Florida in 2024 than 2019. About 76% of the population in the region is a licensed driver.
+There are 116,000 (or 9.6%) more drivers in North Florida in 2024 than 2020. About 76% of the population in the region is a licensed driver.
 
 There is no benchmark for licensed drivers. Increases impact the demand for mobility. The graph below shows the number of licensed drivers in the 4 North Florida counties by year.
 
@@ -339,7 +339,7 @@ hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
 
 ## Employment
 
-Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand. The graph below compares total employment with the unemployment rate of North Florida for every month since 2019.
+Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand. The graph below compares total employment with the unemployment rate of North Florida for every month since 2020.
 
 ```{r}
 
@@ -3153,7 +3153,7 @@ datatable(df_tam_sunshine,
 
 ### Transit Safety
 
-The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The FDOT Sourcebook provides this data for JTA the Jacksonville Transportation Authority (JTA).The charts below display the performance measure statistics for the North Florida TPO region. The first chart shows safety figures and rates from 2019-2024 and the second chart displays the determined targets.
+The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The FDOT Sourcebook provides this data for JTA the Jacksonville Transportation Authority (JTA).The charts below display the performance measure statistics for the North Florida TPO region. The first chart shows safety figures and rates from 2020-2024 and the second chart displays the determined targets.
 
 ::: {.panel-tabset .nav-pills}
 ### Transit Safety Performance Measure Statistics
