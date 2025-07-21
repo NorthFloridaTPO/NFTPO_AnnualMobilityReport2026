@@ -571,7 +571,7 @@ leaflet(data = df_fatalserious) %>%
 
 ## Fatalities
 
-The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the Florida Department of Highway Safety and Motor Vehicles dashboard, there were 222 fatalities within the region during 2024. The graph below shows the total fatalities in the four North Florida counties by year.
+The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the Florida Department of Highway Safety and Motor Vehicles dashboard, there were 224 fatalities within the region during 2024. The graph below shows the total fatalities in the four North Florida counties by year.
 
 ```{r}
 df_tot_fat <- read.csv("data/total_fatalities.csv")
@@ -855,8 +855,10 @@ Impaired driving was a contributing cause in about 53% of all crash fatalities i
 Additionally,
 
 -   13% of fatalities involved drivers tested for alcohol only.
--   40% of fatalities involved drivers under the influence of drugs.
--   54% of fatalities involved either drugs or alcohol.
+-   22% of fatalities involved drivers tested for drugs only.
+-   52% of fatalities involved either drugs or alcohol.
+
+The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subtype were divided by total fatalities to obtain the figures shown above. 
 
 The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the four North Florida counties by year.
 
