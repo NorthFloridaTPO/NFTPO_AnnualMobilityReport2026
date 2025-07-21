@@ -854,7 +854,7 @@ Impaired driving was a contributing cause in about 53% of all crash fatalities i
 
 Additionally,
 
--   14% of fatalities involved drivers tested for alcohol only.
+-   13% of fatalities involved drivers tested for alcohol only.
 -   40% of fatalities involved drivers under the influence of drugs.
 -   54% of fatalities involved either drugs or alcohol.
 
