@@ -35,7 +35,7 @@ library(magrittr)
 
 [![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/)
 
-Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s Congestion Management Process. The data presented are an essential part of making evidence-based decisions for mobility investments in North Florida and contributing to the Florida Department of Transportation's Target Zero initiative to have no deaths and serious injuries across the statewide transportation system (https://www.fdot.gov/agencyresources/target-zero). The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available.
+Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s Congestion Management Process. The data presented are an essential part of making evidence-based decisions for mobility investments in North Florida and contributing to the Florida Department of Transportation's Target Zero initiative to have no deaths and serious injuries across the statewide transportation system [(Target Zero Link)](https://www.fdot.gov/agencyresources/target-zero). The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available.
 
 # People
 
@@ -858,7 +858,7 @@ The following reflects the results of drug and/or alcohol tests. Not all involve
 -   22% of fatalities involved drivers who tested positive for drugs
 -   52% of fatalities involved positive tests of either drugs or alcohol
 
-The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities to obtain the figures shown above. 
+The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities to obtain the figures shown above.
 
 The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the four North Florida counties by year.
 
@@ -1203,7 +1203,7 @@ hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
     )
     
   ) %>%
-  hc_title(text = "Tonnage Shipped by Port and Year") %>%
+  hc_title(text = "Tonnage Shipped by Port and Year (U.S. Measure)") %>%
   hc_subtitle(text = 'Source: <a href="https://www.jaxport.com/media/statistics/" target="_blank"><b>Jacksonville Port Authority</b></a> and <a href="https://www.portoffernandina.org/_files/ugd/e5fb15_182f6f5831d34269a9dedf674412ea63.pdf" target="_blank"><b>Ocean Highway and Port Authority</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
@@ -1301,7 +1301,7 @@ hchart(df_item_ship, "column", hcaes(x = item, y = count, group = year)) %>%
 
 ### Air Passengers
 
-The North Florida region has seen a continual climb in the average annual aviation passengers served over the last five years. 
+The North Florida region has seen a continual climb in the average annual aviation passengers served over the last five years.
 
 Although there is no defined benchmark for aviation passengers served, increases are preferred and annual monitoring is conducted. The graph below shows total air passengers by month and year for the Jacksonville International Airport.
 
@@ -2261,7 +2261,7 @@ leaflet() %>%
 
 ## Emissions
 
-Common air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. The Florida Department of Transportation is working on alternative vehicle types to help reduce the amount of emissions present. Travel delay reduction can also help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.
+Common air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. Travel delay reduction can help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.
 
 The United States Department of Transportation lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per vehicle mile traveled was taken from the United States Environmental Protection Agency, and this number was applied to the total vehicle miles traveled within the North Florida Transportation Planning Organization region. The amount of emissions per mile is estimated to be:
 
@@ -2832,7 +2832,7 @@ hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
 
 ***Highways***
 
-Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a \$4 economic return. The Florida Department of Transportation has programmed over $1 billion per year for the last three years and programmed $1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.
+Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a \$4 economic return. The Florida Department of Transportation has programmed over \$1 billion per year for the last three years and programmed \$1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.
 
 ***Multimodal***
 
@@ -2935,7 +2935,7 @@ datatable(caption = htmltools::tags$caption(
 
 Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida Transportation Planning Organization adopted the Florida Department of Transportation guidance for performance management of pavement and bridges. The charts below display the yearly data for bridge and pavement condition for the North Florida Transportation Planning Organization region, as well as targets.
 
-Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"} 
+Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"}
 
 ### National Highway System Bridge Decks
 
