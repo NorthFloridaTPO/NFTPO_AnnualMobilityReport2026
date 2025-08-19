@@ -41,9 +41,9 @@ Understanding the trends and conditions occurring in North Florida will allow pl
 
 ## Population
 
-North Florida’s population grew by 11.5%, or 178,400 people, between 2020 and 2024. This growth outpaced the statewide growth rate of 8.2%. Population growth increases the need for transportation infrastructure and services.
+North Florida’s population grew by 11.7%, or 181,614 people, between 2020 and 2024. This growth outpaced the statewide growth rate of 6.6%. Population growth increases the need for transportation infrastructure and services.
 
-From 2023 to 2024, North Florida's population growth rate was 1.9%, compared to Florida (2.04%) and the U.S. (2.06%).
+From 2023 to 2024, North Florida's population growth rate was 2.12%, which outpaced both the statewide growth rate (1.68%) and the national growth rate (2.06%).
 
 There is no benchmark for population growth, but increases impact the demand for mobility. The graph below shows the population of the four North Florida Transportation Planning Organization counties by year.
 
@@ -213,9 +213,9 @@ hchart(df_drivers, "column", hcaes(x = year, y = drivers, group = county)) %>%
 
 Transportation barriers are the third leading cause of missed medical appointments for older adults across the country. Medically Underserved Areas/Populations are designated by the United States Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty rates or a high elderly population. Nearly 370,000 people in North Florida live in a medically underserved area. Although there are no benchmarks for populations in underserved areas, it is desirable to ensure these populations are adequately served.
 
-Accessing affordable and nutritious food was a challenge for nearly 800,000 people in North Florida in 2015, the most recent year for which statistics are available. The United States Department of Agriculture Economic Research Department identifies populations at risk of food security if they live in low-income areas and do not have a grocery store within one mile in urban areas and 10 miles in rural areas. Though there are no benchmarks for populations living with food uncertainty, it is desirable to ensure these populations are adequately served.
+Accessing affordable and nutritious food was a challenge for nearly 800,000 people in North Florida in 2019, the most recent year for which statistics are available. The United States Department of Agriculture Economic Research Department identifies populations at risk of food security if they live in low-income areas and do not have a grocery store within one mile in urban areas and 10 miles in rural areas. Though there are no benchmarks for populations living with food uncertainty, it is desirable to ensure these populations are adequately served.
 
-The following map highlights areas designated as medically underserved in 2019 and areas without reliable access to healthy foods in 2015.
+The following map highlights areas designated as medically underserved and areas without reliable access to healthy foods in 2019.
 
 Source: [Health Resources and Services Administration Map Tool](https://data.hrsa.gov/maps/map-tool/?tl=MUA&gt=State&cd=12&dp=ALL){target="_blank"}
 
@@ -643,7 +643,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,768 within the region during 2024. The chart below shows the total injury crashes in the four North Florida counties by year.
+The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,768 within the region during 2024. The chart below shows the total injury from crashes in the four North Florida counties by year.
 
 ```{r}
 df_tot_inj <- read.csv("data/total_injuries.csv")
@@ -728,9 +728,9 @@ hchart(df_tot_inj, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Crash Rates
 
-The rate of crashes is the ratio of the total number of crashes to the number of vehicle miles traveled, expressed in 100 million vehicle miles traveled. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021.
+The rate of crashes is the ratio of the total number of crashes to the number of vehicle-miles traveled, expressed in 100 million vehicle-miles traveled. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021.
 
-The graph below shows the fatality rate, injury rate, and crash rate per vehicle miles traveled in North Florida by year.
+The graph below shows the fatality rate, injury rate, and crash rate per vehicle-miles traveled in North Florida by year. The mileage fatality rate is stated as found in the Florida Department of Highway Safety and Motor Vehicles' Traffic Crash Facts 2023 Report. The injury rate and crash rate are calculated based on the vehicle-miles traveled for each year. 
 
 ```{r}
 
@@ -760,7 +760,7 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
     min = 0
   ) %>%
   hc_title(text = "Florida Crash Rates by Severity and Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2022.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2023.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
   hc_legend(enabled = TRUE) %>%
@@ -884,7 +884,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
     title = list(text = "Numbre of Impaired Driving Crashes"),
     min = 0
     ) %>%
-  hc_title(text = "Total Impaired Driving Crashes by County and Year") %>%
+  hc_title(text = "Total Impaired Fatal Crashes by County and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
@@ -898,7 +898,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Vehicle-Miles Traveled
 
-Vehicle-miles traveled considers the Annual Average Daily Traffic and the roadway segment length. There is not a set benchmark or goal for vehicle miles traveled, but reducing this number can help with congestion issues along the roadway network. About 33 million vehicle-miles traveled was estimated for 2023 along the State Highway System. The graphs below show the total number of vehicle miles traveled throughout the North Florida Transportation Planning Organization on the State Highway System and National Highway System by year.
+Vehicle-miles traveled considers the Annual Average Daily Traffic and the roadway segment length. There is not a set benchmark or goal for vehicle-miles traveled, but reducing this number can help with congestion issues along the roadway network. About 33 million vehicle-miles traveled was estimated for 2023 along the State Highway System. The graphs below show the total number of daily vehicle-miles traveled throughout the North Florida Transportation Planning Organization on the State Highway System and National Highway System by year.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -1021,7 +1021,7 @@ hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
 
 ## Truck-Miles Traveled
 
-Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total estimated truck-miles traveled on the State Highway System in 2023 was 1.28 million miles and the total estimated truck-miles traveled on the National Highway System in 2023 was 1.21 million miles.
+Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022.
 
 ## Vehicle Occupancy
 
@@ -1614,31 +1614,7 @@ datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/miles-by-congestion-type#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
 ```
-
-## Duration of Congestion
-
-The daily duration of congestion for the North Florida Transportation Planning Organization region is 16.4 minutes in 2022. This number has also been climbing since 2020. The table below summarizes the daily duration of congestion throughout the North Florida region by year.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    scroller = TRUE,
-    lengthChange = TRUE,
-    paginate=FALSE,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-      )
-}
-df_duration_heavy_congested <- read.csv("data/duration_heavily_congested.csv", check.names=FALSE, row.names=1) 
-datatable(df_duration_heavy_congested,caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/duration-of-congestion#"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
-```
+:::
 
 ## Level of Service
 
@@ -1910,8 +1886,8 @@ hchart(df_travel, "column", hcaes(x = County, y = Speed, group = Year)) %>%
     )
 
   ) %>%
-  hc_title(text = "Average Travel Speed by County and Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/" target="_blank"><b>Florida Department of Transportation Source Book</b></a>') %>%
+  hc_title(text = "Average Peak-Hour Travel Speed by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/average-speed#" target="_blank"><b>Florida Department of Transportation Source Book</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
   hc_legend(enabled = TRUE) %>%
@@ -2393,64 +2369,7 @@ This section deals with preserving and maintaining bridge and pavement condition
 ## Pavement Condition on Primary Freight Corridors
 
 The Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE,
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-
-df_pfc <- read.csv("data/PrimaryFreightCorridorsPoorPavement.csv", check.names=FALSE, row.names=1) 
-datatable( caption = htmltools::tags$caption(
-    style = 'caption-side: top; text-align: left;',
-    htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>Florida Department of Transportation Source Book, PM2-Pavement</b></a>')),
-    df_pfc,options = c(table_options(), list(pageLength = 6)))
-```
-
-## Yearly Pavement Conditions
-
-The chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition.
-
-```{r}
-table_options <- function() {
-  list(
-    rowCallback = DT::JS(
-      "function(row, data, index) {
-        $('td:eq(0)', row).html(index + 1);
-      }"
-    ),
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE, 
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-df_pavement <- read.csv("data/preserveandmaintain.csv", check.names=FALSE, row.names=1) 
-datatable(caption = htmltools::tags$caption(
-    style = 'caption-side: top; text-align: left;',
-    htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>Florida Department of Transportation Source Book, PM2-Pavement</b></a>')),
-    df_pavement,options = c(table_options(), list(pageLength = 8)))
-```
+:::
 
 ## Bridge Conditions
 
