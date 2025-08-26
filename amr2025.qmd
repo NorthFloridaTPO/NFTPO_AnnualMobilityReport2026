@@ -1023,6 +1023,27 @@ hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
 
 Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022.
 
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = TRUE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+      )
+}
+df_truck_mt <- read.csv("data/truck_mt.csv", check.names=FALSE, row.names=1) 
+datatable(df_truck_mt,caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/truck/combination-truck-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
+```
+
 ## Vehicle Occupancy
 
 Estimates of the average number of occupants in a vehicle are referred to as the Vehicle Occupancy Factors. This measure can be calculated using person miles traveled divided by vehicle miles traveled. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
