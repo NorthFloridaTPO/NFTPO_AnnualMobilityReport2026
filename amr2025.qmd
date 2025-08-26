@@ -762,7 +762,7 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
   hc_title(text = "Florida Crash Rates by Severity and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2023.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
   hc_xAxis(title = list(text = "Year")) %>%
-  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
   hc_legend(enabled = TRUE) %>%
   hc_add_theme(hc_theme_smpl()) %>%
   hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
@@ -1021,7 +1021,7 @@ hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
 
 ## Truck-Miles Traveled
 
-Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022.
+Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022. The interactive table below shows this trend.
 
 ```{r}
 table_options <- function() {
@@ -1911,7 +1911,7 @@ hchart(df_travel, "column", hcaes(x = County, y = Speed, group = Year)) %>%
   hc_title(text = "Average Peak-Hour Travel Speed by County and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/average-speed#" target="_blank"><b>Florida Department of Transportation Source Book</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
-  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
   hc_legend(enabled = TRUE) %>%
   hc_add_theme(hc_theme_smpl()) %>%
   hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
@@ -2515,7 +2515,7 @@ hchart(df_transit_age, "column", hcaes(x = Agency, y = Age, group = Year)) %>%
   hc_title(text = "Average Transit Vehicle Age by Agency and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://www.transit.dot.gov/ntd/ntd-data?field_data_categories_target_id%5B2516%5D=2516&field_product_type_target_id=All&year=all&combine&page=0" target="_blank"><b>Federal Transit Administration</b></a>') %>%
   hc_xAxis(title = list(text = "Agency")) %>%
-  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
   hc_legend(enabled = TRUE) %>%
   hc_add_theme(hc_theme_smpl()) %>%
   hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
@@ -2877,7 +2877,7 @@ Pavement and bridge condition assessment is vital to the continued maintenance o
 
 Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"}
 
-### National Highway System Bridge Decks
+### National Highway System Bridges (By Deck Area)
 
 ```{r}
 table_options <- function() {
@@ -2963,39 +2963,6 @@ datatable(df_noninter_pave,options = c(table_options(), list(pageLength = 5)),
           )
 ```
 :::
-
-### State of Florida and North Florida Transportation Planning Organization Targets
-
-```{r}
-table_options <- function() {
-  list(
-     rowCallback = DT::JS(
-      "function(row, data, index) {
-        $('td:eq(0)', row).html(index + 1);
-      }"
-    ),
-    deferRender = TRUE,
-    searching = FALSE,
-    scroller = TRUE,
-    lengthChange = FALSE,
-    paginate=FALSE,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-df_targets <- read.csv("data/state_targets.csv", check.names=FALSE, row.names=1) 
-df_targets <- df_targets[-1,]
-colnames(df_targets) <- c('Performance Measure','2023 Target','2025 Target') 
-datatable(df_targets,options = c(table_options(), list(pageLength = 7)), 
-          caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/ho_summary-of-targets-in-fl_230714_v4.pdf" target="_blank"><b>Florida Department of Transportation Forecasting & Trends Office</b></a>'))
-          )
-
-```
 
 ## PM3 System Performance
 
