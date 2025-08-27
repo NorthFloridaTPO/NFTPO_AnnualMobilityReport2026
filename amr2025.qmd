@@ -643,7 +643,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,768 within the region during 2024. The chart below shows the total injury from crashes in the four North Florida counties by year.
+The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,766 within the region during 2024. The chart below shows the total injuries from crashes in the four North Florida counties by year.
 
 ```{r}
 df_tot_inj <- read.csv("data/total_injuries.csv")
@@ -737,6 +737,9 @@ The graph below shows the fatality rate, injury rate, and crash rate per vehicle
 # Filter data for PedFatal > 0
 df_crash_rates <- read.csv("data/crash_rates.csv")
 
+# Make sure Crash Severity is a factor
+df_crash_rates$Severity <- as.factor(df_crash_rates$Severity)
+
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
 
@@ -747,6 +750,10 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
     #stacking = "normal",
     dataLabels = list(
       enabled = TRUE,
+      inside = FALSE,  # Ensure data labels are displayed outside the bars
+      overflow = "allow",  # Allow data labels to overflow the plot area
+      crop = FALSE,  # Disable cropping of data labels outside plot area
+      allowOverlap = TRUE,  # Allow overlapping of data labels if necessary
       formatter = JS("function() {
   return Highcharts.numberFormat(this.y / 1, 1) ;}")
     ) # Enable data labels
@@ -761,8 +768,11 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
   ) %>%
   hc_title(text = "Florida Crash Rates by Severity and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2023.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
-  hc_xAxis(title = list(text = "Year")) %>%
-  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
+  hc_xAxis(
+    categories = unique(df_crash_rates$Severity),
+    title = list(text = "Year")
+    ) %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.points[0].key + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
   hc_legend(enabled = TRUE) %>%
   hc_add_theme(hc_theme_smpl()) %>%
   hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
@@ -884,7 +894,7 @@ hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
     title = list(text = "Numbre of Impaired Driving Crashes"),
     min = 0
     ) %>%
-  hc_title(text = "Total Impaired Fatal Crashes by County and Year") %>%
+  hc_title(text = "Total Impaired Driving Crashes by County and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
@@ -1854,6 +1864,9 @@ The average travel speed should maintain or increase from year to year. The tabl
 # Filter data for PedFatal > 0
 df_travel <- read.csv("data/travel_speeds.csv")
 
+# Make sure County is a factor
+df_travel$County <- as.factor(df_travel$County)
+
 # Define your custom colors
 custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
 
@@ -1910,8 +1923,11 @@ hchart(df_travel, "column", hcaes(x = County, y = Speed, group = Year)) %>%
   ) %>%
   hc_title(text = "Average Peak-Hour Travel Speed by County and Year") %>%
   hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/average-speed#" target="_blank"><b>Florida Department of Transportation Source Book</b></a>') %>%
-  hc_xAxis(title = list(text = "Year")) %>%
-  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
+  hc_xAxis(
+     categories = unique(df_travel$County),
+     title = list(text = "Year")
+     ) %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.points[0].key + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
   hc_legend(enabled = TRUE) %>%
   hc_add_theme(hc_theme_smpl()) %>%
   hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
@@ -2390,7 +2406,7 @@ This section deals with preserving and maintaining bridge and pavement condition
 
 ## Pavement Condition on Primary Freight Corridors
 
-The Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year. :::
+The Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year.
 
 ## Bridge Conditions
 
