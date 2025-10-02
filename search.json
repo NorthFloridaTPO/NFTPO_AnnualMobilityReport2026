@@ -1,5 +1,341 @@
 [
   {
+    "objectID": "amr2025_no_layout.html",
+    "href": "amr2025_no_layout.html",
+    "title": "Annual Mobility Report 2025",
+    "section": "",
+    "text": "Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s Congestion Management Process. The data presented are an essential part of making evidence-based decisions for mobility investments in North Florida and contributing to the Florida Department of Transportation’s Target Zero initiative to have no deaths and serious injuries across the statewide transportation system (Target Zero Link). The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2019-2024 when available."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#population",
+    "href": "amr2025_no_layout.html#population",
+    "title": "Annual Mobility Report 2025",
+    "section": "1.1 Population",
+    "text": "1.1 Population\nNorth Florida’s population grew by 11.7%, or 181,614 people, between 2020 and 2024. This growth outpaced the statewide growth rate of 6.6%. Population growth increases the need for transportation infrastructure and services.\nFrom 2023 to 2024, North Florida’s population growth rate was 2.12%, which outpaced both the statewide growth rate (1.68%) and the national growth rate (2.06%).\nThere is no benchmark for population growth, but increases impact the demand for mobility. The graph below shows the population of the four North Florida Transportation Planning Organization counties by year using the “Countywide, Unincorporated and Incorporated Totals - Census Counts and Intercensal Estimates” data set from Office of Economic and Demographic Research. This data set is originally provided by the Bureau of Economic and Business Research."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#licensed-drivers",
+    "href": "amr2025_no_layout.html#licensed-drivers",
+    "title": "Annual Mobility Report 2025",
+    "section": "1.2 Licensed Drivers",
+    "text": "1.2 Licensed Drivers\nThere are 116,000 (or 9.6%) more drivers in North Florida in 2024 than 2020. About 94% of the eligible driving population (aged 16 and up) in the region is a licensed driver.\nThere is no benchmark for licensed drivers, but increases impact the demand for mobility. The graph below shows the number of licensed drivers in the four North Florida counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#underserved-populations",
+    "href": "amr2025_no_layout.html#underserved-populations",
+    "title": "Annual Mobility Report 2025",
+    "section": "1.3 Underserved Populations",
+    "text": "1.3 Underserved Populations\nTransportation barriers are the third leading cause of missed medical appointments for older adults across the country. Medically Underserved Areas/Populations are designated by the United States Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty rates or a high elderly population. Nearly 370,000 people in North Florida live in a medically underserved area. Although there are no benchmarks for populations in underserved areas, it is desirable to ensure these populations are adequately served.\nAccessing affordable and nutritious food was a challenge for nearly 800,000 people in North Florida in 2019, the most recent year for which statistics are available. The United States Department of Agriculture Economic Research Department identifies populations at risk of food security if they live in low-income areas and do not have a grocery store within one mile in urban areas and 10 miles in rural areas. Though there are no benchmarks for populations living with food uncertainty, it is desirable to ensure these populations are adequately served.\nThe following map highlights areas designated as medically underserved and areas without reliable access to healthy foods in 2019.\nSource: Health Resources and Services Administration Map Tool and U.S. Department of Agriculture Economic Research Service"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#gross-domestic-product",
+    "href": "amr2025_no_layout.html#gross-domestic-product",
+    "title": "Annual Mobility Report 2025",
+    "section": "2.1 Gross Domestic Product",
+    "text": "2.1 Gross Domestic Product\nThe Gross Domestic Product in North Florida continues to show strong growth. Gross Domestic Product is a leading indicator of the amount of travel expected within the region.\nAlthough there are no benchmarks for Gross Domestic Product, increases are preferred and annual monitoring is conducted. The graph below shows the total Gross Domestic Product of the four counties in North Florida by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#employment",
+    "href": "amr2025_no_layout.html#employment",
+    "title": "Annual Mobility Report 2025",
+    "section": "2.2 Employment",
+    "text": "2.2 Employment\nUnemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand. The graph below compares total employment with the unemployment rate of North Florida for every month since 2020."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#tourism",
+    "href": "amr2025_no_layout.html#tourism",
+    "title": "Annual Mobility Report 2025",
+    "section": "2.3 Tourism",
+    "text": "2.3 Tourism\nThe Moving Ahead for Progress in the 21st Century Act (“MAP-21”) transportation legislation included tourism as one of the metropolitan planning factors.\nTourism plays a major role in the state of Florida. According to the North Florida Transportation Planning Organization’s Tourism Mobility Study published in 2022, nearly 26 million visitors traveled to the region in 2022. Attractions include (but are not limited to) the St. Johns River, Jacksonville Beach, Neptune Beach, Atlantic Beach, and Black Rock Beach. Other destinations include wildlife sightseeing, camping, golfing and hiking/biking trails. The City of Jacksonville has more than 80,000 acres of parks. Sporting events are frequented in the area as the region is home to several minor league sports teams and home of the Jacksonville Jaguars of the National Football League. There are many annual events that occur in the North Florida Transportation Planning Organization region which include (but are not limited to) the World Of Nations Celebration, the Gate River Run, The Players Championship, the Jacksonville Jazz Festival, The Kingfish Tournament, and the Florida/Georgia college football game.\nThe goal is to increase the number of multi-modal projects in high tourism areas and provide transportation connectivity to tourists within the region. A summary of 2023 visitors in each county is provided in the table below.\nIncluding visitors from within the region, St. Augustine hosts nearly six million visitors each year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#total-crashes",
+    "href": "amr2025_no_layout.html#total-crashes",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.1 Total Crashes",
+    "text": "3.1 Total Crashes\nTotal crashes in 2024 decreased 3.5% over 2023.\nThe target is to have zero injuries or fatalities resulting from crashes. The graph below shows the total crashes in the four North Florida Transportation Planning Organization counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#fatal-and-serious-injury-crash-map",
+    "href": "amr2025_no_layout.html#fatal-and-serious-injury-crash-map",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.2 Fatal and Serious Injury Crash Map",
+    "text": "3.2 Fatal and Serious Injury Crash Map\nThis map shows the location of fatal crashes and serious injury crashes throughout the North Florida region in 2024.\nSource: Signal Four Analytics"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#fatalities",
+    "href": "amr2025_no_layout.html#fatalities",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.3 Fatalities",
+    "text": "3.3 Fatalities\nThe number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the Florida Department of Highway Safety and Motor Vehicles dashboard, there were 224 fatalities within the region during 2024. The graph below shows the total fatalities in the four North Florida counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#injury-crashes",
+    "href": "amr2025_no_layout.html#injury-crashes",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.4 Injury Crashes",
+    "text": "3.4 Injury Crashes\nThe Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,766 within the region during 2024. The chart below shows the total injury crashes in the four North Florida counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#crash-rates",
+    "href": "amr2025_no_layout.html#crash-rates",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.5 Crash Rates",
+    "text": "3.5 Crash Rates\nThe rate of crashes is the ratio of the total number of crashes to the number of vehicle-miles traveled, expressed in 100 million vehicle-miles traveled. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021.\nThe graph below shows the fatality rate, injury rate, and crash rate per vehicle-miles traveled in North Florida by year. The mileage fatality rate is stated as found in the Florida Department of Highway Safety and Motor Vehicles’ Traffic Crash Facts 2023 Report. The injury rate and crash rate are calculated based on the vehicle-miles traveled for each year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pedestrian-and-bicyclist-fatalities",
+    "href": "amr2025_no_layout.html#pedestrian-and-bicyclist-fatalities",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.6 Pedestrian and Bicyclist Fatalities",
+    "text": "3.6 Pedestrian and Bicyclist Fatalities\nAccording to the Florida Department of Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 65 in 2024. Of those, 53 fatalities were attributed to pedestrians and 12 were attributed to cyclists.\n2024 pedestrian fatalities hit its lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020. The graphs below show the total pedestrian and total bicyclist fatalities in the four North Florida counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#impaired-driving",
+    "href": "amr2025_no_layout.html#impaired-driving",
+    "title": "Annual Mobility Report 2025",
+    "section": "3.7 Impaired Driving",
+    "text": "3.7 Impaired Driving\nImpaired driving was a contributing cause in about 53% of all crash fatalities in 2024.\nThe following reflects the results of drug and/or alcohol tests. Not all involved in crashes are tested for impaired driving.\n\n13% of fatalities involved drivers who tested positive for alcohol only\n22% of fatalities involved drivers who tested positive for drugs\n52% of fatalities involved positive tests of either drugs or alcohol\n\nThe crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities to obtain the figures shown above.\nThe goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the four North Florida counties by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#vehicle-miles-traveled",
+    "href": "amr2025_no_layout.html#vehicle-miles-traveled",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.1 Vehicle-Miles Traveled",
+    "text": "4.1 Vehicle-Miles Traveled\nVehicle-miles traveled considers the Annual Average Daily Traffic and the roadway segment length. There is not a set benchmark or goal for vehicle-miles traveled, but reducing this number can help with congestion issues along the roadway network. About 33 million vehicle-miles traveled was estimated for 2023 along the State Highway System. The graphs below show the total number of daily vehicle-miles traveled throughout the North Florida Transportation Planning Organization on the State Highway System and National Highway System by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#person-miles-traveled",
+    "href": "amr2025_no_layout.html#person-miles-traveled",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.2 Person-Miles Traveled",
+    "text": "4.2 Person-Miles Traveled\nPerson-miles traveled takes total vehicle miles traveled and multiplies it by persons per vehicle. The Florida Department of Transportation Sourcebook was used to obtain the data. According to the data, 54.1 million person-miles traveled was estimated for 2023 on all State Highway System facilities. The graph below shows the person-miles traveled throughout the North Florida Transportation Planning Organization by year, broken down by facility type."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#truck-miles-traveled",
+    "href": "amr2025_no_layout.html#truck-miles-traveled",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.3 Truck-Miles Traveled",
+    "text": "4.3 Truck-Miles Traveled\nTruck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022. The interactive table below shows this trend."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#vehicle-occupancy",
+    "href": "amr2025_no_layout.html#vehicle-occupancy",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.4 Vehicle Occupancy",
+    "text": "4.4 Vehicle Occupancy\nEstimates of the average number of occupants in a vehicle are referred to as the Vehicle Occupancy Factors. This measure can be calculated using person miles traveled divided by vehicle miles traveled. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: Vehicle Occupancy Factor and Transit Occupancy Factor Calculation"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#transit-ridership",
+    "href": "amr2025_no_layout.html#transit-ridership",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.5 Transit Ridership",
+    "text": "4.5 Transit Ridership\nThe Jacksonville Transportation Authority tracks transit ridership metrics. Ridership levels have declined since 2020/21. The Jacksonville Transportation Authority operates and maintains the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2023 ridership data related to these services are shown in table below. On-time performance was tracked only for the St. Johns River Ferry during 2022 and this came in at 98%.\nThe graph below shows the total transit trips taken by riders in the North Florida region by year and transit agency."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#sea-travel-and-freight",
+    "href": "amr2025_no_layout.html#sea-travel-and-freight",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.6 Sea Travel and Freight",
+    "text": "4.6 Sea Travel and Freight\nNo cruise ships called on the Jacksonville Port Authority in 2021. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390,000 passengers. As was the case in 2023, 2024 cruise passenger levels seem to have returned to pre-2020/21 levels.\nThe Jacksonville Port Authority’s terminals shipped fewer tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last five years.\nAlthough there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graphs below show total cruise passengers and tonnes of cargo shipped in the North Florida region by year and port facility.\n\n4.6.1 Cruise Passengers\n\n\n\n\n\n\n\n\n4.6.2 Tons Shipped\n\n\n\n\n\n\n\n\n4.6.3 Automobiles and Containers Shipped\nThe Jacksonville Port Authority is maintaining its position as the top container port in Florida and a top 10 container port in the nation. The Jacksonville Port Authority is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.\nContainer shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last five-year period.\nAlthough there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graph below shows the amount of containers and automobiles shipped through the Jacksonville Port Authority by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#air-travel-and-freight",
+    "href": "amr2025_no_layout.html#air-travel-and-freight",
+    "title": "Annual Mobility Report 2025",
+    "section": "4.7 Air Travel and Freight",
+    "text": "4.7 Air Travel and Freight\n\n4.7.1 Air Passengers\nThe North Florida region has seen a continual climb in the average annual aviation passengers served over the last five years.\nAlthough there is no defined benchmark for aviation passengers served, increases are preferred and annual monitoring is conducted. The graph below shows total air passengers by month and year for the Jacksonville International Airport.\nFiscal years begin October 1 and end September 30 of each year.\n\n\n\n\n\n\n\n\n4.7.2 Air Cargo\nAir cargo shipments grew about 7% in 2021 compared to 2020, but fell 14.7% in 2023 compared to 2022.\nAlthough there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graph below shows total pounds of air cargo shipped per year in the North Florida region since 2019."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#travel-time-reliability",
+    "href": "amr2025_no_layout.html#travel-time-reliability",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.1 Travel Time Reliability",
+    "text": "5.1 Travel Time Reliability\nLevel of Travel Time Reliability is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). Level of Travel Time Reliability assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a Level of Travel Time Reliability of 2.5, you have an 80% chance of arriving within 25 minutes. The larger the value of the Level of Travel Time Reliability, the more variable the travel times are along each corridor.\nThe goal is for 95% of the vehicle miles traveled within a system to be reliable (Level of Travel Time Reliability of 1.50 or less) along a corridor of the Strategic Intermodal System facilities in North Florida.\nThe map below shows the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.\nSource: Level of Travel Time Reliability\n\n5.1.1 LOTTR Map\n\n\n\n\n\n\n\n\n5.1.2 Travel Time Reliability Segment Table\nThe data for Level of Travel Time Reliability was collected through the Florida Department of Transportation Sourcebook. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.\nThe 2024 Level of Travel Time Reliability data takes the maximum value calculated throughout the period.\nMore detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2024 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#truck-travel-time-reliability",
+    "href": "amr2025_no_layout.html#truck-travel-time-reliability",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.2 Truck Travel Time Reliability",
+    "text": "5.2 Truck Travel Time Reliability\nThe Truck Travel Time Reliability index is the ratio of the 95th-percentile travel time and the median travel time. The larger the value of Truck Travel Time Reliability, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a Truck Travel Time Reliability value of 1.2, you have a 95% chance of arriving within 12 minutes.\nThe Truck Travel Time Reliability index should maintain or decline each year. The map below shows the critical (maximum) Truck Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.\nSource: Truck Travel Time Reliability\n\n5.2.1 Truck Travel Time Reliability Map\n\n\n\n\n\n\n\n\n5.2.2 Truck Travel Time Reliability Segment Table\nTruck Travel Time Reliability was obtained from the National Performance Management Research Data Set. The goal is to maintain a Truck Travel Time Reliability ratio of under 2.0. For the North Florida Transportation Planning Organization, the observed Truck Travel Time Reliability was 1.62 in 2024. The table below shows the Truck Travel Time Reliability on major freight corridors within the North Florida Transportation Planning Organization boundary."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#percentage-of-system-heavily-congested",
+    "href": "amr2025_no_layout.html#percentage-of-system-heavily-congested",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.3 Percentage of System Heavily Congested",
+    "text": "5.3 Percentage of System Heavily Congested\nBased on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 5.5 % of the roadway system in 2023. The numbers have been continuing to climb since 2020. The last five years of data (from 2019 – 2023) are 4.6 %, 1.8 %, 2.9 %, 4.2 %, and 5.5 %. The table below summarizes the percentage of heavy congestion for the North Florida region by year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#level-of-service",
+    "href": "amr2025_no_layout.html#level-of-service",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.4 Level of Service",
+    "text": "5.4 Level of Service\nLevel of Service is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The Florida Department of Transportation District Two Level of Service Report was reviewed. The Level of Service can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the Florida Department of Transportation Multimodal Quality/Level of Service Handbook published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.\nSource: Florida Department of Transportation District Two, Jacksonville Urban Office"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#average-commute-time",
+    "href": "amr2025_no_layout.html#average-commute-time",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.5 Average Commute Time",
+    "text": "5.5 Average Commute Time\nThe average commute time data was taken from the United States Census Bureau through the American Community Survey. The 2023 average commute times for each county are displayed in the chart below."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#average-vehicle-delay",
+    "href": "amr2025_no_layout.html#average-vehicle-delay",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.6 Average Vehicle Delay",
+    "text": "5.6 Average Vehicle Delay\nVehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The Florida Department of Transportation Sourcebook shows data provided from HERE technologies, a company that produces field-measured travel speed data, and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida Transportation Planning Organization region, the daily vehicle hours of delay increased from 2020 to 2023, but is still below levels prior to 2020/21. The graphs below show the total vehicle hours of delay throughout the North Florida region on State Highway System and National Highway System facilities by both year and county."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#travel-speeds",
+    "href": "amr2025_no_layout.html#travel-speeds",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.7 Travel Speeds",
+    "text": "5.7 Travel Speeds\nThe Florida Department of Transportation provides average peak-hour travel speed by roadway segment for the State Highway System. This data can be summarized for the region, by county, and by roadway functional classification. The average speed is reported annually in miles per hour and is calculated by averaging the average peak-hour travel speed. Average speeds increased from 2020 to 2021 as a result of lower demand, but the average travel speeds have seen a steady decrease in every county since 2021.\nThe average travel speed should maintain or increase from year to year. The table below shows the trends for each county."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#incident-clearance-times",
+    "href": "amr2025_no_layout.html#incident-clearance-times",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.8 Incident Clearance Times",
+    "text": "5.8 Incident Clearance Times\nThe Florida Department of Transportation, law enforcement, emergency personnel, and the local coroner’s office can be engaged in incidents. During some incidents, the time to open the road to traffic and restore the road to normal traffic conditions can be impacted by the crash conditions that are beyond the control of the Florida Department of Transportation or law enforcement. For example:\n\nAllowing emergency response personnel to respond and treat injured people.\nSpecialized response teams must remove hazardous materials before the road can be opened to traffic.\nThe local coroner must investigate the scene if a fatality occurs. The time to open the road to traffic is typically one hour when a fatality occurs.\nThe Florida Department of Transportation and law enforcement agencies work to open the road to traffic and restore the traffic operations as soon as possible.\n\nThe goal is to maintain or reduce the time to open roads to normal traffic following an event. The following figures show incident clearance performance measures for Florida Department of Transportation District Two in 2024."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#incident-event-types",
+    "href": "amr2025_no_layout.html#incident-event-types",
+    "title": "Annual Mobility Report 2025",
+    "section": "5.9 Incident Event Types",
+    "text": "5.9 Incident Event Types\nOnly 30% of the congestion in our region in 2019 was caused by recurring delays (Source: Regional Integrated Transportation Information System Causes of Congestion Report based on data from 2019). Other sources of delays include holiday peaks, incidents, weather, excess delay at signals, weather, and work zones. Transportation Systems Management and Operations strategies are need to reduce delays caused by non-recurrent factors.\nThe number of lane closures or other events, such as abandoned vehicles, debris in the roadway, road work, or crashes, increased from 2023 to 2024.\nThere is no target for the number of events that occur."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#transit-accessibility",
+    "href": "amr2025_no_layout.html#transit-accessibility",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.1 Transit Accessibility",
+    "text": "6.1 Transit Accessibility\nAccess to transit is a significant need in underserved communities and a focus for the transit agencies within the region. On a regional basis, the availability of populations to transit is low. However, in the urban core of Jacksonville, nearly 89% of the population is within a quarter-mile of a transit stop. The target is to provide transit access within a quarter-mile of a bus stop to 95% of the population.\nPark-n-Ride lots are served by local bus routes and Express bus service to Downtown Jacksonville. There is continual service from most lots. Park-N-Ride lots are designed to enhance travel time, encourage connections to other modes of transportation, and minimize boarding and waiting times.\nSource: JTA Park n’ Ride Locations"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#transit-routes",
+    "href": "amr2025_no_layout.html#transit-routes",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.2 Transit Routes",
+    "text": "6.2 Transit Routes\nThe Northeast Florida Region has multiple public transportation options to move between counties. The routes in the map below are sorted by transportation service provider. This map is not exhaustive of all available routes, but includes routes where data is publicly available as of 2023.\nSource: Florida Transit Data Exchange"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#bicycle-and-pedestrian-level-of-traffic-stress",
+    "href": "amr2025_no_layout.html#bicycle-and-pedestrian-level-of-traffic-stress",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.3 Bicycle and Pedestrian Level of Traffic Stress",
+    "text": "6.3 Bicycle and Pedestrian Level of Traffic Stress\nThe quality of service determines how satisfied travelers are with a particular facility or service. Factors that affect the comfort of pedestrians and bicyclists include pavement condition, heavy vehicle presence, facilities at intersections, etc. The Florida Department of Transportation Multimodal Quality/Level of Service Handbook published in 2023 shows a flow chart for both pedestrian and bicycle level of traffic stress.\nThe maps below show the Level of Traffic Stress for both pedestrians and bicyclists in 2023 for roadway segments throughout the North Florida Transportation Planning Organization region.\nSource: Florida Department of Transportation Level of Service Ped/Bike"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#impacts-of-investments-on-the-natural-environment",
+    "href": "amr2025_no_layout.html#impacts-of-investments-on-the-natural-environment",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.4 Impacts of Investments on the Natural Environment",
+    "text": "6.4 Impacts of Investments on the Natural Environment\nFlorida’s Efficient Transportation Decision Making process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the Metropolitan Planning Organizations in the surrounding area. The Efficient Transportation Decision Making manual can be found on the Florida Department of Transportation webpage. The map below shows transportation projects throughout the region in 2024. More information on the projects can be found at the links.\nSource: Environmental Screening Tool and Florida Department of Transportation 5-Year Work Program Meta Data"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#emissions",
+    "href": "amr2025_no_layout.html#emissions",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.5 Emissions",
+    "text": "6.5 Emissions\nCommon air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. Travel delay reduction can help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.\nThe United States Department of Transportation lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per vehicle mile traveled was taken from the United States Environmental Protection Agency, and this number was applied to the total vehicle miles traveled within the North Florida Transportation Planning Organization region. The amount of emissions per mile is estimated to be:\n\\[ 3.91 × 10^{-4}\\hspace{5 mm} \\frac{metric\\hspace{1 mm}tons\\hspace{1 mm}of\\hspace{1 mm}CO2}{mile}\\]\nThe emissions factors displayed in this report also account for electric vehicles. Emissions costs are expected to rise year-over-year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#trail-connectivity",
+    "href": "amr2025_no_layout.html#trail-connectivity",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.6 Trail Connectivity",
+    "text": "6.6 Trail Connectivity\nThe North Florida Transportation Planning Organization published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019, which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network Trail funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida Transportation Planning Organization network.\nSource: North Florida Transportation Planning Organization Regional Multi-Use Trail Master Plan"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pedestrian-connectivity",
+    "href": "amr2025_no_layout.html#pedestrian-connectivity",
+    "title": "Annual Mobility Report 2025",
+    "section": "6.7 Pedestrian Connectivity",
+    "text": "6.7 Pedestrian Connectivity\nThe Florida Department of Transportation aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the Florida Department of Transportation Roadway Characteristics Inventory, the pedestrian facility coverage over the four counties within the North Florida Transportation Planning Organization area is about 327 miles for 2024. Year-over-year, the total pedestrian coverage within the North Florida Transportation Planning Organization region generally increases, resulting in increased sidewalk mileage. In 2024 there are about 1.4 fewer miles of sidewalk gaps when compared to 2023. This value does not include segments where pedestrian activity is not allowed.\nA map of the Florida Department of Transportation sidewalks and gaps in the region is provided below.\nSource: Florida Department of Transportation Sidewalks and Gaps Transportation and Data Analytics Office"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pavement-condition-on-primary-freight-corridors",
+    "href": "amr2025_no_layout.html#pavement-condition-on-primary-freight-corridors",
+    "title": "Annual Mobility Report 2025",
+    "section": "7.1 Pavement Condition on Primary Freight Corridors",
+    "text": "7.1 Pavement Condition on Primary Freight Corridors\nThe Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#yearly-pavement-conditions",
+    "href": "amr2025_no_layout.html#yearly-pavement-conditions",
+    "title": "Annual Mobility Report 2025",
+    "section": "7.2 Yearly Pavement Conditions",
+    "text": "7.2 Yearly Pavement Conditions\nThe chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#bridge-conditions",
+    "href": "amr2025_no_layout.html#bridge-conditions",
+    "title": "Annual Mobility Report 2025",
+    "section": "7.3 Bridge Conditions",
+    "text": "7.3 Bridge Conditions\nThe Bridge Conditions Map and Bridge Conditions Table are presented below. Federal Highway Administration National Bridge Inventory\n\n7.3.1 Bridge Conditions Map\nThe map below shows the locations and conditions of the bridges within the North Florida Transportation Planning Organization region. According to the Florida Department of Transportation Roadway Characteristics Inventory, there are a total of 1,166 bridges in the region as of 2024.\n\n\n\n\n\n\n\n\n7.3.2 Bridge Conditions Table"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#transit-vehicles",
+    "href": "amr2025_no_layout.html#transit-vehicles",
+    "title": "Annual Mobility Report 2025",
+    "section": "7.4 Transit Vehicles",
+    "text": "7.4 Transit Vehicles\nMaintaining transit vehicles and systems in a State of Good Repair is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.\nThe average age of vehicles operated by the Jacksonville Transportation Authority has increased or maintained since 2019. The average age for the Nassau Council on Aging has also seen an increase from 2019, but the 2023 average is down compared to 2022. The Sunshine Bus Company average decreased starting in 2019, but has been increasing sharply since 2021.\nThe Jacksonville Transportation Authority assumed the operations of Clay Transit in 2018 and those vehicles are shown as part of the Jacksonville Transportation Authority’s fleet beginning in 2018.\nThe service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of four to seven years and between 50,000 and 175,000 miles. The people-mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.\nThe Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and people for 24 years, but is in a State of Good Repair. The Jacksonville Transportation Authority assumed operations of the ferry from the City of Jacksonville in 2016."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#cost-of-congestion",
+    "href": "amr2025_no_layout.html#cost-of-congestion",
+    "title": "Annual Mobility Report 2025",
+    "section": "8.1 Cost of Congestion",
+    "text": "8.1 Cost of Congestion\nThe social costs of congestion include direct costs borne by the traveler in fuel consumption, lost travel time, additional vehicle depreciation and maintenance costs. The external costs included, or those not paid directly by the traveler, are from emissions which result in additional health care costs caused from increase cancer rates, loss of earnings associated with them and the associated negative health impacts. The costs of climate change associated with greenhouse gas emissions from carbon dioxide and oxides of nitrogen are also included. Emissions account for less than 1% of the social costs of congestion.\nThe social cost of congestion increased about 11% in 2022 compared to 2021 and has risen above 2020/21 levels.\nThere is no target for the social cost of congestion but the costs should maintain or decline each year."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#cost-of-crashes",
+    "href": "amr2025_no_layout.html#cost-of-crashes",
+    "title": "Annual Mobility Report 2025",
+    "section": "8.2 Cost of Crashes",
+    "text": "8.2 Cost of Crashes\nThe costs of fatalities, injuries and other crashes burdens the economy in the billions of dollars annually. Lost wages, pain and suffering, medical expenses and property loss are a few of the external costs resulting from crashes.\nThe cost of fatal crashes in the region was $2.42 Billion in 2024, which is a sharp decrease over 2023 and is at the lowest point in the last five years. The cost of serious injury crashes has decreased since 2021 and is also at its lowest point in the last five years.\nThe target is to have zero injuries or fatalities resulting from crashes."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#return-on-investment",
+    "href": "amr2025_no_layout.html#return-on-investment",
+    "title": "Annual Mobility Report 2025",
+    "section": "8.3 Return on Investment",
+    "text": "8.3 Return on Investment\nHighways\nBased on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a $4 economic return. The Florida Department of Transportation has programmed over $1 billion per year for the last three years and programmed $1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.\nMultimodal\nNorth Florida’s ports generate 138,500 jobs in Florida and support nearly $31.1 billion in annual economic output for the region and state. The Jacksonville Aviation Authority’s four-airport system contributes more than $6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generates more than $73.6 million in labor compensation, saves customers more than $23.4 million in transportation costs, and spurs $118.6 million in total added value. The total benefit for transportation investment is $43.8 billion for North Florida.\nThere are no benchmarks for the economic benefit, but a larger benefit is preferred."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pm1-safety-all-public-roads",
+    "href": "amr2025_no_layout.html#pm1-safety-all-public-roads",
+    "title": "Annual Mobility Report 2025",
+    "section": "9.1 PM1 Safety (All Public Roads)",
+    "text": "9.1 PM1 Safety (All Public Roads)\nThe safety performance measures help to assess fatalities and serious injuries on all public roads regardless of ownership or functional classification. As required by 23 CFR 490, the North Florida Transportation Planning Organization adopted targets for number of fatalities, number of serious injuries, fatality rate, serious injury rate and total number of non-motorized fatalities and serious injuries. The chart below displays these figures from 2019-2023 and includes the targets. These targets are all zero and align with the Florida Department of Transportation’s adopted targets."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pm2-bridge-and-pavement",
+    "href": "amr2025_no_layout.html#pm2-bridge-and-pavement",
+    "title": "Annual Mobility Report 2025",
+    "section": "9.2 PM2 Bridge and Pavement",
+    "text": "9.2 PM2 Bridge and Pavement\nPavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida Transportation Planning Organization adopted the Florida Department of Transportation guidance for performance management of pavement and bridges. The charts below display the yearly data for bridge and pavement condition for the North Florida Transportation Planning Organization region, as well as targets.\nSource: Florida Department of Transportation Forecasting and Trends Office\n\n9.2.1 National Highway System Bridges (By Deck Area)\n\n\n\n\n\n\n\n\n9.2.2 Interstate Pavement\n\n\n\n\n\n\n\n\n9.2.3 Non-Interstate Pavement"
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pm3-system-performance",
+    "href": "amr2025_no_layout.html#pm3-system-performance",
+    "title": "Annual Mobility Report 2025",
+    "section": "9.3 PM3 System Performance",
+    "text": "9.3 PM3 System Performance\nThese are measures to assess the performance of the National Highway System, freight movement on the Interstate System, and Congestion Mitigation and Air Quality Improvement Program. The North Florida Transportation Planning Organization has adopted the Florida Department of Transportation performance targets. The chart below displays the results from 2019-2023. Reliability refers to a consistent predictable travel time."
+  },
+  {
+    "objectID": "amr2025_no_layout.html#pm4-transit",
+    "href": "amr2025_no_layout.html#pm4-transit",
+    "title": "Annual Mobility Report 2025",
+    "section": "9.4 PM4 Transit",
+    "text": "9.4 PM4 Transit\n\n9.4.1 Transit Asset Management\nThis objective is vital to maintain the transit system’s efficiency and provide effective operations. The performance measures list in the tables below are based on the Transit Economic Requirements Model.\n\n\n9.4.2 Jacksonville Transportation Authority Transit Asset Management\n\n\n\n\n\n\n\n\n9.4.3 The Sunshine Bus Transit Asset Management\n\n\n\n\n\n\n\n\n9.4.4 Transit Safety\nThe transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The Florida Department of Transportation Sourcebook provides this data for the Jacksonville Transportation Authority. The charts below display the performance measure statistics for the North Florida Transportation Planning Organization region. The first chart shows safety figures and rates from 2020-2024 and the second chart displays the determined targets.\n\n\n9.4.5 Transit Safety Performance Measure Statistics\n\n\n\n\n\n\n\n\n9.4.6 Transit Safety Performance Measure Targets"
+  },
+  {
     "objectID": "amr2025.html",
     "href": "amr2025.html",
     "title": "Annual Mobility Report 2025",
@@ -266,18 +602,25 @@
     "text": "7.1 Pavement Condition on Primary Freight Corridors\nThe Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year."
   },
   {
+    "objectID": "amr2025.html#yearly-pavement-conditions",
+    "href": "amr2025.html#yearly-pavement-conditions",
+    "title": "Annual Mobility Report 2025",
+    "section": "7.2 Yearly Pavement Conditions",
+    "text": "7.2 Yearly Pavement Conditions\nThe chart below shows the year-to-year percentage of both interstate and non-interstate roadways in the region that are in good and poor condition."
+  },
+  {
     "objectID": "amr2025.html#bridge-conditions",
     "href": "amr2025.html#bridge-conditions",
     "title": "Annual Mobility Report 2025",
-    "section": "7.2 Bridge Conditions",
-    "text": "7.2 Bridge Conditions\nThe Bridge Conditions Map and Bridge Conditions Table are presented below. Federal Highway Administration National Bridge Inventory\n\nBridge Conditions MapBridge Conditions Table\n\n\nThe map below shows the locations and conditions of the bridges within the North Florida Transportation Planning Organization region. According to the Florida Department of Transportation Roadway Characteristics Inventory, there are a total of 1,166 bridges in the region as of 2024."
+    "section": "7.3 Bridge Conditions",
+    "text": "7.3 Bridge Conditions\nThe Bridge Conditions Map and Bridge Conditions Table are presented below. Federal Highway Administration National Bridge Inventory\n\nBridge Conditions MapBridge Conditions Table\n\n\nThe map below shows the locations and conditions of the bridges within the North Florida Transportation Planning Organization region. According to the Florida Department of Transportation Roadway Characteristics Inventory, there are a total of 1,166 bridges in the region as of 2024."
   },
   {
     "objectID": "amr2025.html#transit-vehicles",
     "href": "amr2025.html#transit-vehicles",
     "title": "Annual Mobility Report 2025",
-    "section": "7.3 Transit Vehicles",
-    "text": "7.3 Transit Vehicles\nMaintaining transit vehicles and systems in a State of Good Repair is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.\nThe average age of vehicles operated by the Jacksonville Transportation Authority has increased or maintained since 2019. The average age for the Nassau Council on Aging has also seen an increase from 2019, but the 2023 average is down compared to 2022. The Sunshine Bus Company average decreased starting in 2019, but has been increasing sharply since 2021.\nThe Jacksonville Transportation Authority assumed the operations of Clay Transit in 2018 and those vehicles are shown as part of the Jacksonville Transportation Authority’s fleet beginning in 2018.\nThe service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of four to seven years and between 50,000 and 175,000 miles. The people-mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.\nThe Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and people for 24 years, but is in a State of Good Repair. The Jacksonville Transportation Authority assumed operations of the ferry from the City of Jacksonville in 2016."
+    "section": "7.4 Transit Vehicles",
+    "text": "7.4 Transit Vehicles\nMaintaining transit vehicles and systems in a State of Good Repair is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.\nThe average age of vehicles operated by the Jacksonville Transportation Authority has increased or maintained since 2019. The average age for the Nassau Council on Aging has also seen an increase from 2019, but the 2023 average is down compared to 2022. The Sunshine Bus Company average decreased starting in 2019, but has been increasing sharply since 2021.\nThe Jacksonville Transportation Authority assumed the operations of Clay Transit in 2018 and those vehicles are shown as part of the Jacksonville Transportation Authority’s fleet beginning in 2018.\nThe service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of four to seven years and between 50,000 and 175,000 miles. The people-mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.\nThe Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and people for 24 years, but is in a State of Good Repair. The Jacksonville Transportation Authority assumed operations of the ferry from the City of Jacksonville in 2016."
   },
   {
     "objectID": "amr2025.html#cost-of-congestion",
@@ -298,7 +641,7 @@
     "href": "amr2025.html#return-on-investment",
     "title": "Annual Mobility Report 2025",
     "section": "8.3 Return on Investment",
-    "text": "8.3 Return on Investment\nHighways\nBased on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a $4 economic return. The Florida Department of Transportation has programmed over $1 billion per year for the last three years and programmed $1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.\nMultimodal\nNorth Florida’s ports generate 138,500 jobs in Florida and support nearly $31.1 billion in annual economic output for the region and state. The Jacksonville Aviation Authority’s four-airport system contributes more than $6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generates more than $73.6 million in labor compensation, saves customers more than $23.4 million in transportation costs, and spurs $118.6 million in total added value. The total benefit for transportation investment is $40.4 billion for North Florida.\nThere are no benchmarks for the economic benefit, but a larger benefit is preferred."
+    "text": "8.3 Return on Investment\nHighways\nBased on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a $4 economic return. The Florida Department of Transportation has programmed over $1 billion per year for the last three years and programmed $1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.\nMultimodal\nNorth Florida’s ports generate 138,500 jobs in Florida and support nearly $31.1 billion in annual economic output for the region and state. The Jacksonville Aviation Authority’s four-airport system contributes more than $6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generates more than $73.6 million in labor compensation, saves customers more than $23.4 million in transportation costs, and spurs $118.6 million in total added value. The total benefit for transportation investment is $43.8 billion for North Florida.\nThere are no benchmarks for the economic benefit, but a larger benefit is preferred."
   },
   {
     "objectID": "amr2025.html#pm1-safety-all-public-roads",
