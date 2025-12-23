@@ -1,0 +1,3148 @@
+---
+title: "Annual Mobility Report 2026"
+format: 
+  html:
+      toc: true
+      toc_float: true
+      toc-title: Contents
+      toc_location: left
+editor: visual
+number-sections: true
+execute: 
+  echo: false
+  warning: false
+  message: false
+  fig.width: 9
+---
+
+<!-- cd GitHub/NFTPO_AnnualMobilityReport2026 -->
+<!-- quarto publish gh-pages -->
+
+```{r package}
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(knitr)
+library(DT)
+library(highcharter)
+library(sf)
+library(RColorBrewer)
+library(scales)
+library(data.table)
+library(leaflet)
+library(htmltools)
+library(htmlwidgets)
+library(magrittr)
+```
+
+[![](data/NFTPO.png){fig-align="center" width="100%"}](https://northfloridatpo.com/)
+
+Understanding the trends and conditions occurring in North Florida will allow planners and engineers to prioritize resources more effectively as part of the North Florida Transportation Planning Organization’s Congestion Management Process. The data presented are an essential part of making evidence-based decisions for mobility investments in North Florida and contributing to the Florida Department of Transportation's Target Zero initiative to have no deaths and serious injuries across the statewide transportation system [(Target Zero Link)](https://www.fdot.gov/agencyresources/target-zero). The data presented focuses on Clay, Duval, Nassau and St. Johns counties for the years 2020-2025 when available.
+
+# People
+
+## Population
+
+North Florida’s population grew by 11.7%, or 181,614 people, between 2020 and 2024. This growth outpaced the statewide growth rate of 6.6%. Population growth increases the need for transportation infrastructure and services.
+
+From 2023 to 2024, North Florida's population growth rate was 2.12%, which outpaced both the statewide growth rate (1.68%) and the national growth rate (2.06%).
+
+There is no benchmark for population growth, but increases impact the demand for mobility. The graph below shows the population of the four North Florida Transportation Planning Organization counties by year using the "Countywide, Unincorporated and Incorporated Totals - Census Counts and Intercensal Estimates" data set from Office of Economic and Demographic Research. This data set is originally provided by the Bureau of Economic and Business Research.
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_pop <- read.csv("data/population.csv")
+
+# Define your custom colors
+custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+
+      #     formatter = JS("function() {
+      # return Highcharts.numberFormat(this.y / 1e3, 1) + ' K';}")
+
+      formatter = JS("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        return num.toFixed(0) + unit;
+      }")
+
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Population"),
+    min = 0,
+    labels = list(
+      formatter = JS("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.value) / Math.log(1000));
+        var unit = units[order];
+        var num = this.value / Math.pow(1000, order);
+        if (order >= 2){
+          return num.toFixed(2) + unit;
+        }
+        else if (this.value == 0){
+          return this.value;
+        }
+        else{
+          return num.toFixed(0) + unit;
+        }
+
+      }")
+    )
+
+  ) %>%
+  hc_title(text = "Populations by County and Year (BEBR)") %>%
+  hc_subtitle(text = 'Source: <a href="http://www.edr.state.fl.us/Content/population-demographics/data/index-floridaproducts.cfm" target="_blank"><b>Office of Economic and Demographic Research</b></a> or <a href="https://bebr.ufl.edu/population/population-data/" target="_blank"><b>Bureau of Economic and Business Research</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Licensed Drivers
+
+There are 116,000 (or 9.6%) more drivers in North Florida in 2024 than 2020. About 94% of the eligible driving population (aged 16 and up) in the region is a licensed driver.
+
+There is no benchmark for licensed drivers, but increases impact the demand for mobility. The graph below shows the number of licensed drivers in the four North Florida counties by year.
+
+```{r}
+# Load data
+df_drivers <- read.csv("data/drivers.csv")
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+# Create a Highchart object with data labels and stack totals
+hchart(df_drivers, "column", hcaes(x = year, y = drivers, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        return num.toFixed(0) + unit;
+      }"))
+
+      #     formatter = JS("function() {
+      # return Highcharts.numberFormat(this.y / 1e3, 1) + ' aaa';}")
+
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return num.toFixed(0) + unit;
+        }
+      }"))
+
+      #   formatter = JS(paste0("function() {
+      #   return Highcharts.numberFormat(this.total / 1e3, 1) + ' ddd';
+      # }"))
+
+    ),
+    title = list(text = "Licensed Drivers"),
+    min = 0,
+
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+
+  ) %>%
+  hc_title(text = "Licensed Drivers by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/driver-vehiclereports/2024annuallicenseddriverreport.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Underserved Populations
+
+Transportation barriers are the third leading cause of missed medical appointments for older adults across the country. Medically Underserved Areas/Populations are designated by the United States Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty rates or a high elderly population. Nearly 370,000 people in North Florida live in a medically underserved area. Although there are no benchmarks for populations in underserved areas, it is desirable to ensure these populations are adequately served.
+
+Accessing affordable and nutritious food was a challenge for nearly 800,000 people in North Florida in 2019, the most recent year for which statistics are available. The United States Department of Agriculture Economic Research Department identifies populations at risk of food security if they live in low-income areas and do not have a grocery store within one mile in urban areas and 10 miles in rural areas. Though there are no benchmarks for populations living with food uncertainty, it is desirable to ensure these populations are adequately served.
+
+The following map highlights areas designated as medically underserved and areas without reliable access to healthy foods in 2019.
+
+Source: [Health Resources and Services Administration Map Tool](https://data.hrsa.gov/maps/map-tool/?tl=MUA&gt=State&cd=12&dp=ALL){target="_blank"} and [U.S. Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/food-access-research-atlas/go-to-the-atlas){target="_blank"}
+
+```{r}
+# Load your GeoJSON file
+geojson_data <- st_read("data/underserved.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color
+pal <- colorFactor(palette = c("red", "orange", "gray"), 
+                   domain = c("No Data", "Medically Underserved Areas", "Food Deserts"))
+
+labs <- as.list(geojson_data$Metric)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolygons(data = geojson_data, color = ~pal(Metric), popup = ~paste(Metric), opacity = 0.8, label = labs)%>%
+  addLegend("topright", 
+            colors = pal(unique(geojson_data$Metric)), 
+            labels = unique(geojson_data$Metric),
+            opacity = 1.0,
+            title = "Metric") %>% 
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )
+```
+
+# Economy
+
+## Gross Domestic Product
+
+The Gross Domestic Product in North Florida continues to show strong growth. Gross Domestic Product is a leading indicator of the amount of travel expected within the region.
+
+Although there are no benchmarks for Gross Domestic Product, increases are preferred and annual monitoring is conducted. The graph below shows the total Gross Domestic Product of the four counties in North Florida by year.
+
+```{r}
+df_gdp <- read.csv("data/GDP.csv")
+# Create a Highchart object with data labels and stack totals
+hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        return '$' + num.toFixed(0) + unit;
+      }"))
+
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return '$' + num.toFixed(0) + unit;
+        }
+      }"))
+    ),
+    title = list(text = "GDP"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return '$' + num.toFixed(0) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return '$' + num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Gross Domestic Product by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://apps.bea.gov/itable/?ReqID=70&step=1#eyJhcHBpZCI6NzAsInN0ZXBzIjpbMSwyOSwyNSwzMSwyNiwyNywzMF0sImRhdGEiOltbIlRhYmxlSWQiLCI1MzMiXSxbIk1ham9yX0FyZWEiLCI0Il0sWyJTdGF0ZSIsWyIxMjAwMCJdXSxbIkFyZWEiLFsiMTIwMTkiLCIxMjAzMSIsIjEyMDg5IiwiMTIxMDkiXV0sWyJTdGF0aXN0aWMiLFsiLTEiXV0sWyJVbml0X29mX21lYXN1cmUiLCJMZXZlbHMiXSxbIlllYXIiLFsiLTEiXV0sWyJZZWFyQmVnaW4iLCItMSJdLFsiWWVhcl9FbmQiLCItMSJdXX0=" target="_blank"><b>Bureau of Economic Analysis</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+
+```
+
+## Employment
+
+Unemployment rates continue to hover near all-time lows and are strong indicators of a healthy economy and continued growth in travel demand. The graph below compares total employment with the unemployment rate of North Florida for every month since 2020.
+
+```{r}
+
+# Data
+# Load data
+df_emp <- read.csv("data/employment.csv")
+
+# Create highchart
+highchart() %>%
+  hc_title(text = "Employment (Jobs) and Unemployment Rate (%) by Month", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
+  hc_subtitle(text = 'Source: <a href="https://data.bls.gov/timeseries/LAUMT122726000000006?amp%253bdata_tool=XGtable&output_view=data&include_graphs=true" target="_blank"><b>Bureau of Labor Statistics</b></a>', align = 'left', style = list(fontFamily = 'Roboto Condensed')) %>%
+  hc_xAxis(categories = df_emp$Date, crosshair = TRUE) %>%
+  hc_yAxis_multiples(
+    list(title = list(text = "Employment"), opposite = FALSE,     
+         labels = list(
+           formatter = JS("function() {
+            var units = ['', 'K', 'M', 'B'];
+            var order = Math.floor(Math.log(this.value) / Math.log(1000));
+            var unit = units[order];
+            var num = this.value / Math.pow(1000, order);
+            if (order >= 2){
+              return num.toFixed(2) + unit;
+            }
+            else if (this.value == 0){
+              return this.value;
+            }
+            else{
+              return num.toFixed(0) + unit;
+            }
+      
+          }")
+         )),
+    list(title = list(text = "Unemployment Rate"), opposite = TRUE, 
+         labels = list(
+         formatter = JS("function() {
+            return this.value + '%';
+         }"))
+     )
+  ) %>%
+  hc_add_series(name = "Employment", type = "column", data = df_emp$Employment) %>%
+  hc_add_series(name = "Unemployment Rate", type = "spline", data = df_emp$Unemployment.Rate, yAxis = 1) %>%
+  hc_tooltip(shared = TRUE) %>%
+  hc_legend(align = 'left', verticalAlign = 'top', backgroundColor = 'rgba(255,255,255,0.25)') %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Tourism
+
+The Moving Ahead for Progress in the 21st Century Act ("MAP-21") transportation legislation included tourism as one of the metropolitan planning factors.
+
+Tourism plays a major role in the state of Florida. According to the North Florida Transportation Planning Organization’s Tourism Mobility Study published in 2022, nearly 26 million visitors traveled to the region in 2022. Attractions include (but are not limited to) the St. Johns River, Jacksonville Beach, Neptune Beach, Atlantic Beach, and Black Rock Beach. Other destinations include wildlife sightseeing, camping, golfing and hiking/biking trails. The City of Jacksonville has more than 80,000 acres of parks. Sporting events are frequented in the area as the region is home to several minor league sports teams and home of the Jacksonville Jaguars of the National Football League. There are many annual events that occur in the North Florida Transportation Planning Organization region which include (but are not limited to) the World Of Nations Celebration, the Gate River Run, The Players Championship, the Jacksonville Jazz Festival, The Kingfish Tournament, and the Florida/Georgia college football game.
+
+The goal is to increase the number of multi-modal projects in high tourism areas and provide transportation connectivity to tourists within the region. A summary of 2023 visitors in each county is provided in the table below.
+
+Including visitors from within the region, St. Augustine hosts nearly six million visitors each year.
+
+```{r}
+table_options <- function() {
+  list(
+    rowCallback = DT::JS(
+      "function(row, data, index) {
+        $('td:eq(0)', row).html(index + 1);
+      }"
+    ),
+    deferRender = TRUE,
+    searching = FALSE,
+    editable = TRUE,
+    scroller = TRUE,
+    lengthChange = TRUE,
+    paginate = FALSE
+    ,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_lottr <- read.csv("data/tourism.csv", check.names=FALSE, row.names=1) 
+
+datatable(          
+  caption = htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::HTML('Source: <a href="https://www.floridashistoriccoast.com/about/industry-resources/tourism-facts-figures/economic-impact-reports/" target="_blank"><b>St. Augustine Ponte Vedra</b></a> (<a href="https://s3.us-east-1.amazonaws.com/st-augustine-2019/images/SAPVB-doc-images/Floridas-Historic-Coast-July-2021-June-2022-Economic-Impact-Report-LOS-Detail.pdf?v=1669640377"  target="_blank">PDF Link</a>) and <b><a href="https://www.visitjacksonville.com/about/research-information/" target="_blank">Visit Jacksonville</b></a>')),
+df_lottr,options = c(table_options(), list(pageLength = 4)))
+
+```
+
+# Safe and Secure Travel
+
+Crash data was compiled from several sources including the Florida Department of Transportation Safety Office, Signal Four Analytics, and Florida Department of Transportation State Safety Office's historical Crash Analysis Reporting database. According to the Florida Department of Highway Safety and Motor Vehicles, there was a total of 30,427 crashes that occurred across the four North Florida counties in 2024. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
+
+## Total Crashes
+
+Total crashes in 2024 decreased 3.5% over 2023.
+
+The target is to have zero injuries or fatalities resulting from crashes. The graph below shows the total crashes in the four North Florida Transportation Planning Organization counties by year.
+
+```{r}
+df_tot_crash <- read.csv("data/total_crashes.csv")
+
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_tot_crash, "column", hcaes(x = year, y = crashes, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e3, 1) + ' K';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return num.toFixed(1) + unit;
+        }
+      }"))
+      
+      
+    #   formatter = JS(paste0("function() {
+    #   return Highcharts.numberFormat(this.total / 1e3, 1) + ' K';
+    # }"))
+    
+    
+    ),
+    title = list(text = "Number of Crashes"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Total Crashes by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Fatal and Serious Injury Crash Map
+
+This map shows the location of fatal crashes and serious injury crashes throughout the North Florida region in 2024.
+
+Source: [Signal Four Analytics](https://signal4analytics.com/){target="_blank"}
+
+```{r, message=FALSE}
+
+df_fatalserious <- read.csv("data/fatalseriouscrashes.csv")
+
+# Clean coordinates first
+df_fatalserious<- df_fatalserious[
+  !is.na(df_fatalserious$LATITUDE) & 
+  !is.na(df_fatalserious$LONGITUDE) &
+  df_fatalserious$LATITUDE >= -90 & df_fatalserious$LATITUDE <= 90 &
+  df_fatalserious$LONGITUDE >= -180 & df_fatalserious$LONGITUDE <= 180,
+]
+point_data <- data.frame(
+  name = df_fatalserious$S4_CRASH_SEVERITY,
+  lat = df_fatalserious$LATITUDE,
+  lon = df_fatalserious$LONGITUDE
+)
+
+# Continuous palette
+# Create factor and palette
+ord <- factor(df_fatalserious$S4_CRASH_SEVERITY, 
+              levels = c('Fatality', 'Serious Injury'))
+pal <- colorFactor(palette = c('red', 'darkorange'), 
+                   levels = levels(ord), ordered = TRUE)
+labs <- paste("<b>Severity:</b> ", df_fatalserious$S4_CRASH_SEVERITY)
+
+# Create the Leaflet map
+leaflet(data = df_fatalserious) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(~LONGITUDE, ~LATITUDE, # Use the Longitude and Latitude columns
+                   popup = ~paste0("<b>Crash Severity: </b>", S4_CRASH_SEVERITY), 
+                   radius=5,label = lapply(labs, htmltools::HTML), color = ~pal(S4_CRASH_SEVERITY), weight = 1, 
+                   fillOpacity = 0.8) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>% 
+  addEasyButton(
+    easyButton(
+      icon = "fa-map-marker",
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )%>%
+  addLegend(df_fatalserious,
+            position = "bottomright",
+            pal = pal, values = ord,
+            title = "Severity",
+            opacity = 1) 
+
+```
+
+## Fatalities
+
+The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the Florida Department of Highway Safety and Motor Vehicles dashboard, there were 224 fatalities within the region during 2024. The graph below shows the total fatalities in the four North Florida counties by year.
+
+```{r}
+df_tot_fat <- read.csv("data/total_fatalities.csv")
+
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals, 
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return num.toFixed(0) + unit;
+        }
+      }")),
+      # style = list(fontWeight = 'bold', color = 'gray'),
+      
+      labels = list(
+        formatter = JS("function() {
+          var units = ['', 'K', 'M', 'B'];
+          var order = Math.floor(Math.log(this.value) / Math.log(1000));
+          var unit = units[order];
+          var num = this.value / Math.pow(1000, order);
+          if (order >= 2){
+            return num.toFixed(2) + unit;
+          }
+          else if (this.value == 0){
+            return this.value;
+          }
+          else{
+            return num.toFixed(0) + unit;
+          }
+    
+        }"
+        )
+      )
+    ),
+    title = list(text = "Number of Fatalities"),
+    min = 0
+    ) %>%
+  hc_title(text = "Total Fatalities by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Injury Crashes
+
+The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,766 within the region during 2024. The chart below shows the total injuries from crashes in the four North Florida counties by year.
+
+```{r}
+df_tot_inj <- read.csv("data/total_injuries.csv")
+
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_tot_inj, "column", hcaes(x = year, y = crashes, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.y;
+        }
+        else {
+          return num.toFixed(1) + unit;
+        }
+      }"))
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals, 
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return num.toFixed(1) + unit;
+        }
+      }"))
+    ),
+    title = list(text = "Number of Injuries"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+    }")
+    )
+    ) %>%
+  hc_title(text = "Total Injuries from Crashes by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Crash Rates
+
+The rate of crashes is the ratio of the total number of crashes to the number of vehicle-miles traveled, expressed in 100 million vehicle-miles traveled. In 2023, the rate of fatalities was 1.41, the rate of injuries was 105.5, and the rate of all crashes was 165.2. All rates have significantly decreased since 2021.
+
+The graph below shows the fatality rate, injury rate, and crash rate per vehicle-miles traveled in North Florida by year. The mileage fatality rate is stated as found in the Florida Department of Highway Safety and Motor Vehicles' Traffic Crash Facts 2023 Report. The injury rate and crash rate are calculated based on the vehicle-miles traveled for each year.
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_crash_rates <- read.csv("data/crash_rates.csv")
+
+# Make sure Crash Severity is a factor
+df_crash_rates$Severity <- as.factor(df_crash_rates$Severity)
+
+# Define your custom colors
+custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      inside = FALSE,  # Ensure data labels are displayed outside the bars
+      overflow = "allow",  # Allow data labels to overflow the plot area
+      crop = FALSE,  # Disable cropping of data labels outside plot area
+      allowOverlap = TRUE,  # Allow overlapping of data labels if necessary
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Rate (Per 100 MVM of Travel)"),
+    min = 0
+  ) %>%
+  hc_title(text = "Florida Crash Rates by Severity and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2023.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
+  hc_xAxis(
+    categories = unique(df_crash_rates$Severity),
+    title = list(text = "Year")
+    ) %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.points[0].key + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Pedestrian and Bicyclist Fatalities
+
+According to the Florida Department of Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 65 in 2024. Of those, 53 fatalities were attributed to pedestrians and 12 were attributed to cyclists.
+
+2024 pedestrian fatalities hit its lowest mark since 2020. Bicyclist fatalities have been climbing since hitting a low point in 2022, but have not returned to the peak of 2020. The graphs below show the total pedestrian and total bicyclist fatalities in the four North Florida counties by year.
+
+::: {layout="[ [1,1] ]"}
+```{r}
+df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_19_23.csv")
+
+# Calculate year totals
+df_totals <- df_bike_ped %>%
+  group_by(Year) %>%
+  summarise(Total_PedFatal = mean(PedTotals),Total_BikeFatal = mean(BikeTotals),
+            Ped_PC = mean(Ped_PC),Bike_PC = mean(Bike_PC))
+
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Filter data for PedFatal > 0
+df_filtered <- df_bike_ped[df_bike_ped$PedFatal > 0, ]
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_filtered, "column", hcaes(x = Year, y = PedFatal, group = County)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(enabled = TRUE, format = '{point.y}') # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Pedestrian Fatalities"),
+    min = 0
+  ) %>%
+  hc_title(text = "Pedestrian Fatalities by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_filtered <- df_bike_ped[df_bike_ped$BikeFatal > 0, ]
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_filtered, "column", hcaes(x = Year, y = BikeFatal, group = County)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(enabled = TRUE, format = '{point.y}') # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Bicyclist Fatalities"),
+    min = 0,
+    max = 20
+  ) %>%
+  hc_title(text = "Bicyclist Fatalities by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+:::
+
+## Impaired Driving
+
+Impaired driving was a contributing cause in about 53% of all crash fatalities in 2024.
+
+The following reflects the results of drug and/or alcohol tests. Not all involved in crashes are tested for impaired driving.
+
+-   13% of fatalities involved drivers who tested positive for alcohol only
+-   22% of fatalities involved drivers who tested positive for drugs
+-   52% of fatalities involved positive tests of either drugs or alcohol
+
+The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities to obtain the figures shown above.
+
+The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the four North Florida counties by year.
+
+```{r}
+df_tot_imp <- read.csv("data/total_impaired.csv")
+
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_tot_imp, "column", hcaes(x = year, y = crashes, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE
+    ), 
+    title = list(text = "Numbre of Impaired Driving Crashes"),
+    min = 0
+    ) %>%
+  hc_title(text = "Total Impaired Driving Crashes by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+# Quantity of Travel
+
+## Vehicle-Miles Traveled
+
+Vehicle-miles traveled considers the Annual Average Daily Traffic and the roadway segment length. There is not a set benchmark or goal for vehicle-miles traveled, but reducing this number can help with congestion issues along the roadway network. About 33 million vehicle-miles traveled was estimated for 2023 along the State Highway System. The graphs below show the total number of daily vehicle-miles traveled throughout the North Florida Transportation Planning Organization on the State Highway System and National Highway System by year.
+
+::: {layout="[ [1,1] ]"}
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_vmt <- read.csv("data/vmt.csv")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_vmt, "column", hcaes(x = Year, y = TotalSHSVMT, group = County)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, 
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Vehicle-Miles Traveled"),
+    min = 0
+  ) %>%
+  hc_title(text = "State Highway System Vehicle-Miles Traveled by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/vehicle-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook Vehicle-Miles Traveled</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_vmt, "column", hcaes(x = Year, y = TotalNHSVMT, group = County)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Vehicle-Miles Traveled"),
+    min = 0,
+    max = 40000000
+  ) %>%
+  hc_title(text = "National Highway System Vehicle-Miles Traveled by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/vehicle-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook Vehicle-Miles Traveled</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+
+```
+:::
+
+## Person-Miles Traveled
+
+Person-miles traveled takes total vehicle miles traveled and multiplies it by persons per vehicle. The Florida Department of Transportation Sourcebook was used to obtain the data. According to the data, 54.1 million person-miles traveled was estimated for 2023 on all State Highway System facilities. The graph below shows the person-miles traveled throughout the North Florida Transportation Planning Organization by year, broken down by facility type.
+
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_pmt <- read.csv("data/pmt.csv")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Person-Miles Traveled"),
+    min = 0
+  ) %>%
+  hc_title(text = "State Highway System Person-Miles Traveled by Facility Type and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/person-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook Person-Miles Traveled</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Truck-Miles Traveled
+
+Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2023 was 1.28 million miles, down from 1.35 million in 2022. The total daily truck-miles traveled on the National Highway System in 2023 was 1.21 million miles, down from 1.28 million in 2022. The interactive table below shows this trend.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = TRUE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+      )
+}
+df_truck_mt <- read.csv("data/truck_mt.csv", check.names=FALSE, row.names=1) 
+datatable(df_truck_mt,caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/truck/combination-truck-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
+```
+
+## Vehicle Occupancy
+
+Estimates of the average number of occupants in a vehicle are referred to as the Vehicle Occupancy Factors. This measure can be calculated using person miles traveled divided by vehicle miles traveled. For 2023 data, the vehicle occupancy was calculated as 1.64. Crash data taken for the Crash Analysis Reporting System is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
+
+## Transit Ridership
+
+The Jacksonville Transportation Authority tracks transit ridership metrics. Ridership levels have declined since 2020/21. The Jacksonville Transportation Authority operates and maintains the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. The 2023 ridership data related to these services are shown in table below. On-time performance was tracked only for the St. Johns River Ferry during 2022 and this came in at 98%.
+
+The graph below shows the total transit trips taken by riders in the North Florida region by year and transit agency.
+
+```{r}
+df_transit <- read.csv("data/transit_ridership.csv")
+
+df_transit$Agency <- factor(df_transit$Agency, levels = rev(sort(unique(df_transit$Agency))))
+colors <- c("#C8ACD6","#994F8E","#594F89")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_transit, "column", hcaes(x = Year, y = Totals, group = Agency)) %>%
+  hc_colors(colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Ridership Count"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(1) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Transit Ridership by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/transit/passenger-trips#" target="_blank"><b>Florida Department of Transportation Sourcebook Transit Ridership</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Sea Travel and Freight
+
+No cruise ships called on the Jacksonville Port Authority in 2021. Carnival Cruise Lines returned to service and made its first vessel call in March 2022. The services peaked in 2016 at 390,000 passengers. As was the case in 2023, 2024 cruise passenger levels seem to have returned to pre-2020/21 levels.
+
+The Jacksonville Port Authority's terminals shipped fewer tons of cargo in fiscal year 2024 than 2023. The Port of Fernandina shipping is slightly more in 2024. Overall shipping tonnage has remained steady over the last five years.
+
+Although there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graphs below show total cruise passengers and tonnes of cargo shipped in the North Florida region by year and port facility.
+
+::: {layout="[ [1,1] ]"}
+### Cruise Passengers
+
+```{r}
+df_cruise <- read.csv("data/cruise_passengers.csv")
+
+custom_colors <- c("#3ABEF9")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_cruise, "column", hcaes(x = year, y = passengers)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e3, 1) + 'K';}")
+    ))) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = FALSE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')),
+    title = list(text = "Cruise Passengers"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Cruise Passengers by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.jaxport.com/media/statistics/" target="_blank"><b>Jacksonville Port Authority</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+### Tons Shipped
+
+```{r}
+df_ton_ship <- read.csv("data/tons_shipped.csv")
+
+df_ton_ship$port <- factor(df_ton_ship$port, levels = rev(sort(unique(df_ton_ship$port))))
+colors <- c("#C8ACD6","#694F8E")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
+  hc_colors(colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Tons Shipped"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(1) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Tonnage Shipped by Port and Year (U.S. Measure)") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.jaxport.com/media/statistics/" target="_blank"><b>Jacksonville Port Authority</b></a> and <a href="https://www.portoffernandina.org/_files/ugd/e5fb15_182f6f5831d34269a9dedf674412ea63.pdf" target="_blank"><b>Ocean Highway and Port Authority</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+:::
+
+### Automobiles and Containers Shipped
+
+The Jacksonville Port Authority is maintaining its position as the top container port in Florida and a top 10 container port in the nation. The Jacksonville Port Authority is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.
+
+Container shipments at the Port of Fernandina peaked in 2021 but have risen slightly in 2024 compared to 2023. Automobile shipments in 2024 were at their second-lowest point in the last five-year period.
+
+Although there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graph below shows the amount of containers and automobiles shipped through the Jacksonville Port Authority by year.
+
+```{r}
+# Load data
+df_item_ship <- read.csv("data/autos_containers_shipped.csv")
+
+# Define your custom colors
+custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_item_ship, "column", hcaes(x = item, y = count, group = year)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      
+
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.y) / Math.log(1000));
+      var unit = units[order];
+      var num = this.y / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.y == 0){
+        return this.y;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+      
+      
+          
+  #     formatter = JS("function() {
+  # return Highcharts.numberFormat(this.y / 1e6, 1) + ' Mil' ;}")
+  # 
+  
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    title = list(text = "Items Shipped"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Containers and Automobiles Shipped by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.jaxport.com/media/statistics/" target="_blank"><b>Jacksonville Port Authority</b></a>') %>%
+  hc_xAxis(title = list(text = "Item")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Air Travel and Freight
+
+### Air Passengers
+
+The North Florida region has seen a continual climb in the average annual aviation passengers served over the last five years.
+
+Although there is no defined benchmark for aviation passengers served, increases are preferred and annual monitoring is conducted. The graph below shows total air passengers by month and year for the Jacksonville International Airport.
+
+Fiscal years begin October 1 and end September 30 of each year.
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_air_pass <- read.csv("data/air_passengers.csv")
+
+# Define your custom colors
+colors <- c("#C8ACD6","#694F8E")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_air_pass, "column", hcaes(x = Month, y = Count, group = Type)) %>%
+  hc_colors(colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = FALSE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = FALSE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Passengers"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Air Passengers by Month and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flyjacksonville.com/PDFs/enplanements.pdf" target="_blank"><b>Jacksonville Aviation Authority</b></a>') %>%
+  hc_xAxis(title = list(text = "Month")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+### Air Cargo
+
+Air cargo shipments grew about 7% in 2021 compared to 2020, but fell 14.7% in 2023 compared to 2022.
+
+Although there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graph below shows total pounds of air cargo shipped per year in the North Florida region since 2019.
+
+```{r}
+df_cargo <- read.csv("data/air_cargo.csv")
+
+custom_colors <- c("#3ABEF9")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_cargo, "column", hcaes(x = year, y = weight)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    ))) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = FALSE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')),
+    title = list(text = "Air Cargo Weight (Pounds)"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(0) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Air Cargo Weight (lbs) by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.faa.gov/sites/faa.gov/files/2023-08/CY2022-All-Cargo-airports.pdf" target="_blank"><b>Federal Aviation Administration</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+# Quality of Travel
+
+## Travel Time Reliability
+
+Level of Travel Time Reliability is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). Level of Travel Time Reliability assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a Level of Travel Time Reliability of 2.5, you have an 80% chance of arriving within 25 minutes. The larger the value of the Level of Travel Time Reliability, the more variable the travel times are along each corridor.
+
+The goal is for 95% of the vehicle miles traveled within a system to be reliable (Level of Travel Time Reliability of 1.50 or less) along a corridor of the Strategic Intermodal System facilities in North Florida.
+
+The map below shows the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
+
+Source: [Level of Travel Time Reliability](https://npmrds.ritis.org/){target="_blank"}
+
+::: {.panel-tabset .nav-pills}
+### LOTTR Map
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/Florida_TMC_LOTTR2024.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color generating function
+generateColor <- function(value) {
+  ifelse(value < 1.15, 'darkgreen',
+         ifelse(value < 1.3, 'lightgreen',
+                ifelse(value < 1.4, 'yellow',
+                       ifelse(value < 1.6, 'orange',
+                              ifelse(value < 2, 'red', 'black')))))
+}
+
+# Apply the custom color function to your data
+geojson_data$colors <- sapply(geojson_data$lottr, generateColor)
+
+# Create hover-over labels 
+labs <- paste0("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", geojson_data$lottr)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~colors, popup = ~paste("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", lottr), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>%
+  addLegend(
+    position = "bottomright",
+    colors = c('darkgreen', 'lightgreen', 'yellow', 'orange', 'red', 'black'),
+    labels = c('< 1.1', '1.1 - 1.2', '1.2 - 1.3', '1.3 - 1.6', '1.6 - 2', '> 2'),
+    title = "Level of Travel<br>Time Reliability<br>(Max)"
+  )
+```
+
+### Travel Time Reliability Segment Table
+
+The data for Level of Travel Time Reliability was collected through the Florida Department of Transportation Sourcebook. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
+
+The 2024 Level of Travel Time Reliability data takes the maximum value calculated throughout the period.
+
+More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2024 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    editable = TRUE,
+    scroller = TRUE,
+    lengthChange = FALSE, 
+    paginate = FALSE
+    ,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
+datatable(df_lottr,caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://fdotsourcebook.com" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 11)))
+
+```
+:::
+
+## Truck Travel Time Reliability
+
+The Truck Travel Time Reliability index is the ratio of the 95th-percentile travel time and the median travel time. The larger the value of Truck Travel Time Reliability, the more variable the travel times are along each corridor. For a trip lasting 10 minutes with a Truck Travel Time Reliability value of 1.2, you have a 95% chance of arriving within 12 minutes.
+
+The Truck Travel Time Reliability index should maintain or decline each year. The map below shows the critical (maximum) Truck Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2024.
+
+Source: [Truck Travel Time Reliability](https://npmrds.ritis.org/){target="_blank"}
+
+::: {.panel-tabset .nav-pills}
+### Truck Travel Time Reliability Map
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/Florida_TMC_TTTR2024.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color generating function
+generateColor <- function(value) {
+  ifelse(value < 1.15, 'darkgreen',
+         ifelse(value < 1.3, 'lightgreen',
+                ifelse(value < 1.4, 'yellow',
+                       ifelse(value < 1.6, 'orange',
+                              ifelse(value < 2, 'red', 'black')))))
+}
+
+# Apply the custom color function to your data
+geojson_data$colors <- sapply(geojson_data$tttr, generateColor)
+
+# Create hover-over labels 
+labs <- paste0("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>TTTR: </b>", geojson_data$tttr)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~colors,popup = ~paste("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>TTTR: </b>", tttr), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>%
+  addLegend(
+    position = "bottomright",
+    colors = c('darkgreen', 'lightgreen', 'yellow', 'orange', 'red', 'black'),
+    labels = c('< 1.1', '1.1 - 1.2', '1.2 - 1.3', '1.3 - 1.6', '1.6 - 2', '> 2'),
+    title = "Truck Travel<br>Time Reliability<br>(Max)"
+  )
+```
+
+### Truck Travel Time Reliability Segment Table
+
+Truck Travel Time Reliability was obtained from the National Performance Management Research Data Set. The goal is to maintain a Truck Travel Time Reliability ratio of under 2.0. For the North Florida Transportation Planning Organization, the observed Truck Travel Time Reliability was 1.62 in 2024. The table below shows the Truck Travel Time Reliability on major freight corridors within the North Florida Transportation Planning Organization boundary.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = TRUE,
+    scroller = TRUE,
+    lengthChange = TRUE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+      )
+}
+df_tttr <- read.csv("data/TTTR.csv", check.names=FALSE, row.names=1) 
+datatable(df_tttr,caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 14)))
+```
+:::
+
+## Percentage of System Heavily Congested
+
+Based on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 5.5 % of the roadway system in 2023. The numbers have been continuing to climb since 2020. The last five years of data (from 2019 – 2023) are 4.6 %, 1.8 %, 2.9 %, 4.2 %, and 5.5 %. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = TRUE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+      )
+}
+df_percentage_heavy_congested <- read.csv("data/percent_heavily_congested.csv", check.names=FALSE, row.names=1) 
+datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/miles-by-congestion-type#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
+```
+
+
+## Level of Service
+
+Level of Service is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The Florida Department of Transportation District Two Level of Service Report was reviewed. The Level of Service can be evaluated for daily, peak hour or peak period. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.
+
+Source: [Florida Department of Transportation District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrgateway.com/){target="_blank"}
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/MajorRoads_LOS_2023.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326) %>%
+  filter(COUNTY %in% c('Duval', 'Nassau', 'St. Johns', 'Clay'))
+geojson_data <- geojson_data[!is.na(geojson_data$LOS_Peak_Hour_2023), ]
+geojson_data <- geojson_data[geojson_data$LOS_Peak_Hour_2023 != "-", ]
+geojson_data <- geojson_data[order(geojson_data$LOS_Peak_Hour_2023), ]
+
+
+geojson_data$LOS_Peak_Hour_2023 <- factor(geojson_data$LOS_Peak_Hour_2023, levels = unique(geojson_data$LOS_Peak_Hour_2023))
+
+
+# Create a custom color
+pal <- colorFactor(palette = c('darkgreen','forestgreen',"orange", 'red','darkred'), 
+                   domain = c("B", "C", "D","E","F"))
+
+# Apply the custom color function to your data
+geojson_data$colors <- sapply(geojson_data$LOS_Peak_Hour_2023, pal)
+
+# Create hover-over labels 
+labs <- paste0("<b>Facility: </b>", geojson_data$Facility, "<br><b>County: </b>", geojson_data$COUNTY, "<br><b>LOS Peak Hour: </b>", geojson_data$LOS_Peak_H)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~colors,popup = ~paste("<b>Facility: </b>", geojson_data$Facility, "<br><b>County: </b>", geojson_data$COUNTY, "<br><b>LOS Peak Hour: </b>", LOS_Peak_Hour_2023), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>% 
+  addLegend("topright", 
+            colors = pal(unique(geojson_data$LOS_Peak_Hour_2023)), 
+            labels = unique(geojson_data$LOS_Peak_Hour_2023),
+            opacity = 1.0,
+            title = "LOS Peak Hour 2023")
+```
+
+## Average Commute Time
+
+The average commute time data was taken from the United States Census Bureau through the American Community Survey. The 2023 average commute times for each county are displayed in the chart below.
+
+```{r}
+# Load data
+df_commute <- read.csv("data/commute_times.csv")
+
+# Define your custom colors
+custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_commute, "column", hcaes(x = County, y = Mins)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    title = list(text = "Minutes"),
+    min = 0
+  ) %>%
+  hc_title(text = "2023 Average Commute Times by County") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.census.gov/acs/www/data/data-tables-and-tools/geographic-comparison-tables/" target="_blank"><b>US Census Bureau ACS</b></a>') %>%
+  hc_yAxis(title = list(text = "Average Commute Time (Mins)")) %>%
+  hc_xAxis(title = list(text = "County")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y} Mins</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Average Vehicle Delay
+
+Vehicle delay is typically reported annually in vehicle-hours per day and is calculated by the sum of the daily delay. The Florida Department of Transportation Sourcebook shows data provided from HERE technologies, a company that produces field-measured travel speed data, and can be summarized for the region, by county, and by functional classification of the roadway. For all highway systems in the North Florida Transportation Planning Organization region, the daily vehicle hours of delay increased from 2020 to 2023, but is still below levels prior to 2020/21. The graphs below show the total vehicle hours of delay throughout the North Florida region on State Highway System and National Highway System facilities by both year and county.
+
+::: {layout="[ [1,1] ]"}
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_vhd <- read.csv("data/vehicle_delay.csv")
+# Create a Highchart object with data labels and stack totals
+hchart(df_vhd, "column", hcaes(x = year, y = SHS_year, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Vehicle Hours of Delay"),
+    min = 0, 
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(1) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+    }")
+    )
+  ) %>%
+  hc_title(text = "State Highway System Vehicle Hours of Delay by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/delay#" target="_blank"><b>Florida Department of Transportation Sourcebook Vehicle Hours of Delay</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+
+```
+
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_vhd, "column", hcaes(x = year, y = NHS_year, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Vehicle Hours of Delay"),
+    min = 0, 
+    max = 10000000,
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return num.toFixed(1) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "National Highway System Vehicle Hours of Delay by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/delay#" target="_blank"><b>Florida Department of Transportation Sourcebook Vehicle Hours of Delay</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+
+```
+:::
+
+## Travel Speeds
+
+The Florida Department of Transportation provides average peak-hour travel speed by roadway segment for the State Highway System. This data can be summarized for the region, by county, and by roadway functional classification. The average speed is reported annually in miles per hour and is calculated by averaging the average peak-hour travel speed. Average speeds increased from 2020 to 2021 as a result of lower demand, but the average travel speeds have seen a steady decrease in every county since 2021.
+
+The average travel speed should maintain or increase from year to year. The table below shows the trends for each county.
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_travel <- read.csv("data/travel_speeds.csv")
+
+# Make sure County is a factor
+df_travel$County <- as.factor(df_travel$County)
+
+# Define your custom colors
+custom_colors <- c("#D6EFD8","#80AF81","#508D4E", "#1f693c", "#1D5319")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_travel, "column", hcaes(x = County, y = Speed, group = Year)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+
+      #     formatter = JS("function() {
+      # return Highcharts.numberFormat(this.y / 1e3, 1) + ' K';}")
+
+      formatter = JS("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return num.toFixed(2) + unit;
+        }
+        return num.toFixed(0) + unit;
+      }")
+
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Speed"),
+    min = 0,
+    labels = list(
+      formatter = JS("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.value) / Math.log(1000));
+        var unit = units[order];
+        var num = this.value / Math.pow(1000, order);
+        if (order >= 2){
+          return num.toFixed(2) + unit;
+        }
+        else if (this.value == 0){
+          return this.value;
+        }
+        else{
+          return num.toFixed(0) + unit;
+        }
+
+      }")
+    )
+
+  ) %>%
+  hc_title(text = "Average Peak-Hour Travel Speed by County and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/auto/average-speed#" target="_blank"><b>Florida Department of Transportation Source Book</b></a>') %>%
+  hc_xAxis(
+     categories = unique(df_travel$County),
+     title = list(text = "Year")
+     ) %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.points[0].key + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Incident Clearance Times
+
+The Florida Department of Transportation, law enforcement, emergency personnel, and the local coroner’s office can be engaged in incidents. During some incidents, the time to open the road to traffic and restore the road to normal traffic conditions can be impacted by the crash conditions that are beyond the control of the Florida Department of Transportation or law enforcement. For example:
+
+-   Allowing emergency response personnel to respond and treat injured people.
+-   Specialized response teams must remove hazardous materials before the road can be opened to traffic.
+-   The local coroner must investigate the scene if a fatality occurs. The time to open the road to traffic is typically one hour when a fatality occurs.
+-   The Florida Department of Transportation and law enforcement agencies work to open the road to traffic and restore the traffic operations as soon as possible.
+
+The goal is to maintain or reduce the time to open roads to normal traffic following an event. The following figures show incident clearance performance measures for Florida Department of Transportation District Two in 2024.
+
+::: {layout="[ [1,1] ]"}
+```{r}
+df_inc_all <- read.csv("data/incident_clearance_all.csv")
+
+# Define your custom colors
+custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_inc_all, "bar", hcaes(x = FY24_Qtr, y = Mins, group = Category)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(bar = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray'
+      ),
+      title = list(text = "Minutes"),
+      min = 0
+    )) %>%
+  hc_title(text = "2024 Incident Clearance Duration") %>%
+  hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>') %>%
+  hc_xAxis(title = list(text = "Quarter")) %>%
+  hc_yAxis(title = list(text = "Duration (Mins)")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y} Mins</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+```{r}
+# Load data
+df_duration <- read.csv("data/road_duration_all.csv")
+
+df_duration <- df_duration %>%
+  filter(Category == "Roadway Clearance Duration")
+
+# Define your custom colors
+custom_colors <- c("#DEF9C4","#9CDBA6","#50B498","#468585")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY24_Qtr)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1, 1) ;}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    title = list(text = "Minutes"),
+    min = 0
+  ) %>%
+  hc_title(text = "2024 Open Roads and Roadway Clearance Durations by Quarter") %>%
+  hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>') %>%
+  hc_yAxis(title = list(text = "Duration (Mins)")) %>%
+  hc_xAxis(title = list(text = "Duration Type")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y} Mins</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+:::
+
+## Incident Event Types
+
+Only 30% of the congestion in our region in 2019 was caused by recurring delays (Source: Regional Integrated Transportation Information System Causes of Congestion Report based on data from 2019). Other sources of delays include holiday peaks, incidents, weather, excess delay at signals, weather, and work zones. Transportation Systems Management and Operations strategies are need to reduce delays caused by non-recurrent factors.
+
+The number of lane closures or other events, such as abandoned vehicles, debris in the roadway, road work, or crashes, increased from 2023 to 2024.
+
+There is no target for the number of events that occur.
+
+```{r}
+df_events <- read.csv("data/event_types_all.csv")
+
+hchart(df_events, "pie", hcaes(x = Event, y = Total)) %>%
+  
+  hc_title(text = "2024 Incident Event Totals", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
+  hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>', align = 'left', style = list(fontFamily = 'Roboto Condensed')) %>%
+  
+  hc_tooltip(pointFormat = '{point.name}: <b>{point.y}</b>') %>%
+  hc_plotOptions(
+    pie = list(
+      allowPointSelect = TRUE,
+      cursor = 'pointer',
+      dataLabels = list(
+        enabled = TRUE, format = '{point.name} {point.percentage:.0f}%'
+      ),
+      dataLabels = list(
+        list(enabled = TRUE, format = '{point.name}'),
+        list(enabled = TRUE, format = '{point.percentage:.0f}%', style = list(fontSize = '0.9em'))
+      ),
+      showInLegend = TRUE
+    )
+  )
+
+```
+
+# Access and Sustainability
+
+## Transit Accessibility
+
+Access to transit is a significant need in underserved communities and a focus for the transit agencies within the region. On a regional basis, the availability of populations to transit is low. However, in the urban core of Jacksonville, nearly 89% of the population is within a quarter-mile of a transit stop. The target is to provide transit access within a quarter-mile of a bus stop to 95% of the population.
+
+Park-n-Ride lots are served by local bus routes and Express bus service to Downtown Jacksonville. There is continual service from most lots. Park-N-Ride lots are designed to enhance travel time, encourage connections to other modes of transportation, and minimize boarding and waiting times.
+
+Source: [JTA Park n' Ride Locations](https://www.jtafla.com/ride-jta/how-to-ride/park-n-ride/){target="_blank"}
+
+```{r, message=FALSE}
+
+df_pnr <- read.csv("data/ParkNRide.csv")
+point_data <- data.frame(
+  name = df_pnr$Location_Name,
+  lat = df_pnr$Latitude,
+  lon = df_pnr$Longitude
+)
+
+# Continuous palette
+pal <- colorFactor(palette = "viridis", domain = df_pnr$Location_Name)
+labs <- as.list(df_pnr$Location_Name)
+
+# Create the Leaflet map
+leaflet(data = df_pnr) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(~Longitude, ~Latitude, radius = 5800,
+             color = "white",  opacity = 0.25,
+             fillColor = "#0078FF", fillOpacity = 0.25) %>%  # Add the default OpenStreetMap tiles
+  addCircleMarkers(~Longitude, ~Latitude, # Use the Longitude and Latitude columns
+                   popup = ~paste(Location_Name), # Replace 'name' with the column name you want to display in the popup
+                   radius = 5, label = labs, color = ~pal(Location_Name), weight = 1, 
+                   fillOpacity = 0.8) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>%
+  addLegend(df_pnr,
+            position = "bottomright",
+            pal = pal, values = ~Location_Name,
+            title = "Location",
+            opacity = 1) %>% 
+  addEasyButton(
+    easyButton(
+      icon = "fa-map-marker",
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )
+
+```
+
+## Transit Routes
+
+The Northeast Florida Region has multiple public transportation options to move between counties. The routes in the map below are sorted by transportation service provider. This map is not exhaustive of all available routes, but includes routes where data is publicly available as of 2023.
+
+Source: [Florida Transit Data Exchange](https://ftis.org/Posts.aspx){target="_blank"}
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/TransitAll_Routes.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color
+pal <- colorFactor(palette = c("blue", "black", "green", "red", "orange"), domain = geojson_data$Admin)
+
+# Create hover-over labels 
+labs <- paste0("<b>Agency: </b>", geojson_data$Admin, "<br><b>County: </b>", geojson_data$COUNTYNAME)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.855651, lat = 30.132184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~pal(Admin), popup = ~paste("<b>Agency: </b>", geojson_data$Admin, "<br><b>County: </b>", geojson_data$COUNTYNAME), opacity = 0.8, label = ~lapply(labs, htmltools::HTML), weight = 1)%>%
+  addLegend("bottomleft", 
+            colors = pal(unique(geojson_data$Admin)), 
+            labels = unique(geojson_data$Admin),
+            opacity = 1.0,
+            title = "Agency") %>% 
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.132184, -81.855651], 9); }")
+    )
+  )
+```
+
+## Bicycle and Pedestrian Level of Traffic Stress
+
+The quality of service determines how satisfied travelers are with a particular facility or service. Factors that affect the comfort of pedestrians and bicyclists include pavement condition, heavy vehicle presence, facilities at intersections, etc. The [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023 shows a flow chart for both pedestrian and bicycle level of traffic stress.
+
+The maps below show the Level of Traffic Stress for both pedestrians and bicyclists in 2023 for roadway segments throughout the North Florida Transportation Planning Organization region.
+
+Source: [Florida Department of Transportation Level of Service Ped/Bike](https://fdot-d2-los-pedbike.hdrgateway.com){target="_blank"}
+
+::: {layout="[ [1,1] ]"}
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326) %>%
+  drop_na(Bike_LTS)
+
+# Create a custom color generating function
+generateColor <- function(value) {
+  ifelse(value == '1', 'darkgreen',
+         ifelse(value == '2', 'yellow',
+                ifelse(value == '3', 'orange',
+                       ifelse(value == '4', 'red', 'gray'))))
+}
+
+# Apply the custom color function to your data
+geojson_data$colors <- sapply(geojson_data$Bike_LTS, generateColor)
+
+# Create hover-over labels 
+labs <- paste0("<b>Facility: </b>", geojson_data$Facility, "<br><b>County: </b>", geojson_data$COUNTY, "<br><b>Bike LoTS: </b>", geojson_data$Bike_LTS)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~colors,popup = ~paste(labs), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>%
+  addLegend(
+    position = "topright",
+    colors = c('darkgreen', 'yellow', 'orange', 'red'),
+    labels = c('1', '2', '3', '4'),
+    title = "Bicycle Level of<br>Traffic Stress"
+  )
+```
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/LTS_Bike_Ped.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+geojson_data <- geojson_data %>% mutate(Ped_LTS = replace(Ped_LTS, Ped_LTS == " ", '4'))
+
+# Create a custom color generating function
+generateColor <- function(value) {
+  ifelse(value == '1', 'darkgreen',
+         ifelse(value == '2', 'yellow',
+                ifelse(value == '3', 'orange',
+                       ifelse(value == '4', 'red', 'gray'))))
+}
+
+# Apply the custom color function to your data
+geojson_data$colors <- sapply(geojson_data$Ped_LTS, generateColor)
+
+# Create hover-over labels 
+labs <- paste0("<b>Facility: </b>", geojson_data$Facility, "<br><b>County: </b>", geojson_data$COUNTY, "<br><b>Pedestrian LoTS: </b>", geojson_data$Ped_LTS)
+
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~colors,popup = ~paste(labs), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>%
+  addLegend(
+    position = "topright",
+    colors = c('darkgreen', 'yellow', 'orange', 'red'),
+    labels = c('1', '2', '3', '4'),
+    title = "Pedestrian Level of<br>Traffic Stress"
+  )
+```
+:::
+
+## Impacts of Investments on the Natural Environment
+
+Florida’s Efficient Transportation Decision Making process is a procedure used to look into transportation projects and consider their environmental impacts. The stakeholders involved are usually the Metropolitan Planning Organizations in the surrounding area. The Efficient Transportation Decision Making manual can be found on the [Florida Department of Transportation webpage](https://www.fdot.gov/environment/pubs/etdm/etdmmanual.shtm){target="_blank"}. The map below shows transportation projects throughout the region in 2024. More information on the projects can be found at the links.
+
+Source: [Environmental Screening Tool](https://etdmpub.fla-etat.org/est/#){target="_blank"} and [Florida Department of Transportation 5-Year Work Program Meta Data](https://fgdl.org/meta/FDOT_WP_2023.xml){target="_blank"}
+
+```{r}
+# knitr::include_graphics("data/ETDM.png")
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/fdot_wp.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color generating function
+# Continuous palette
+pal <- colorFactor(palette = "Set1", domain = geojson_data$DESCRIPT)
+labs <- paste0("<b>Description: </b>", geojson_data$DESCRIPT, "<br><b>County: </b>", geojson_data$COUNTY_NAME, "<br><b>Location: </b>", geojson_data$DESCRIPTION)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -82.055651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~pal(DESCRIPT), popup = ~paste0("<b>Description: </b>", geojson_data$DESCRIPT, "<br><b>County: </b>", geojson_data$COUNTY_NAME, "<br><b>Location: </b>", geojson_data$DESCRIPTION), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
+  addLegend("bottomleft", 
+            colors = pal(unique(geojson_data$DESCRIPT)), 
+            labels = unique(geojson_data$DESCRIPT),
+            opacity = 1.0,
+            layerId = "legend",
+            title = "Description") %>% 
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -82.055651], 9); }")
+    )
+  )
+```
+
+## Emissions
+
+Common air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. Travel delay reduction can help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.
+
+The United States Department of Transportation lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per vehicle mile traveled was taken from the United States Environmental Protection Agency, and this number was applied to the total vehicle miles traveled within the North Florida Transportation Planning Organization region. The amount of emissions per mile is estimated to be:
+
+$$ 3.91 × 10^{-4}\hspace{5 mm} \frac{metric\hspace{1 mm}tons\hspace{1 mm}of\hspace{1 mm}CO2}{mile}$$
+
+The emissions factors displayed in this report also account for electric vehicles. Emissions costs are expected to rise year-over-year.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    editable = TRUE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate = FALSE
+    ,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_c02 <- read.csv("data/C02DamageCosts.csv", check.names=FALSE, row.names=1) 
+datatable(
+  caption = htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::HTML('Source: <a href="https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references" target="_blank"><b>United States Environmental Protection Agency</b></a> and <a href="https://www.transportation.gov/sites/dot.gov/files/2023-12/Benefit%20Cost%20Analysis%20Guidance%202024%20Update.pdf"><b>United States Department of Transportation</b></a>')),
+  df_c02,options = c(table_options(), list(pageLength = 4)))
+```
+
+## Trail Connectivity
+
+The North Florida Transportation Planning Organization published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019, which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network Trail funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida Transportation Planning Organization network.
+
+Source: [North Florida Transportation Planning Organization Regional Multi-Use Trail Master Plan](https://northfloridatpo.com/uploads/Studies/2018-19-Regional-Multi-use-Trail-Master-Plan-Final21.pdf){target="_blank"}
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/nftpo_trails.geojson", quiet = TRUE)  %>% 
+  st_transform(crs = 4326)
+
+# Create a custom color generating function
+custom_palette <- c("forestgreen", "blue","orange")
+
+# Continuous palette
+pal <- colorFactor(palette = custom_palette, domain = geojson_data$Status)
+
+# Create hover-over labels 
+labs <- paste0("<b>Trail Name: </b>", geojson_data$Name, "<br><b>County: </b>", geojson_data$County, "<br><b>Status: </b>", geojson_data$Status)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~pal(Status), popup = ~paste(labs), opacity = 1.0, label = ~lapply(labs, htmltools::HTML))%>%
+  addLegend("topright", 
+            colors = pal(unique(geojson_data$Status)), 
+            labels = unique(geojson_data$Status),
+            opacity = 1.0,
+            title = "Status") %>% 
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )
+```
+
+## Pedestrian Connectivity
+
+The Florida Department of Transportation aims to provide 100% coverage of the State Highway System for bicycles and pedestrians where appropriate. Based on the Florida Department of Transportation Roadway Characteristics Inventory, the pedestrian facility coverage over the four counties within the North Florida Transportation Planning Organization area is about 327 miles for 2024. Year-over-year, the total pedestrian coverage within the North Florida Transportation Planning Organization region generally increases, resulting in increased sidewalk mileage. In 2024 there are about 1.4 fewer miles of sidewalk gaps when compared to 2023. This value does not include segments where pedestrian activity is not allowed.
+
+A map of the Florida Department of Transportation sidewalks and gaps in the region is provided below.
+
+Source: [Florida Department of Transportation Sidewalks and Gaps Transportation and Data Analytics Office](https://gis-fdot.opendata.arcgis.com/datasets/4c970deb696d451283e8e4b7f4464667_0/explore?location=30.304647%2C-81.573657%2C9.76){target="_blank"}
+
+```{r, message=FALSE}
+# Load your GeoJSON file
+geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF24.geojson", quiet = TRUE)
+geojson_data <- geojson_data_unfiltered %>%
+  filter(RDACCESS != 1) %>%
+  st_transform(crs = 4326) %>%
+  # Create RDWYSIDE_LNG column based on RDWYSIDE values
+  mutate(RDWYSIDE_LNG = case_when(
+    RDWYSIDE == "R" ~ "Right",
+    RDWYSIDE == "L" ~ "Left", 
+    RDWYSIDE == "G" ~ "Gap",
+    RDWYSIDE == "C" ~ "Composite",
+    TRUE ~ NA_character_  # For any other values not specified
+  ))
+
+# Create a custom color
+pal <- colorFactor(palette = c("darkgreen","red", "gold", "gold"), 
+                   domain = c("Gap", "Left", "Right","Composite"))
+
+# Create hover-over labels 
+labs <- paste0("<b>County: </b>", geojson_data$COUNTY, "<br><b>Roadway Side: </b>", geojson_data$RDWYSIDE_LNG)
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
+  addPolylines(data = geojson_data, color = ~pal(RDWYSIDE_LNG),popup = ~paste(labs), opacity = 0.8,label = ~lapply(labs, htmltools::HTML))%>%
+  addLegend("bottomright", 
+            colors = pal(unique(geojson_data$RDWYSIDE_LNG)), 
+            labels = unique(geojson_data$RDWYSIDE_LNG),
+            opacity = 1.0,
+            title = "Roadway Side") %>% 
+  addEasyButton(
+    easyButton(
+      icon = "fa-map-marker",
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )
+```
+
+# Preservation and Maintenance
+
+This section deals with preserving and maintaining bridge and pavement conditions in the region. Pavement condition is summarized for Interstate and non-Interstate facilities that are on the National Highway System. The percentage is based on the lane-miles of facilities. Bridges are summarized by National Highway System and non-National Highway System facilities. The percentage is calculated based on the bridge deck area. Goals are set by the Florida Department of Transportation for how much of each category is in good condition and how much is in poor condition.
+
+## Pavement Condition on Primary Freight Corridors
+
+The Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2023 (most recent data available), the percentage of interstate pavement in poor condition was 0.5%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 1.4%, which was a decrease from the previous year.
+
+## Bridge Conditions
+
+The Bridge Conditions Map and Bridge Conditions Table are presented below. [Federal Highway Administration National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi/ascii.cfm){target="_blank"}
+
+::: {.panel-tabset .nav-pills}
+### Bridge Conditions Map
+
+The map below shows the locations and conditions of the bridges within the North Florida Transportation Planning Organization region. According to the Florida Department of Transportation Roadway Characteristics Inventory, there are a total of 1,166 bridges in the region as of 2024.
+
+```{r, message=FALSE}
+
+df_bridge <- read.csv("data/NationalBridgeCond2024.csv")
+df_bridge <- df_bridge[df_bridge$DECK_COND_058 != "N",]
+point_data <- data.frame(
+  name = df_bridge$DECK_CONDITION,
+  lat = df_bridge$LATDD,
+  lon = df_bridge$LONGDD, 
+  feature = df_bridge$FEATURES_DESC_006A, 
+  facility = df_bridge$FACILITY_CARRIED_007, 
+  location = df_bridge$LOCATION_009
+)
+
+# Continuous palette
+ord <- factor(df_bridge$DECK_CONDITION, levels = c('Good', 'Fair', 'Poor'))
+pal <- colorFactor(palette = c("limegreen","darkgreen",'darkorange'), levels = ord, ordered = TRUE)
+labs <- paste("<b>Deck Condition:</b> ", df_bridge$DECK_CONDITION, "<br><b>Bridge Condition:</b>", df_bridge$DECK_CONDITION, "<br><b>Feature:  </b>",df_bridge$FEATURES_DESC_006A,"<br><b>Facility: </b>",df_bridge$FACILITY_CARRIED_007,"<br><b>Location: </b>",df_bridge$LOCATION_0) 
+
+# Create the Leaflet map
+leaflet(data = df_bridge) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(~LONGDD, ~LATDD, # Use the Longitude and Latitude columns
+                   popup = ~paste0("<b>Deck Condition: </b>", DECK_COND_058, "<br><b>Bridge Condition: </b>",DECK_CONDITION, "<br><b>Feature:  </b>",FEATURES_DESC_006A,"<br><b>Facility: </b>",FACILITY_CARRIED_007,"<br><b>Location: </b>",LOCATION_009), 
+                   radius=5,label = lapply(labs, htmltools::HTML), color = ~pal(DECK_CONDITION), weight = 1, 
+                   fillOpacity = 0.8) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>% 
+  addEasyButton(
+    easyButton(
+      icon = "fa-map-marker",
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  )%>%
+  addLegend(df_bridge,
+            position = "bottomright",
+            pal = pal, values = ord,
+            title = "Bridge Deck Condition",
+            opacity = 1) 
+
+```
+
+### Bridge Conditions Table
+
+```{r}
+table_options <- function() {
+  list(
+    rowCallback = DT::JS(
+      "function(row, data, index) {
+        $('td:eq(0)', row).html(index + 1);
+      }"
+    ),
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_lottr <- read.csv("data/bridgeconditions.csv", check.names=FALSE, row.names=1) 
+datatable(caption = htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/bridge" target="_blank"><b>Florida Department of Transportation Source Book, PM2-Bridge</b></a>')),
+    df_lottr,options = c(table_options(), list(pageLength = 6)))
+```
+:::
+
+## Transit Vehicles
+
+Maintaining transit vehicles and systems in a State of Good Repair is one of the highest priorities for any transit system to ensure safe, dependable and accessible services are provided.
+
+The average age of vehicles operated by the Jacksonville Transportation Authority has increased or maintained since 2019. The average age for the Nassau Council on Aging has also seen an increase from 2019, but the 2023 average is down compared to 2022. The Sunshine Bus Company average decreased starting in 2019, but has been increasing sharply since 2021.
+
+The Jacksonville Transportation Authority assumed the operations of Clay Transit in 2018 and those vehicles are shown as part of the Jacksonville Transportation Authority’s fleet beginning in 2018.
+
+The service life for transit vehicles varies by type and is not analyzed as part of this report. Most buses have a service life of 12 years or 250,000 miles. Smaller buses, such as shuttles, have a service life of four to seven years and between 50,000 and 175,000 miles. The people-mover vehicles on the Automated Skyway Express in downtown Jacksonville exceed their predicted service life. The vehicles are currently 21 years old. A Skyway Modernization Program is underway.
+
+The Mayport Ferry vessel, the Jean Ribault, has been carrying vehicles and people for 24 years, but is in a State of Good Repair. The Jacksonville Transportation Authority assumed operations of the ferry from the City of Jacksonville in 2016.
+
+```{r}
+
+# Filter data for PedFatal > 0
+df_transit_age <- read.csv("data/transit_age.csv")
+
+# Define your custom colors
+custom_colors <- c("#D6EFD1","#C0DFCA","#80AF81","#508D4E","#1A5319")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_transit_age, "column", hcaes(x = Agency, y = Age, group = Year)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    #stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y/1,1);}")
+    ) # Enable data labels
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')
+    ),
+    title = list(text = "Age (Years)"),
+    min = 0
+  ) %>%
+  hc_title(text = "Average Transit Vehicle Age by Agency and Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://www.transit.dot.gov/ntd/ntd-data?field_data_categories_target_id%5B2516%5D=2516&field_product_type_target_id=All&year=all&combine&page=0" target="_blank"><b>Federal Transit Administration</b></a>') %>%
+  hc_xAxis(title = list(text = "Agency")) %>%
+  hc_tooltip(   shared = TRUE,   formatter = JS("function() { let s = '<b>' + this.x + '</b>'; this.points.forEach(function(point) { s += '<br/><span style=\"color:' + point.series.color + '\">' + point.series.name + '</span>: <b>' + Highcharts.numberFormat(point.y, 1) + '</b>'; }); return s; }") ) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+# Economic Impacts
+
+## Cost of Congestion
+
+The social costs of congestion include direct costs borne by the traveler in fuel consumption, lost travel time, additional vehicle depreciation and maintenance costs. The external costs included, or those not paid directly by the traveler, are from emissions which result in additional health care costs caused from increase cancer rates, loss of earnings associated with them and the associated negative health impacts. The costs of climate change associated with greenhouse gas emissions from carbon dioxide and oxides of nitrogen are also included. Emissions account for less than 1% of the social costs of congestion.
+
+The social cost of congestion increased about 11% in 2022 compared to 2021 and has risen above 2020/21 levels.
+
+There is no target for the social cost of congestion but the costs should maintain or decline each year.
+
+```{r}
+df_cost_con <- read.csv("data/cost_congestion.csv")
+
+custom_colors <- c("#3ABEF9")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_cost_con, "column", hcaes(x = year, y = dollars)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    dataLabels = list(
+      enabled = TRUE,
+      
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 2) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        return '$' + num.toFixed(0) + unit;
+      }"))
+      
+  #     formatter = JS("function() {
+  # return '$'+Highcharts.numberFormat(this.y / 1e6, 1) + ' Mil';}")
+  
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = FALSE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')),
+    title = list(text = "Cost (Dollars)"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 2){
+        return '$' + num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return '$' + num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Cost of Congestion by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://static.tti.tamu.edu/tti.tamu.edu/documents/mobility-report-2023.pdf" target="_blank"><b>Texas A&M Transportation Institute</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+## Cost of Crashes
+
+The costs of fatalities, injuries and other crashes burdens the economy in the billions of dollars annually. Lost wages, pain and suffering, medical expenses and property loss are a few of the external costs resulting from crashes.
+
+The cost of fatal crashes in the region was \$2.42 Billion in 2024, which is a sharp decrease over 2023 and is at the lowest point in the last five years. The cost of serious injury crashes has decreased since 2021 and is also at its lowest point in the last five years.
+
+The target is to have zero injuries or fatalities resulting from crashes.
+
+::: {layout="[ [1,1] ]"}
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_cost_fatal <- read.csv("data/cost_fatal.csv")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_cost_fatal, "column", hcaes(x = year, y = cost, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 3) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        return '$' + num.toFixed(0) + unit;
+      }"))
+      
+  #     formatter = JS("function() {
+  # return '$' + Highcharts.numberFormat(this.y / 1e9, 1) + ' Bil';}")
+  
+  
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return '$' + num.toFixed(0) + unit;
+        }
+      }"))
+    ),
+    title = list(text = "Cost (Dollars)"),
+    min = 0, 
+    
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order == 3){
+        return '$' + num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return '$' + num.toFixed(0) + unit;
+      }
+
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Cost of Fatal Crashes by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://signal4analytics.com/" target="_blank"><b>Signal Four Analytics</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2024/2024fdm122varexcept.pdf?sfvrsn=23e25c46_1" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+```{r}
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_cost_injury <- read.csv("data/cost_serious_injury.csv")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 3) {
+          return '$' + num.toFixed(2) + unit;
+        }
+        return '$' + num.toFixed(0) + unit;
+      }"))
+    )
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.total) / Math.log(1000));
+        var unit = units[order];
+        var num = this.total / Math.pow(1000, order);
+        if (order >= 2) {
+          return '$' + num.toFixed(0) + unit;
+        }
+        else if (order == 0){
+          return this.total;
+        }
+        else {
+          return '$' + num.toFixed(0) + unit;
+        }
+      }"))
+    ),
+    title = list(text = "Cost (Dollars)"),
+    min = 0, 
+    max = 1000000000,
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order == 3){
+        return '$' + num.toFixed(2) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return '$' + num.toFixed(0) + unit;
+      }
+    }")
+    )
+    
+  ) %>%
+  hc_title(text = "Cost of Serious Injury Crashes by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://signal4analytics.com/" target="_blank"><b>Signal Four Analytics</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2024/2024fdm122varexcept.pdf?sfvrsn=23e25c46_1" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+:::
+
+## Return on Investment
+
+***Highways***
+
+Based on a study of the macroeconomic impacts of the Florida Department of Transportation’s Annual Work, every dollar invested in transportation provides a \$4 economic return. The Florida Department of Transportation has programmed over \$1 billion per year for the last three years and programmed \$1.6 billion for the 2025-2026 fiscal year beginning July 1, 2025.
+
+***Multimodal***
+
+North Florida’s ports generate 138,500 jobs in Florida and support nearly \$31.1 billion in annual economic output for the region and state. The Jacksonville Aviation Authority’s four-airport system contributes more than \$6 billion annually to the local economy. The Jacksonville Transportation Authority’s operations generates more than \$73.6 million in labor compensation, saves customers more than \$23.4 million in transportation costs, and spurs \$118.6 million in total added value. The total benefit for transportation investment is \$40.4 billion for North Florida.
+
+There are no benchmarks for the economic benefit, but a larger benefit is preferred.
+
+```{r}
+df_roi <- read.csv("data/roi.csv")
+
+custom_colors <- c("#3ABEF9")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_roi, "column", hcaes(x = Mode, y = Benefit)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    dataLabels = list(
+      enabled = TRUE,
+       formatter = JS(paste0("function() {
+        var units = ['', 'K', 'M', 'B'];
+        var order = Math.floor(Math.log(this.y) / Math.log(1000));
+        var unit = units[order];
+        var num = this.y / Math.pow(1000, order);
+        if (order >= 3) {
+          return '$' + num.toFixed(1) + unit;
+        }
+        return '$' + num.toFixed(0) + unit;
+      }"))
+    ))) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = FALSE, # Enable stack totals
+      style = list(fontWeight = 'bold', color = 'gray')),
+    title = list(text = "Cost (Dollars)"),
+    min = 0, 
+    labels = list(
+      formatter = JS("function() {
+      var units = ['', 'K', 'M', 'B'];
+      var order = Math.floor(Math.log(this.value) / Math.log(1000));
+      var unit = units[order];
+      var num = this.value / Math.pow(1000, order);
+      if (order >= 3){
+        return '$' + num.toFixed(1) + unit;
+      }
+      else if (this.value == 0){
+        return this.value;
+      }
+      else{
+        return '$' + num.toFixed(0) + unit;
+      }
+    }")
+    )
+  ) %>%
+  hc_title(text = "Benefit in Dollars by Mode") %>%
+  hc_subtitle(text = 'Source: <a href="http://edr.state.fl.us/content/returnoninvestment/ROI_Transportation.pdf" target="_blank"><b>Florida Department of Transportation Office of Economic & Demographic Research</b></a>') %>%
+  hc_xAxis(title = list(text = "Mode")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+# MAP-21 Performance Measures
+
+## PM1 Safety (All Public Roads)
+
+The safety performance measures help to assess fatalities and serious injuries on all public roads regardless of ownership or functional classification. As required by 23 CFR 490, the North Florida Transportation Planning Organization adopted targets for number of fatalities, number of serious injuries, fatality rate, serious injury rate and total number of non-motorized fatalities and serious injuries. The chart below displays these figures from 2019-2023 and includes the targets. These targets are all zero and align with the Florida Department of Transportation’s adopted targets.
+
+```{r}
+table_options <- function() {
+  list(
+     rowCallback = DT::JS(
+      "function(row, data, index) {
+        $('td:eq(0)', row).html(index + 1);
+      }"
+    ),
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_pm1 <- read.csv("data/pm1_safety.csv", check.names=FALSE) 
+df_pm1 <- df_pm1[-1,] # Removes row saying Target 
+colnames(df_pm1) <- c('Year','Fatalities (total)','Fatalities per 100 million VMT','Serious Injuries','Serious Injuries per 100 million VMT','Non-motorized Fatalities and Serious Injuries') 
+datatable(caption = htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::HTML('Source: <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm1-safety-fact-sheet-(feb23).pdf" target="_blank"><b>Florida Department of Transportation Forecasting and Trends Office</b></a>')),
+    df_pm1,options = c(table_options(), list(pageLength = 6)))
+```
+
+## PM2 Bridge and Pavement
+
+Pavement and bridge condition assessment is vital to the continued maintenance of the roadway system. As required by 23 CFR 490, the Florida Department of Transportation has adopted initial targets for bridge and pavement conditions. The North Florida Transportation Planning Organization adopted the Florida Department of Transportation guidance for performance management of pavement and bridges. The charts below display the yearly data for bridge and pavement condition for the North Florida Transportation Planning Organization region, as well as targets.
+
+Source: [Florida Department of Transportation Forecasting and Trends Office](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf?sfvrsn=fda6ddae_5/pm2-bridge-and-pavement-fact-sheet-(feb23).pdf){target="_blank"}
+
+### National Highway System Bridges (By Deck Area)
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_nhs <- read.csv("data/nhs_bridges.csv", check.names=FALSE, row.names=1) 
+colnames(df_nhs) <- c('Year','Good Condition','Poor Condition') 
+datatable(df_nhs,options = c(table_options(), list(pageLength = 5)))
+```
+
+::: {layout="[ [1,1] ]"}
+### Interstate Pavement
+
+```{r}
+table_options <- function() {
+  list(
+     rowCallback = DT::JS(
+      "function(row, data, index) {
+        $('td:eq(0)', row).html(index + 1);
+      }"
+    ),
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_inter_pave <- read.csv("data/inter_pavements.csv", check.names=FALSE, row.names=1) 
+colnames(df_inter_pave) <- c('Year','Good Condition','Poor Condition') 
+datatable(df_inter_pave,options = c(table_options(), list(pageLength = 5)), 
+          caption = htmltools::tags$caption(
+    style = 'caption-side: top; text-align: left;',
+    htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>Florida Department of Transportation Source Book, PM2-Pavement</b></a>'))
+    )
+```
+
+### Non-Interstate Pavement
+
+```{r}
+table_options <- function() {
+  list(
+     rowCallback = DT::JS(
+      "function(row, data, index) {
+        $('td:eq(0)', row).html(index + 1);
+      }"
+    ),
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+df_noninter_pave <- read.csv("data/noninter_pavements.csv", check.names=FALSE, row.names=1) 
+colnames(df_noninter_pave) <- c('Year','Good Condition','Poor Condition') 
+datatable(df_noninter_pave,options = c(table_options(), list(pageLength = 5)), 
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/federal-measures/pavement" target="_blank"><b>Florida Department of Transportation Source Book, PM2-Pavement</b></a>'))
+          )
+```
+:::
+
+## PM3 System Performance
+
+These are measures to assess the performance of the National Highway System, freight movement on the Interstate System, and Congestion Mitigation and Air Quality Improvement Program. The North Florida Transportation Planning Organization has adopted the Florida Department of Transportation performance targets. The chart below displays the results from 2019-2023. Reliability refers to a consistent predictable travel time.
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_sysperf <- read.csv("data/pm3_sysperf.csv", check.names=FALSE, row.names=1) 
+colnames(df_sysperf) <- c('Performance Measure','% of Person Miles Traveled on the Interstate that are Reliable',
+                          '% of Person Miles Traveled on the Non-Interstate NHS Reliable','Truck Travel Time Reliability (TTTR) Index') 
+datatable(df_sysperf,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://performance-data-integration-space-fdot.hub.arcgis.com/pages/mpo-performance-resources" target="_blank"><b>Florida Department of Transportation Forecasting and Trends Office</b></a>')),
+          options = c(table_options(), list(pageLength = 8)))
+
+```
+
+## PM4 Transit
+
+### Transit Asset Management
+
+This objective is vital to maintain the transit system's efficiency and provide effective operations. The performance measures list in the tables below are based on the Transit Economic Requirements Model.
+
+::: {.panel-tabset .nav-pills}
+### Jacksonville Transportation Authority Transit Asset Management
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_tam <- read.csv("data/pm4_tam_updated.csv", check.names=FALSE, header=TRUE) 
+
+datatable(df_tam,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://www.fdot.gov/" target="_blank"><b>Florida Department of Transportation</b></a>')),
+          options = c(table_options(), list(pageLength = 14)))
+
+```
+
+### The Sunshine Bus Transit Asset Management
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_tam_sunshine <- read.csv("data/pm4_tam_sunshine.csv", check.names=FALSE, header=TRUE) 
+
+datatable(df_tam_sunshine,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://www.fdot.gov/" target="_blank"><b>Florida Department of Transportation</b></a>')),
+          options = c(table_options(), list(pageLength = 4)))
+
+```
+:::
+
+### Transit Safety
+
+The transit safety performance measure is used to ensure that the local transit agencies operate in a safe manner to meet the demands of the public. The reportable fatalities and injuries are compared to the total vehicle revenue miles. The transit revenue miles between failures measure is used to determine the average frequency of delays caused by a problem with the equipment. The Florida Department of Transportation Sourcebook provides this data for the Jacksonville Transportation Authority. The charts below display the performance measure statistics for the North Florida Transportation Planning Organization region. The first chart shows safety figures and rates from 2020-2024 and the second chart displays the determined targets.
+
+::: {.panel-tabset .nav-pills}
+### Transit Safety Performance Measure Statistics
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_transit_safety <- read.csv("data/pm4_transit_safety.csv", check.names=FALSE, header=TRUE) 
+
+datatable(df_transit_safety,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://www.transit.dot.gov/ntd/data-product/safety-security-major-only-time-series-data" target="_blank"><b>Federal  Transit Administration</b></a>')),
+          options = c(table_options(), list(pageLength = 6)))
+
+```
+
+### Transit Safety Performance Measure Targets
+
+```{r}
+table_options <- function() {
+  list(
+    deferRender = TRUE,
+    searching = FALSE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    paginate=FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+  )
+}
+
+df_transit_safety_targets <- read.csv("data/Transit_Safety_Targets.csv", check.names=FALSE, header=TRUE) 
+
+datatable(df_transit_safety_targets,
+          caption = htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::HTML('Source: <a href="https://northfloridatpo.com/uploads/TIP-26-30-Final.pdf" target="_blank"><b>North Florida Transportation Planning Organization Transportation Improvement Program</b></a>')),
+          options = c(table_options(), list(pageLength = 6)))
+
+```
+:::
+
+<!-- # Placeholder for future Pavement Condition Map -->
+
+<!-- https://fdotsourcebook.com/infrastructure/pavement-condition -->
+
+<!-- Ideally this map will have individual road segments -->
+
+<!-- https://www.fdot.gov/materials/pavement/pm/pmreports.shtm -->
