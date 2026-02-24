@@ -16,6 +16,7 @@ execute:
 ---
 
 <!-- cd GitHub/NFTPO_AnnualMobilityReport2026 -->
+
 <!-- quarto publish gh-pages -->
 
 ```{r package}
@@ -44,9 +45,9 @@ Understanding the trends and conditions occurring in North Florida will allow pl
 
 ## Population
 
-North Florida’s population grew by 11.7%, or 181,614 people, between 2020 and 2024. This growth outpaced the statewide growth rate of 6.6%. Population growth increases the need for transportation infrastructure and services.
+North Florida’s population grew by X.X%, or X people, between 2021 and 2025. This growth outpaced the statewide growth rate of X.X%. Population growth increases the need for transportation infrastructure and services.
 
-From 2023 to 2024, North Florida's population growth rate was 2.12%, which outpaced both the statewide growth rate (1.68%) and the national growth rate (2.06%).
+From 2024 to 2025, North Florida's population growth rate was X.XX%, which outpaced both the statewide growth rate (X.XX%) and the national growth rate (X.XX%).
 
 There is no benchmark for population growth, but increases impact the demand for mobility. The graph below shows the population of the four North Florida Transportation Planning Organization counties by year using the "Countywide, Unincorporated and Incorporated Totals - Census Counts and Intercensal Estimates" data set from Office of Economic and Demographic Research. This data set is originally provided by the Bureau of Economic and Business Research.
 
@@ -121,7 +122,7 @@ hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
 
 ## Licensed Drivers
 
-There are 116,000 (or 9.6%) more drivers in North Florida in 2024 than 2020. About 94% of the eligible driving population (aged 16 and up) in the region is a licensed driver.
+There are 129,000 (or 10.5%) more drivers in North Florida in 2025 than 2021. About X% of the eligible driving population (aged 16 and up) in the region is a licensed driver.
 
 There is no benchmark for licensed drivers, but increases impact the demand for mobility. The graph below shows the number of licensed drivers in the four North Florida counties by year.
 
@@ -1648,7 +1649,6 @@ datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/auto/miles-by-congestion-type#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
 ```
-
 
 ## Level of Service
 
