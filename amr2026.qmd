@@ -791,7 +791,7 @@ According to the Florida Department of Highway Safety and Motor Vehicles dashboa
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
-df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_19_23.csv")
+df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_20_25.csv")
 
 # Calculate year totals
 df_totals <- df_bike_ped %>%
@@ -2362,7 +2362,7 @@ Source: [Florida Department of Transportation Sidewalks and Gaps Transportation 
 
 ```{r, message=FALSE}
 # Load your GeoJSON file
-geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF24.geojson", quiet = TRUE)
+geojson_data_unfiltered <- st_read("data/Sidewalks_and_Gaps_NF25.geojson", quiet = TRUE)
 geojson_data <- geojson_data_unfiltered %>%
   filter(RDACCESS != 1) %>%
   st_transform(crs = 4326) %>%
@@ -2421,7 +2421,7 @@ The map below shows the locations and conditions of the bridges within the North
 
 ```{r, message=FALSE}
 
-df_bridge <- read.csv("data/NationalBridgeCond2024.csv")
+df_bridge <- read.csv("data/NationalBridgeCond2025.csv")
 df_bridge <- df_bridge[df_bridge$DECK_COND_058 != "N",]
 point_data <- data.frame(
   name = df_bridge$DECK_CONDITION,

@@ -1,8 +1,4 @@
-﻿GDP,County,Description,Year,Total
-12019,Clay,Real GDP (thousands of chained dollars),2019,5504610000
-12031,Duval,Real GDP (thousands of chained dollars),2019,67313811000
-12089,Nassau,Real GDP (thousands of chained dollars),2019,2881647000
-12109,St. Johns,Real GDP (thousands of chained dollars),2019,10025749000
+﻿GeoFIPS,County,Description,Year,Total
 12019,Clay,Real GDP (thousands of chained dollars),2020,5477250000
 12031,Duval,Real GDP (thousands of chained dollars),2020,67932413000
 12089,Nassau,Real GDP (thousands of chained dollars),2020,3021533000
@@ -15,7 +11,11 @@
 12031,Duval,Real GDP (thousands of chained dollars),2022,76660524000
 12089,Nassau,Real GDP (thousands of chained dollars),2022,3438877000
 12109,St. Johns,Real GDP (thousands of chained dollars),2022,12581337000
-12110,Clay,Real GDP (thousands of chained dollars),2023,6677254000
-12111,Duval,Real GDP (thousands of chained dollars),2023,79935863000
-12112,Nassau,Real GDP (thousands of chained dollars),2023,3797201000
-12113,St. Johns,Real GDP (thousands of chained dollars),2023,13515965000
+12019,Clay,Real GDP (thousands of chained dollars),2023,6677254000
+12031,Duval,Real GDP (thousands of chained dollars),2023,79935863000
+12089,Nassau,Real GDP (thousands of chained dollars),2023,3797201000
+12109,St. Johns,Real GDP (thousands of chained dollars),2023,13515965000
+12019,Clay,Real GDP (thousands of chained dollars),2024,7086382000
+12031,Duval,Real GDP (thousands of chained dollars),2024,83517200000
+12089,Nassau,Real GDP (thousands of chained dollars),2024,3800560000
+12109,St. Johns,Real GDP (thousands of chained dollars),2024,14423704000
