@@ -791,7 +791,7 @@ According to the Florida Department of Highway Safety and Motor Vehicles dashboa
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
-df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_20_25.csv")
+df_bike_ped <- read.csv("data/NF_Bike_Ped_fatalcrashes_21_25.csv")
 
 # Calculate year totals
 df_totals <- df_bike_ped %>%
@@ -1726,7 +1726,7 @@ hchart(df_commute, "column", hcaes(x = County, y = Mins)) %>%
     title = list(text = "Minutes"),
     min = 0
   ) %>%
-  hc_title(text = "2023 Average Commute Times by County") %>%
+  hc_title(text = "2024 Average Commute Times by County") %>%
   hc_subtitle(text = 'Source: <a href="https://www.census.gov/acs/www/data/data-tables-and-tools/geographic-comparison-tables/" target="_blank"><b>US Census Bureau ACS</b></a>') %>%
   hc_yAxis(title = list(text = "Average Commute Time (Mins)")) %>%
   hc_xAxis(title = list(text = "County")) %>%
@@ -1973,7 +1973,7 @@ hchart(df_inc_all, "bar", hcaes(x = FY24_Qtr, y = Mins, group = Category)) %>%
       title = list(text = "Minutes"),
       min = 0
     )) %>%
-  hc_title(text = "2024 Incident Clearance Duration") %>%
+  hc_title(text = "2025 Incident Clearance Duration") %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>') %>%
   hc_xAxis(title = list(text = "Quarter")) %>%
   hc_yAxis(title = list(text = "Duration (Mins)")) %>%
@@ -2009,7 +2009,7 @@ hchart(df_duration, "column", hcaes(x = Category, y = Mins, group = FY24_Qtr)) %
     title = list(text = "Minutes"),
     min = 0
   ) %>%
-  hc_title(text = "2024 Open Roads and Roadway Clearance Durations by Quarter") %>%
+  hc_title(text = "2025 Open Roads and Roadway Clearance Durations by Quarter") %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>') %>%
   hc_yAxis(title = list(text = "Duration (Mins)")) %>%
   hc_xAxis(title = list(text = "Duration Type")) %>%
@@ -2034,7 +2034,7 @@ df_events <- read.csv("data/event_types_all.csv")
 
 hchart(df_events, "pie", hcaes(x = Event, y = Total)) %>%
   
-  hc_title(text = "2024 Incident Event Totals", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
+  hc_title(text = "2025 Incident Event Totals", align = 'left', style = list(fontFamily = 'Roboto Condensed', color = '#333333', fill = '#333333', fontSize = '18px', fontWeight = 'bold')) %>%
   hc_subtitle(text = 'Source: <a href="https://sunguide.info/" target="_blank"><b>Florida Department of Transportation SunGuide</b></a>', align = 'left', style = list(fontFamily = 'Roboto Condensed')) %>%
   
   hc_tooltip(pointFormat = '{point.name}: <b>{point.y}</b>') %>%
