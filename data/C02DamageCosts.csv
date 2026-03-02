@@ -1,5 +1,5 @@
-﻿Index,Year,CO2 (Damage Cost/Metric Ton),Emission (Metric Tons CO2/mile),VMT (2022),Metric Tons CO2,Total Damage Costs (Millions of $)
-1,2023,$228 ,3.91 x 10-4,32.546,"12,647",$2.884 
-2,2024,$233 ,3.91 x 10-4,32.546,"12,647",$2.947 
-3,2025,$237 ,3.91 x 10-4,32.546,"12,647",$2.997 
-4,2026,$241 ,3.91 x 10-4,32.546,"12,647",$3.048 
+﻿Index,Year,CO2 (Damage Cost/Metric Ton),Emission (Metric Tons CO2/mile),2024 VMT (Hundreds of millions),Metric Tons CO2 (Millions),Total Damage Costs (Millions of $)
+1,2025,$237 ,3.93 x 10-4,193.089,7.588,"$1,798.40 "
+2,2026,$241 ,3.93 x 10-4,193.089,7.588,"$1,828.70 "
+3,2027,$245 ,3.93 x 10-4,193.089,7.588,"$1,859.10 "
+4,2028,$250 ,3.93 x 10-4,193.089,7.588,"$1,897.00 "
