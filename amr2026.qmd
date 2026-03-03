@@ -1464,7 +1464,7 @@ Level of Travel Time Reliability is defined as the ratio of the longer travel ti
 
 The goal is for 95% of the vehicle miles traveled within a system to be reliable (Level of Travel Time Reliability of 1.50 or less) along a corridor of the Strategic Intermodal System facilities in North Florida.
 
-The maps below show the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2025. They are separated out by route signage type: Interstate roadways, State roadways, and neither State nor Interstate roadways.
+The maps below show the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2025. They are separated out by route signage type: Interstate roadways, State roadways, and Non-State roadways.
 
 Source: [Level of Travel Time Reliability](https://npmrds.ritis.org/){target="_blank"}
 
@@ -1515,9 +1515,9 @@ leaflet() %>%
 
 ### Travel Time Reliability Segment Table
 
-The data for Level of Travel Time Reliability was collected through the National Performance Management Research Data Set. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
+The data for Level of Travel Time Reliability was collected through the National Performance Management Research Data Set. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-228, SR-16, and US-1.
 
-More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2025 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period. This methodology holds for the rest of the tables presented for other types of roadways.
+More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the Top 20 roadway segments with a 2025 Level of Travel Time Reliability value of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
 
 ```{r}
 table_options <- function() {
@@ -1536,7 +1536,7 @@ table_options <- function() {
     )
   )
 }
-df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
+df_lottr <- read.csv("data/LOTTR_updated_2025.csv", check.names=FALSE, row.names=1) 
 datatable(df_lottr,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 11)))
@@ -1544,7 +1544,6 @@ datatable(df_lottr,caption = htmltools::tags$caption(
 ```
 :::
 
-::: {.panel-tabset .nav-pills}
 ### LOTTR Map: Interstate Roadways Only
 
 ```{r}
@@ -1588,39 +1587,6 @@ leaflet() %>%
     title = "Level of Travel<br>Time Reliability<br>(Max)"
   )
 ```
-
-### Travel Time Reliability Segment Table
-
-The data for Level of Travel Time Reliability was collected through the National Performance Management Research Data Set. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
-
-More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2025 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE, 
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
-datatable(df_lottr,caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 11)))
-
-```
-:::
-
-::: {.panel-tabset .nav-pills}
 
 ### LOTTR Map: State Roadways Only
 
@@ -1666,38 +1632,6 @@ leaflet() %>%
   )
 ```
 
-### Travel Time Reliability Segment Table
-
-The data for Level of Travel Time Reliability was collected through the National Performance Management Research Data Set. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
-
-More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2025 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE, 
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
-datatable(df_lottr,caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 11)))
-
-```
-:::
-
-::: {.panel-tabset .nav-pills}
 ### LOTTR Map: Non-State Roadways Only
 
 ```{r}
@@ -1741,37 +1675,6 @@ leaflet() %>%
     title = "Level of Travel<br>Time Reliability<br>(Max)"
   )
 ```
-
-### Travel Time Reliability Segment Table
-
-The data for Level of Travel Time Reliability was collected through the National Performance Management Research Data Set. The inputs stem from historical data via vehicle probes, permanent and temporary count sites, HERE travel time data and the Florida Department of Transportation’s Roadway Characteristics Inventory. The most congested corridors within the region were analyzed which include I-10, I-95, I-295, SR-115, US-1, and US-23.
-
-More detailed analysis of the Level of Travel Time Reliability was performed on the most congested corridors within the region. The table below summarizes the 2025 Level of Travel Time Reliability values of 1.6 or greater for the region and the corresponding critical segment. These values are taken for the PM peak period.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE, 
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-df_lottr <- read.csv("data/LOTTR_updated_2023.csv", check.names=FALSE, row.names=1) 
-datatable(df_lottr,caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 11)))
-
-```
-:::
 
 ## Truck Travel Time Reliability
 
@@ -1828,7 +1731,7 @@ leaflet() %>%
 
 ### Truck Travel Time Reliability Segment Table
 
-Truck Travel Time Reliability was obtained from the National Performance Management Research Data Set. The goal is to maintain a Truck Travel Time Reliability ratio of under 2.0. For the North Florida Transportation Planning Organization, the observed Truck Travel Time Reliability was 1.70 in 2025. The table below shows the Truck Travel Time Reliability on major freight corridors within the North Florida Transportation Planning Organization boundary.
+Truck Travel Time Reliability was obtained from the National Performance Management Research Data Set. The goal is to maintain a Truck Travel Time Reliability ratio of under 2.0. For the North Florida Transportation Planning Organization, the observed Truck Travel Time Reliability was 1.70 in 2025. The table below shows the Top 20 roadway segments with a Truck Travel Time Reliability value of 1.6 or greater on major freight corridors within the North Florida Transportation Planning Organization boundary.
 
 ```{r}
 table_options <- function() {
@@ -1845,7 +1748,7 @@ table_options <- function() {
     )
       )
 }
-df_tttr <- read.csv("data/TTTR.csv", check.names=FALSE, row.names=1) 
+df_tttr <- read.csv("data/TTTR_updated_2025.csv", check.names=FALSE, row.names=1) 
 datatable(df_tttr,caption = htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::HTML('Source: <a href="https://npmrds.ritis.org/analytics/" target="_blank"><b>NPMRDS RITIS Data</b></a>')),options = c(table_options(), list(pageLength = 14)))
