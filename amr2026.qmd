@@ -45,9 +45,11 @@ Understanding the trends and conditions occurring in North Florida will allow pl
 
 ## Population
 
-North Florida’s population grew by 9.7%, or 156,244 people, between 2021 and 2025. This growth outpaced the statewide growth rate of 6.3%. Population growth increases the need for transportation infrastructure and services.
+North Florida’s population grew by 9.7%, or 156,244 people, between 2021 and 2025. This growth outpaced the statewide growth of 6.3%.
 
-From 2024 to 2025, North Florida's population growth rate was 2.23%, which outpaced both the statewide growth rate (1.58%) and the national growth rate (0.5%).
+From 2024 to 2025, North Florida's population growth rate was 2.23% per year, which outpaced both the statewide growth rate (1.58% per year) and the national growth rate (0.5% per year).
+
+Population growth increases the need for transportation infrastructure and services. 
 
 There is no benchmark for population growth, but increases impact the demand for mobility. The graph below shows the population of the four North Florida Transportation Planning Organization counties by year using the "Countywide, Unincorporated and Incorporated Totals - Census Counts and Intercensal Estimates" data set from Office of Economic and Demographic Research. This data set is originally provided by the Bureau of Economic and Business Research.
 
@@ -341,7 +343,7 @@ hchart(df_gdp, "column", hcaes(x = Year, y = Total, group = County)) %>%
 
 ## Employment
 
-Unemployment rates have spiked since the start of 2025, which may be an indicator of a weakening economy and lower travel demand compared to 2024. The graph below compares total employment with the unemployment rate of North Florida for every month since 2021. Data for the month of October 2025 is not available due to the lapse in federal appropriations.
+Unemployment rates have risen since the start of 2025, which may be an indicator of a weakening economy and lower travel demand compared to 2024. The graph below compares total employment with the unemployment rate of North Florida for every month since 2021. Data for the month of October 2025 is not available due to the lapse in federal appropriations.
 
 ```{r}
 
@@ -396,7 +398,7 @@ Tourism plays a major role in the state of Florida. According to the North Flori
 
 The goal is to increase the number of multi-modal projects in high tourism areas and provide transportation connectivity to tourists within the region. A summary of 2025 visitors in each county is provided in the table below. 2025 visitor data for Jacksonville is not yet available, so 2024 data was used. Neither 2024 nor 2025 visitor data for Clay County could be located.
 
-Including visitors from within the region, St. Augustine hosts nearly six million visitors each year.
+St. Augustine hosts nearly six million visitors each year.
 
 ```{r}
 table_options <- function() {
@@ -734,7 +736,7 @@ hchart(df_tot_inj, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 The rate of crashes is the ratio of the total number of crashes to the number of vehicle-miles traveled, expressed in 100 million vehicle-miles traveled. In 2024, the rate of fatalities was 1.11, the rate of injuries was 102.4, and the rate of all crashes was 157.6. All rates have significantly decreased since 2021. 2025 data was not yet available.
 
-The graph below shows the fatality rate, injury rate, and crash rate per vehicle-miles traveled in North Florida by year. The mileage fatality rate is stated as found in the Florida Department of Highway Safety and Motor Vehicles' Traffic Crash Facts 2024 Report. The injury rate and crash rate are calculated based on the vehicle-miles traveled for each year.
+The graph below shows the fatality rate, injury rate, and crash rate per vehicle-miles traveled in North Florida by year. The fatality rate is stated as found in the Florida Department of Highway Safety and Motor Vehicles' Traffic Crash Facts 2024 Report. The injury rate and crash rate are calculated based on the vehicle-miles traveled for each year.
 
 ```{r}
 
@@ -785,9 +787,9 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
 
 ## Pedestrian and Bicyclist Fatalities
 
-According to the Florida Department of Highway Safety and Motor Vehicles dashboard, the number of non-motorized fatalities for the region was 64 in 2025. Of those, 47 fatalities were attributed to pedestrians and 17 were attributed to cyclists.
+According to the Florida Department of Highway Safety and Motor Vehicles dashboard, 64 non-motorized fatalities occurred in the region in 2025. Of those, 47 fatalities were pedestrians and 17 were cyclists.
 
-2025 pedestrian fatalities saw a sharp decline while bicyclist fatalities saw a sharp increase. The graphs below show the total pedestrian and total bicyclist fatalities in the four North Florida counties by year.
+2025 pedestrian fatalities declined while bicyclist fatalities increased. The graphs below show the total pedestrian and total bicyclist fatalities in the four North Florida counties by year.
 
 ::: {layout="[ [1,1] ]"}
 ```{r}
@@ -872,7 +874,7 @@ The following reflects the results of drug and/or alcohol tests. Not all involve
 -   15% of fatalities involved drivers who tested positive for drugs only
 -   38% of fatalities involved positive tests of either drugs or alcohol
 
-The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities to obtain the figures shown above.
+The crash statistics were calculated from the Crash Dashboard of the Florida Department of Highway Safety and Motor Vehicles. Total fatalities of each subcategory were divided by total fatalities.
 
 The goal is to have zero injuries or fatalities resulting from crashes. The graph below shows the total number of alcohol and drug-related impaired driving events in the four North Florida counties by year.
 
@@ -993,7 +995,7 @@ hchart(df_vmt, "column", hcaes(x = Year, y = TotalNHSVMT, group = County)) %>%
 
 ## Person-Miles Traveled
 
-Person-miles traveled takes total vehicle miles traveled and multiplies it by persons per vehicle. The Florida Department of Transportation Sourcebook was used to obtain the data. According to the data, 55.4 million person-miles traveled was estimated for 2024 on all State Highway System facilities. The graph below shows the person-miles traveled throughout the North Florida Transportation Planning Organization by year, broken down by facility type.
+Person-miles traveled takes total vehicle miles traveled and multiplies it by persons per vehicle. The Florida Department of Transportation Sourcebook was used to obtain the data. According to the data, 55.4 million person-miles traveled was estimated for 2024 on all State Highway System facilities. The graph below shows the person-miles traveled throughout the North Florida Transportation Planning Organization by facility type over the last 5 years.
 
 ```{r}
 # Define your custom colors
@@ -1060,11 +1062,11 @@ datatable(df_truck_mt,caption = htmltools::tags$caption(
 
 ## Vehicle Occupancy
 
-Estimates of the average number of occupants in a vehicle are referred to as the Vehicle Occupancy Factors. This measure can be calculated using person-miles traveled divided by vehicle-miles traveled. Using this method for 2024 data, the vehicle occupancy factor for North Florida was calculated as 1.64. Crash data taken from the Crash Analysis Reporting System is also used in estimating the average vehicle occupancy rate. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
+Estimates of the average number of occupants in a vehicle are referred to as the Vehicle occupancy rate. This measure can be calculated using person-miles traveled divided by vehicle-miles traveled. Using this method for 2024 data, the vehicle occupancy rate for North Florida was calculated as 1.64. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
 
 ## Transit Ridership
 
-The Jacksonville Transportation Authority tracks transit ridership metrics. Ridership levels have declined since 2020, but are on the rise in recent years driven mostly by transit ridership increases in Duval County. The Jacksonville Transportation Authority operates and maintains the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express. On-time performance was tracked only for the St. Johns River Ferry during 2025 and this came in at 98.5%.
+The Jacksonville Transportation Authority tracks transit ridership metrics. Ridership levels are lower than they were at their peak in 2020, but are on the rise in recent years driven mostly by transit ridership increases in Duval County. The Jacksonville Transportation Authority operates and maintains the St. Johns River Ferry, ReadiRide (on-call transportation service), Clay Flex, St. Johns Express, Clay Express, and Nassau Express.
 
 The graph below shows the total transit trips taken by riders in the North Florida region by year and transit agency.
 
@@ -1253,7 +1255,7 @@ hchart(df_ton_ship, "column", hcaes(x = year, y = tons, group = port)) %>%
 
 The Jacksonville Port Authority is maintaining its position as the top container port in Florida and a top 10 container port in the nation. The Jacksonville Port Authority is working to provide an alternative to other constrained ports for container shipments and expand its market share in breakbulk cargo through harbor deepening, berth enhancements and new handling equipment investments.
 
-Container shipments at the Port of Fernandina peaked in 2021 but are up around 8.7% in 2025 compared to 2024. Automobile shipments at JAXPORT dropped slightly in 2025 compared to 2024 and were at their second-lowest point in the last five-year period.
+Container shipments at the Port of Fernandina peaked in 2021 but increased 8.7% in 2025 compared to 2024. Automobile shipments at JAXPORT dropped slightly in 2025 compared to 2024 and were at their second-lowest point in the last five-year period, but were impacted by construction. In 2025, Southeast Toyota opened a new auto processing plant at Blount Island and Enstructure Auto Logistics opened a new processing center for Mazda and Toyota at Talleyrand Marine Terminal.
 
 Although there is no defined benchmark for this measure, increases are preferred and annual monitoring is conducted. The graph below shows the amount of containers and automobiles shipped through the Jacksonville Port Authority by year.
 
@@ -1336,7 +1338,7 @@ hchart(df_item_ship, "column", hcaes(x = item, y = count, group = year)) %>%
 
 ### Air Passengers
 
-After seeing a continual climb in the average annual aviation passengers served over the previous four years, the North Florida region saw a reduction in 2025.
+The North Florida region saw a decline in annual aviation passengers for the 12 months ending October 2025 compared to the previous year. After seeing a continual climb in the average annual aviation passengers over the previous four years, the North Florida region saw a reduction in 2025.
 
 Although there is no defined benchmark for aviation passengers served, increases are preferred and annual monitoring is conducted. The graph below shows total air passengers by month and year for the Jacksonville International Airport.
 
@@ -1462,14 +1464,14 @@ hchart(df_cargo, "column", hcaes(x = year, y = weight)) %>%
 
 Level of Travel Time Reliability is defined as the ratio of the longer travel times (80th percentile) to a “normal” travel time (50th percentile). Level of Travel Time Reliability assesses the consistency, or dependability, of travel times from day to day or across different times of the day. For a 10-minute trip with a Level of Travel Time Reliability of 2.5, you have an 80% chance of arriving within 25 minutes. The larger the value of the Level of Travel Time Reliability, the more variable the travel times are along each corridor.
 
-The goal is for 95% of the vehicle miles traveled within a system to be reliable (Level of Travel Time Reliability of 1.50 or less) along a corridor of the Strategic Intermodal System facilities in North Florida.
+The goal is for 95% of the vehicle miles traveled within a system to be reliable (Level of Travel Time Reliability of 1.50 or less) along a corridor of the Strategic Intermodal System facilities in North Florida. In 2025, 91.3% of roadway miles in the North Florida region are considered reliable with a LOTTR of 1.5 or less. 
 
-The maps below show the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2025. They are separated out by route signage type: Interstate roadways, State roadways, and Non-State roadways.
+The maps below show the critical (maximum) Level of Travel Time Reliability of the four time periods (AM Peak, Mid Day, PM Peak, and Weekends) in 2025. All US routes are also State Routes (SR). 
 
 Source: [Level of Travel Time Reliability](https://npmrds.ritis.org/){target="_blank"}
 
 ::: {.panel-tabset .nav-pills}
-### LOTTR Map: All Roadways
+### LOTTR Map
 
 ```{r}
 
@@ -1543,138 +1545,6 @@ datatable(df_lottr,caption = htmltools::tags$caption(
 
 ```
 :::
-
-### LOTTR Map: Interstate Roadways Only
-
-```{r}
-
-# Load your GeoJSON file
-geojson_data <- st_read("data/Florida_TMC_LOTTR2025_INTERSTATE.geojson", quiet = TRUE)  %>% 
-  st_transform(crs = 4326)
-
-# Create a custom color generating function
-generateColor <- function(value) {
-  ifelse(value < 1.15, 'darkgreen',
-         ifelse(value < 1.3, 'lightgreen',
-                ifelse(value < 1.4, 'yellow',
-                       ifelse(value < 1.6, 'orange',
-                              ifelse(value < 2, 'red', 'black')))))
-}
-
-# Apply the custom color function to your data
-geojson_data$colors <- sapply(geojson_data$lottr, generateColor)
-
-# Create hover-over labels 
-labs <- paste0("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", geojson_data$lottr)
-
-# Create the Leaflet map
-leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
-  addPolylines(data = geojson_data, color = ~colors, popup = ~paste("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", lottr), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
-  addEasyButton(
-    easyButton(
-      icon = 'fa-map-marker',
-      title = "Zoom to Jacksonville",
-      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
-    )
-  ) %>%
-  addLegend(
-    position = "bottomright",
-    colors = c('darkgreen', 'lightgreen', 'yellow', 'orange', 'red', 'black'),
-    labels = c('< 1.1', '1.1 - 1.2', '1.2 - 1.3', '1.3 - 1.6', '1.6 - 2', '> 2'),
-    title = "Level of Travel<br>Time Reliability<br>(Max)"
-  )
-```
-
-### LOTTR Map: State Roadways Only
-
-```{r}
-
-# Load your GeoJSON file
-geojson_data <- st_read("data/Florida_TMC_LOTTR2025_STATE.geojson", quiet = TRUE)  %>% 
-  st_transform(crs = 4326)
-
-# Create a custom color generating function
-generateColor <- function(value) {
-  ifelse(value < 1.15, 'darkgreen',
-         ifelse(value < 1.3, 'lightgreen',
-                ifelse(value < 1.4, 'yellow',
-                       ifelse(value < 1.6, 'orange',
-                              ifelse(value < 2, 'red', 'black')))))
-}
-
-# Apply the custom color function to your data
-geojson_data$colors <- sapply(geojson_data$lottr, generateColor)
-
-# Create hover-over labels 
-labs <- paste0("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", geojson_data$lottr)
-
-# Create the Leaflet map
-leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
-  addPolylines(data = geojson_data, color = ~colors, popup = ~paste("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", lottr), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
-  addEasyButton(
-    easyButton(
-      icon = 'fa-map-marker',
-      title = "Zoom to Jacksonville",
-      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
-    )
-  ) %>%
-  addLegend(
-    position = "bottomright",
-    colors = c('darkgreen', 'lightgreen', 'yellow', 'orange', 'red', 'black'),
-    labels = c('< 1.1', '1.1 - 1.2', '1.2 - 1.3', '1.3 - 1.6', '1.6 - 2', '> 2'),
-    title = "Level of Travel<br>Time Reliability<br>(Max)"
-  )
-```
-
-### LOTTR Map: Non-State Roadways Only
-
-```{r}
-
-# Load your GeoJSON file
-geojson_data <- st_read("data/Florida_TMC_LOTTR2025_NEITHER.geojson", quiet = TRUE)  %>% 
-  st_transform(crs = 4326)
-
-# Create a custom color generating function
-generateColor <- function(value) {
-  ifelse(value < 1.15, 'darkgreen',
-         ifelse(value < 1.3, 'lightgreen',
-                ifelse(value < 1.4, 'yellow',
-                       ifelse(value < 1.6, 'orange',
-                              ifelse(value < 2, 'red', 'black')))))
-}
-
-# Apply the custom color function to your data
-geojson_data$colors <- sapply(geojson_data$lottr, generateColor)
-
-# Create hover-over labels 
-labs <- paste0("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", geojson_data$lottr)
-
-# Create the Leaflet map
-leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
-  addPolylines(data = geojson_data, color = ~colors, popup = ~paste("<b>Road Name: </b>", geojson_data$RoadName, "<br><b>County: </b>", geojson_data$County, "<br><b>LOTTR: </b>", lottr), opacity = 0.8, label = ~lapply(labs, htmltools::HTML))%>%
-  addEasyButton(
-    easyButton(
-      icon = 'fa-map-marker',
-      title = "Zoom to Jacksonville",
-      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
-    )
-  ) %>%
-  addLegend(
-    position = "bottomright",
-    colors = c('darkgreen', 'lightgreen', 'yellow', 'orange', 'red', 'black'),
-    labels = c('< 1.1', '1.1 - 1.2', '1.2 - 1.3', '1.3 - 1.6', '1.6 - 2', '> 2'),
-    title = "Level of Travel<br>Time Reliability<br>(Max)"
-  )
-```
 
 ## Truck Travel Time Reliability
 
@@ -1757,7 +1627,7 @@ datatable(df_tttr,caption = htmltools::tags$caption(
 
 ## Percentage of System Heavily Congested
 
-Based on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 6.1 % of the roadway system in 2024. The numbers have been continuing to climb since 2020. The last five years of data (from 2020 – 2024) are 1.8 %, 2.9 %, 4.2 %, 5.5 %, and 6.1 %. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
+Based on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 6.1#% of the roadway system in 2024. The numbers have been continuing to climb since 2020. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
 
 ```{r}
 table_options <- function() {
@@ -1782,7 +1652,9 @@ datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
 
 ## Level of Service
 
-Level of Service is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic. The Florida Department of Transportation District Two Level of Service Report was reviewed. The Level of Service can be evaluated for daily, peak-hour or peak-period time slices. The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2025 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.
+Level of Service is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic.The Level of Service can be evaluated for daily, peak-hour or peak-period time slices. 
+
+The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2025 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.
 
 Source: [Florida Department of Transportation District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrgateway.com/){target="_blank"}
 
@@ -1832,7 +1704,7 @@ leaflet() %>%
 
 ## Average Commute Time
 
-The average commute time data was taken from the United States Census Bureau through the American Community Survey. The 2024 average commute times for each county are displayed in the chart below.
+The average commute times were estimated based on the United States Census Bureau through the American Community Survey. The 2024 average commute times for each county are displayed in the chart below.
 
 ```{r}
 # Load data
@@ -2443,7 +2315,7 @@ datatable(
 
 ## Trail Connectivity
 
-The North Florida Transportation Planning Organization published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019, which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network Trail funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida Transportation Planning Organization network.
+The North Florida Transportation Planning Organization published the Northeast Florida Regional Multi-Use Trail Master Plan in 2019, which addresses the regional trail network and how funding could be applied to projects to expand the multi-use paths within the region. Funding opportunities such as Shared Use Network Trail (SUNTrail) funding were considered. Existing trails within the region total approximately 121 miles. A trail network of approximately 570 miles is proposed. Maps were taken from the Multi-Use Trail Master Plan. The map below shows the existing and proposed trails identified within the North Florida Transportation Planning Organization network.
 
 Source: [North Florida Transportation Planning Organization Regional Multi-Use Trail Master Plan](https://northfloridatpo.com/uploads/Studies/2018-19-Regional-Multi-use-Trail-Master-Plan-Final21.pdf){target="_blank"}
 
@@ -2830,7 +2702,7 @@ hchart(df_cost_fatal, "column", hcaes(x = year, y = cost, group = county)) %>%
     
   ) %>%
   hc_title(text = "Cost of Fatal Crashes by Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://signal4analytics.com/" target="_blank"><b>Signal Four Analytics</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2026/2026fdm122varexcept.pdf?sfvrsn=c229234b_3" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2026/2026fdm122varexcept.pdf?sfvrsn=c229234b_3" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
   hc_legend(enabled = TRUE) %>%
@@ -2906,7 +2778,7 @@ hchart(df_cost_injury, "column", hcaes(x = year, y = cost, group = county)) %>%
     
   ) %>%
   hc_title(text = "Cost of Serious Injury Crashes by Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://signal4analytics.com/" target="_blank"><b>Signal Four Analytics</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2026/2026fdm122varexcept.pdf?sfvrsn=c229234b_3" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/traffic-crash-reports/crash-dashboard/" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> and <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/roadway/fdm/2026/2026fdm122varexcept.pdf?sfvrsn=c229234b_3" target="_blank"><b>Florida Department of Transportation Design Manual</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
   hc_legend(enabled = TRUE) %>%
