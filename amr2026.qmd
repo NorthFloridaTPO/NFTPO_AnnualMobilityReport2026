@@ -217,36 +217,39 @@ hchart(df_drivers, "column", hcaes(x = year, y = drivers, group = county)) %>%
 
 ## Underserved Populations
 
-Transportation barriers are the third leading cause of missed medical appointments for older adults across the country. Medically Underserved Areas/Populations are designated by the United States Department of Health Resources and Services Administration as having too few primary care providers, high infant mortality, high poverty rates or a high elderly population. Nearly 370,000 people in North Florida live in a medically underserved area. Although there are no benchmarks for populations in underserved areas, it is desirable to ensure these populations are adequately served.
+Transportation planning plays a crucial role in addressing socioeconomic disparities. Executive Order 12898, issued in 1994 by President Bill Clinton, aimed to address environmental justice in minority populations and low-income communities. The order required federal agencies to identify and address disproportionately high and adverse health or environmental effects of policies on minority and low-income populations.
 
-Accessing affordable and nutritious food was a challenge for nearly 800,000 people in North Florida in 2019, the most recent year for which statistics are available. The United States Department of Agriculture Economic Research Department identifies populations at risk of food security if they live in low-income areas and do not have a grocery store within one mile in urban areas and 10 miles in rural areas. Though there are no benchmarks for populations living with food uncertainty, it is desirable to ensure these populations are adequately served.
+Equitable transportation systems can significantly enhance the quality of life for these marginalized groups by ensuring access to essential services, employment opportunities, and education. This can be achieved by prioritizing the needs of low-income and minority communities by focusing on accessibility, safety, community engagement, and sustainability.
 
-The following map highlights areas designated as medically underserved and areas without reliable access to healthy foods in 2019.
+The Environmental Protection Agency (EPA) developed a environmental justice mapping and screening tool named EJSCREEN to identify areas that may have higher environmental burdens and vulnerable populations. One of the environmental justice measures within EJSCREEN is the Demographic Index, which is a combination of percent low-income and percent minority for each block group within a region. The formula for the Demographic Index is simply the average of these 2 percentiles.
 
-Source: [Health Resources and Services Administration Map Tool](https://data.hrsa.gov/maps/map-tool/?tl=MUA&gt=State&cd=12&dp=ALL){target="_blank"} and [U.S. Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/food-access-research-atlas/go-to-the-atlas){target="_blank"}
+The map below shows the Demographic Index for each block group in the North Florida region.
+
+Source: [EPA Environmental Justice Screening and Mapping Tool](https://pedp-ejscreen.azurewebsites.net/){target="_blank"}
 
 ```{r}
-# Load your GeoJSON file
+# Load your updated GeoJSON file
 geojson_data <- st_read("data/underserved.geojson", quiet = TRUE)  %>% 
   st_transform(crs = 4326)
 
-# Create a custom color
-pal <- colorFactor(palette = c("red", "orange", "gray"), 
-                   domain = c("No Data", "Medically Underserved Areas", "Food Deserts"))
+# Create a custom color palette based on Percentile for Demographic Index values
+pal <- colorBin(palette = c("lightgray", "moccasin", "lightsalmon", "orangered", "darkred"), 
+                domain = geojson_data$`Percentile for Demographic Index`, 
+                bins = c(0, 50, 80, 90, 95, 100))
 
-labs <- as.list(geojson_data$Metric)
+# Prepare labels based on the new dataset's Percentile for Demographic Index attribute
+labs <- as.list(geojson_data$P_DEMOGIDX_2)
 
-# Create the Leaflet map
+# Create the Leaflet map with the new data
 leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addProviderTiles(providers$CartoDB.Positron) %>%
-  setView(lng = -81.655651, lat = 30.232184, zoom = 9)%>%
-  addPolygons(data = geojson_data, color = ~pal(Metric), popup = ~paste(Metric), opacity = 0.8, label = labs)%>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>%
+  addPolygons(data = geojson_data, color = ~pal(P_DEMOGIDX_2), popup = ~paste(P_DEMOGIDX_2), opacity = 0.8, label = labs) %>%
   addLegend("topright", 
-            colors = pal(unique(geojson_data$Metric)), 
-            labels = unique(geojson_data$Metric),
-            opacity = 1.0,
-            title = "Metric") %>% 
+            pal = pal, 
+            values = geojson_data$P_DEMOGIDX_2,
+            title = "Percentile for Demographic Index") %>%
   addEasyButton(
     easyButton(
       icon = 'fa-map-marker',
@@ -1627,7 +1630,7 @@ datatable(df_tttr,caption = htmltools::tags$caption(
 
 ## Percentage of System Heavily Congested
 
-Based on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 6.1#% of the roadway system in 2024. The numbers have been continuing to climb since 2020. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
+Based on the Florida Department of Transportation Sourcebook, the peak hour for the North Florida Transportation Planning Organization region experiences heavy congestion on 6.1% of the roadway system in 2024. The numbers have been continuing to climb since 2020. The table below summarizes the percentage of heavy congestion for the North Florida region by year.
 
 ```{r}
 table_options <- function() {
@@ -2275,42 +2278,6 @@ leaflet() %>%
       onClick = JS("function(btn, map){ map.setView([30.232184, -82.055651], 9); }")
     )
   )
-```
-
-## Emissions
-
-Common air pollutants from transportation modes that negatively affect humans are sulfur oxides, nitrogen oxides, and fine particulate matter. Travel delay reduction can help alleviate emissions. The cost of emissions is related to the amount of congestion, as congestion increases vehicle delay.
-
-The United States Department of Transportation lists the damage costs for emissions per metric ton within the Benefit-Cost Analysis Guidance for Discretionary Grant Programs. To calculate the total damage costs of these emissions, the emission factor per vehicle mile traveled was taken from the United States Environmental Protection Agency, and this number was applied to the total vehicle miles traveled within the North Florida Transportation Planning Organization region. The amount of emissions per mile is estimated to be:
-
-$$ 3.93 × 10^{-4}\hspace{5 mm} \frac{metric\hspace{1 mm}tons\hspace{1 mm}of\hspace{1 mm}CO2}{mile}$$
-
-The emissions factors displayed in this report also account for electric vehicles. Emissions costs are expected to rise year-over-year.
-
-```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    editable = TRUE,
-    scroller = TRUE,
-    lengthChange = FALSE,
-    paginate = FALSE
-    ,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
-    )
-  )
-}
-
-df_c02 <- read.csv("data/C02DamageCosts.csv", check.names=FALSE, row.names=1) 
-datatable(
-  caption = htmltools::tags$caption(
-    style = 'caption-side: top; text-align: left;',
-    htmltools::HTML('Source: <a href="https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references" target="_blank"><b>United States Environmental Protection Agency</b></a> and <a href="https://www.transportation.gov/sites/dot.gov/files/2023-12/Benefit%20Cost%20Analysis%20Guidance%202024%20Update.pdf"><b>United States Department of Transportation</b></a>')),
-  df_c02,options = c(table_options(), list(pageLength = 4)))
 ```
 
 ## Trail Connectivity
