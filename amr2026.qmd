@@ -124,7 +124,7 @@ hchart(df_pop, "column", hcaes(x = county, y = population, group = year)) %>%
 
 ## Licensed Drivers
 
-There are 123,200 (or 9.9%) more licensed drivers in North Florida in 2025 than 2021. About 96% of the eligible driving population (aged 16 and up) in the region is a licensed driver. This figure was calculated by dividing the total number of licensed drivers by the total eligible driving population for the region using data from both the Florida Department of Highway Safety and Motor Vehicles and Florida Office of Economic and Demographic Research. 
+There are 128,832 (or 10.5%) more licensed drivers in North Florida in 2025 than 2021. About 96% of the eligible driving population (aged 16 and up) in the region is a licensed driver. This figure was calculated by dividing the total number of licensed drivers by the total eligible driving population for the region using data from both the Florida Department of Highway Safety and Motor Vehicles and Florida Office of Economic and Demographic Research. 
 
 There is no benchmark for licensed drivers, but increases impact the demand for mobility. The graph below shows the number of licensed drivers in the four North Florida counties by year.
 
@@ -206,7 +206,7 @@ hchart(df_drivers, "column", hcaes(x = year, y = drivers, group = county)) %>%
 
   ) %>%
   hc_title(text = "Licensed Drivers by County and Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/driver-vehiclereports/2026annuallicenseddriverreport.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/driver-vehiclereports/2025annuallicenseddriverreport.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a>') %>%
   hc_xAxis(title = list(text = "Year")) %>%
   hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
   hc_legend(enabled = TRUE) %>%
@@ -265,7 +265,7 @@ leaflet() %>%
 
 The Gross Domestic Product in North Florida continues to show strong growth through 2024. Gross Domestic Product is a leading indicator of the amount of travel expected within the region. With updated data not yet available for fiscal year 2025, a more accurate picture of current GDP levels is yet to be determined.
 
-Although there are no benchmarks for Gross Domestic Product, increases are preferred and annual monitoring is conducted. The graph below shows the total Gross Domestic Product of the four counties in North Florida by year.
+Although there are no benchmarks for Gross Domestic Product, increases are preferred and annual monitoring is conducted. The graph below shows the total Gross Domestic Product of the four counties in North Florida by year in chained 2017 dollars.
 
 ```{r}
 df_gdp <- read.csv("data/GDP.csv")
@@ -437,11 +437,11 @@ df_lottr,options = c(table_options(), list(pageLength = 4)))
 
 # Safe and Secure Travel
 
-Crash data was compiled from several sources including the Florida Department of Transportation Safety Office, Signal Four Analytics, and Florida Department of Transportation State Safety Office's Historical Crash Analysis Reporting database. According to the Florida Department of Highway Safety and Motor Vehicles, there was a total of 29,602 crashes that occurred across the four North Florida counties in 2025. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
+Crash data was compiled from several sources including the Florida Department of Transportation Safety Office, Signal Four Analytics, and Florida Department of Transportation State Safety Office's Historical Crash Analysis Reporting database. As of 4/4/2026, the Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of crashes within the region as 29,689 during 2025. Duval County accounted for a majority of these crashes due to the county population and extent of roadways present.
 
 ## Total Crashes
 
-Total crashes in 2025 decreased 2.7% over 2024.
+Total crashes in 2025 decreased 2.5% over 2024.
 
 The target is to have zero injuries or fatalities resulting from crashes. The graph below shows the total crashes in the four North Florida Transportation Planning Organization counties by year.
 
@@ -552,7 +552,7 @@ ord <- factor(df_fatalserious$S4_CRASH_SEVERITY,
               levels = c('Fatality', 'Serious Injury'))
 pal <- colorFactor(palette = c('red', 'darkorange'), 
                    levels = levels(ord), ordered = TRUE)
-labs <- paste("<b>Severity:</b> ", df_fatalserious$S4_CRASH_SEVERITY)
+labs <- paste("<b>Crash Severity:</b> ", df_fatalserious$S4_CRASH_SEVERITY, "<br><b>Crash Type:</b> ", df_fatalserious$S4_CRASH_TYPE, "<br><b>Fatality Count:</b> ", df_fatalserious$S4_FATALITY_COUNT, "<br><b>Serious Injury Count:</b> ", df_fatalserious$S4_INCAPACITATING_INJURY_COUNT, "<br><b>Alcohol Related:</b> ", df_fatalserious$S4_IS_ALCOHOL_RELATED, "<br><b>Drug Related:</b> ", df_fatalserious$S4_IS_DRUG_RELATED)
 
 # Create the Leaflet map
 leaflet(data = df_fatalserious) %>%
@@ -580,7 +580,7 @@ leaflet(data = df_fatalserious) %>%
 
 ## Fatalities
 
-The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. According to the Florida Department of Highway Safety and Motor Vehicles dashboard, there were 237 fatalities within the region during 2025. The graph below shows the total fatalities in the four North Florida counties by year.
+The number of fatalities is a crucial benchmark of progress when assessing the Target Zero initiative. As of 4/4/2026, the Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of fatalities within the region as 243 during 2025. The graph below shows the total fatalities in the four North Florida counties by year.
 
 ```{r}
 df_tot_fat <- read.csv("data/total_fatalities.csv")
@@ -652,7 +652,7 @@ hchart(df_tot_fat, "column", hcaes(x = year, y = crashes, group = county)) %>%
 
 ## Injury Crashes
 
-The Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries as 19,716 within the region during 2025. The chart below shows the total injuries from crashes in the four North Florida counties by year.
+As of 4/4/2026, the Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of injuries within the region as 19,749 during 2025. The chart below shows the total injuries from crashes in the four North Florida counties by year.
 
 ```{r}
 df_tot_inj <- read.csv("data/total_injuries.csv")
@@ -776,7 +776,7 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
     min = 0
   ) %>%
   hc_title(text = "Florida Crash Rates by Severity and Year") %>%
-  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/crash_facts_2023.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
+  hc_subtitle(text = 'Source: <a href="https://www.flhsmv.gov/pdf/crashreports/2024-Crash-Report.pdf" target="_blank"><b>Florida Department of Highway Safety and Motor Vehicles</b></a> <br>Rate is determined per 100 million vehicle miles of travel annually.') %>%
   hc_xAxis(
     categories = unique(df_crash_rates$Severity),
     title = list(text = "Year")
@@ -790,7 +790,7 @@ hchart(df_crash_rates, "column", hcaes(x = Severity, y = Rate, group = Year)) %>
 
 ## Pedestrian and Bicyclist Fatalities
 
-According to the Florida Department of Highway Safety and Motor Vehicles dashboard, 64 non-motorized fatalities occurred in the region in 2025. Of those, 47 fatalities were pedestrians and 17 were cyclists.
+As of 4/4/2026, the Florida Department of Highway Safety and Motor Vehicles dashboard lists the total number of non-motorized fatalities within the region as 67 during 2025. Of those, 50 fatalities were pedestrians and 17 were cyclists.
 
 2025 pedestrian fatalities declined while bicyclist fatalities increased. The graphs below show the total pedestrian and total bicyclist fatalities in the four North Florida counties by year.
 
@@ -1040,32 +1040,103 @@ hchart(df_pmt, "column", hcaes(x = Year, y = SHS, group = Facility_Type)) %>%
 
 ## Truck-Miles Traveled
 
-Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2024 was 1.6 million miles, up from 1.28 million in 2023. The total daily truck-miles traveled on the National Highway System in 2024 was 1.53 million miles, up from 1.21 million in 2023. The interactive table below shows this trend.
+Truck-miles traveled looks at the total miles traveled by combination trucks within a region. The Florida Department of Transportation Sourcebook was used to determine the total truck-miles traveled in the North Florida Transportation Planning Organization region. The total daily truck-miles traveled on the State Highway System in 2024 was 1.6 million miles, up from 1.28 million in 2023. The total daily truck-miles traveled on the National Highway System in 2024 was 1.53 million miles, up from 1.21 million in 2023. The interactive graph below shows this trend. Also included below is a map of the daily combination truck-miles traveled per mile in 2024 throughout the region.  
 
 ```{r}
-table_options <- function() {
-  list(
-    deferRender = TRUE,
-    searching = FALSE,
-    scroller = TRUE,
-    lengthChange = TRUE,
-    paginate=FALSE,
-    initComplete = JS(
-      "function(settings, json) {",
-      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
-      "}"
+# Define your custom colors
+custom_colors <- c("#A7E6FF","#3ABEF9","#3572EF","#050C9C")
+
+df_truck_mt <- read.csv("data/truck_mt.csv")
+
+# Create a Highchart object with data labels and stack totals
+hchart(df_truck_mt, "column", hcaes(x = YEAR, y = MILES, group = SYSTEM)) %>%
+  hc_colors(custom_colors) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    dataLabels = list(
+      enabled = TRUE,
+      formatter = JS("function() {
+  return Highcharts.numberFormat(this.y / 1e6, 1) + 'M';}")
     )
-      )
-}
-df_truck_mt <- read.csv("data/truck_mt.csv", check.names=FALSE, row.names=1) 
-datatable(df_truck_mt,caption = htmltools::tags$caption(
-            style = 'caption-side: top; text-align: left;',
-            htmltools::HTML('Source: <a href="https://fdotsourcebook.com/performance-measures/truck/combination-truck-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook</b></a>')),options = c(table_options(), list(pageLength = 1)))
+  )) %>%
+  hc_yAxis(
+    stackLabels = list(
+      enabled = TRUE, # Enable stack totals
+      #style = list(fontWeight = 'bold', color = 'gray',
+      formatter = JS(paste0("function() {
+      return Highcharts.numberFormat(this.total / 1e6, 1) + 'M';
+    }"))
+    ),
+    title = list(text = "Truck-Miles Traveled"),
+    min = 0
+  ) %>%
+  hc_title(text = "State Highway System and National Highway System Truck-Miles Traveled by Year") %>%
+  hc_subtitle(text = 'Source: <a href="https://fdotsourcebook.com/performance-measures/truck/combination-truck-miles-traveled#" target="_blank"><b>Florida Department of Transportation Sourcebook Truck-Miles Traveled</b></a>') %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_tooltip(shared = TRUE, pointFormat = "<span style='color:{series.color}'>{series.name}</span>: <b>{point.y}</b><br/>") %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_add_theme(hc_theme_smpl()) %>%
+  hc_chart(events = list(load = JS("function() { this.xAxis[0].setExtremes(); }"))) %>%
+  hc_exporting(enabled = TRUE)  # Enable the exporting button
+```
+
+```{r}
+
+# Load your GeoJSON file
+geojson_data <- st_read("data/CTMT2024.geojson", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+
+# Calculate the mean value of CTMT24_PM
+mean_val <- mean(geojson_data$CTMT24_PM, na.rm = TRUE)
+
+# Define the color palette with continuous gradient
+color_palette <- colorNumeric(
+  palette = colorRampPalette(c("blue4", "magenta4"))(100), 
+  domain = geojson_data$CTMT24_PM
+)
+
+# Apply the color palette to your data
+geojson_data$colors <- color_palette(geojson_data$CTMT24_PM)
+
+# Create hover-over labels
+labs <- paste0("<b>Road Name: </b>", geojson_data$LOCAL_NAME, "<br><b>Roadway ID: </b>", geojson_data$ROADWAY, 
+               "<br><b>Begin Mile Post: </b>", geojson_data$BEGIN_POST, 
+               "<br><b>End Mile Post: </b>", geojson_data$END_POST, 
+               "<br><b>County: </b>", geojson_data$CNTYNAME, 
+               "<br><b>Daily TMT Per Mile in 2024: </b>", round(geojson_data$CTMT24_PM))
+
+# Create the Leaflet map
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -81.655651, lat = 30.232184, zoom = 9) %>%
+  addPolylines(
+    data = geojson_data, 
+    color = ~colors, 
+    popup = ~paste("<b>Road Name: </b>", geojson_data$LOCAL_NAME, 
+                   "<br><b>County: </b>", geojson_data$CNTYNAME, 
+                   "<br><b>Daily TMT Per Mile in 2024: </b>", CTMT24_PM), 
+    opacity = 1.0, 
+    label = ~lapply(labs, htmltools::HTML)
+  ) %>%
+  addEasyButton(
+    easyButton(
+      icon = 'fa-map-marker',
+      title = "Zoom to Jacksonville",
+      onClick = JS("function(btn, map){ map.setView([30.232184, -81.655651], 9); }")
+    )
+  ) %>%
+  addLegend(
+    position = "bottomright",
+    pal = color_palette, 
+    values = geojson_data$CTMT24_PM,
+    title = "Combination Truck-Miles<br>Traveled Per Mile<br>(2024)"
+  )
 ```
 
 ## Vehicle Occupancy
 
-Estimates of the average number of occupants in a vehicle are referred to as the Vehicle occupancy rate. This measure can be calculated using person-miles traveled divided by vehicle-miles traveled. Using this method for 2024 data, the vehicle occupancy rate for North Florida was calculated as 1.64. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://www.fdot.gov/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
+Estimates of the average number of occupants in a vehicle are referred to as the Vehicle occupancy rate. This measure can be calculated using person-miles traveled divided by vehicle-miles traveled. Using this method for 2024 data, the vehicle occupancy rate for North Florida was calculated as 1.64. A technical report titled Vehicle Occupancy Factor and Transit Occupancy Factor Calculation was also completed by the Florida Department of Transportation Forecasting and Trends Office in 2022. Source: [Vehicle Occupancy Factor and Transit Occupancy Factor Calculation](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/mobility/vor-rpt.pdf){target="_blank"}
 
 ## Transit Ridership
 
@@ -1657,7 +1728,7 @@ datatable(df_percentage_heavy_congested,caption = htmltools::tags$caption(
 
 Level of Service is a rating system of A to F with A being the best – low volume of free-flowing traffic with no delays – and F being the worst – low speeds, volume exceeds capacity with stop-and-go traffic.The Level of Service can be evaluated for daily, peak-hour or peak-period time slices. 
 
-The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2025 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.
+The number of rural miles meeting generally-acceptable operating conditions over the total number of rural road miles can be used to calculate the % of miles meeting Level of Service criteria. Standards for Level of Service on state highways are in the [Florida Department of Transportation Multimodal Quality/Level of Service Handbook](https://www.fdot.gov/planning/systems/systems-management/systems-management-documents){target="_blank"} published in 2023. The service volumes are split up into roadway classification and give specific input for rural areas. The map below shows the 2023 Peak Hour Level of Service for Florida Department of Transportation roadways in the North Florida Transportation Planning Organization.
 
 Source: [Florida Department of Transportation District Two, Jacksonville Urban Office](https://fdot-d2-los.hdrgateway.com/){target="_blank"}
 
@@ -2068,7 +2139,7 @@ Access to transit is a significant need in under-served communities and a focus 
 
 Park-n-Ride lots are served by local bus routes and Express bus service to Downtown Jacksonville. There is continual service from most lots. Park-N-Ride lots are designed to enhance travel time, encourage connections to other modes of transportation, and minimize boarding and waiting times.
 
-Source: [JTA Park n' Ride Locations](https://www.jtafla.com/ride-jta/how-to-ride/park-n-ride/){target="_blank"}
+Source: [JTA Park n' Ride Locations](https://www.jtafla.com/rider-guide/getting-around/park-n-ride/){target="_blank"}
 
 ```{r, message=FALSE}
 
@@ -2377,7 +2448,7 @@ This section deals with preserving and maintaining bridge and pavement condition
 
 ## Pavement Condition on Primary Freight Corridors
 
-The Florida Department of Transportation evaluates pavement conditions for Interstates (I-) and state roads (US or SR). The Florida Department of Transportation standard for acceptable pavement is set at the 80% mark on the State Highway System. According to data from the Florida Department of Transportation State Materials Office, a pavement condition survey program showed that for 2023, District Two had 72.7% of State Highway System pavement meeting Florida Department of Transportation standards. For 2024 (most recent data available), the percentage of interstate pavement in poor condition was 0.1%, which is well below the target of less than 5%. The percentage of non-interstate National Highway System pavement in poor condition was 0.8%, which was a decrease from the previous year.
+For 2024 (most recent data available), the percentage of interstate NHS pavement in poor condition within the North Florida TPO region was 0.1%, which is well below the target of less than 5%. The percentage of non-interstate NHS pavement in poor condition for the North Florida TPO region was 0.8%, which was a decrease from the previous year.
 
 ## Bridge Conditions
 
@@ -2588,7 +2659,7 @@ hchart(df_cost_con, "column", hcaes(x = year, y = dollars)) %>%
 
 The costs of fatalities, injuries and other crashes burdens the economy in the billions of dollars annually. Lost wages, pain and suffering, medical expenses and property loss are a few of the external costs resulting from crashes.
 
-The cost of fatal crashes in the region was \$2.29 Billion in 2025, which continues a decreasing trend from 2024 and is at the lowest point in the last five years. The cost of serious injury crashes has decreased since 2021 and is also at its lowest point in the last five years.
+The cost of fatal crashes in the region was \$2.65 Billion in 2025, which is an increase from 2024. The cost of serious injury crashes has decreased since 2021 and is also at its lowest point in the last five years. KABCO values from the Florida Department of Transportation's 2026 Design Manual were used to calculate the crash costs.
 
 The target is to have zero injuries or fatalities resulting from crashes.
 
@@ -2854,7 +2925,7 @@ df_pm1 <- df_pm1[-1,] # Removes row saying Target
 colnames(df_pm1) <- c('Year','Fatalities (total)','Fatalities per 100 million VMT','Serious Injuries','Serious Injuries per 100 million VMT','Non-motorized Fatalities and Serious Injuries') 
 datatable(caption = htmltools::tags$caption(
     style = 'caption-side: top; text-align: left;',
-    htmltools::HTML('Source: <a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/pm1-safety-fact-sheet-(feb23).pdf" target="_blank"><b>Florida Department of Transportation Forecasting and Trends Office</b></a>')),
+    htmltools::HTML('Source: <a href="https://fdotsourcebook.com/assets/download/north-florida.pdf" target="_blank"><b>Florida Department of Transportation SourceBook</b></a>')),
     df_pm1,options = c(table_options(), list(pageLength = 6)))
 ```
 
